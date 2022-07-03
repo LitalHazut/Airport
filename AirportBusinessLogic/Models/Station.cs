@@ -10,13 +10,10 @@ namespace AirportBusinessLogic.Models
 
         public Plane? OccupingPlane = null;
 
-        private readonly AirportContext _context;
-
-        public Station(Airport.Data.Model.Station data, AirportContext context)
+        public Station(Airport.Data.Model.Station data)
         {
             StationId = data.StationId;
-            Name = data.Name;
-            _context = context;
+            Name = data.Name;            
         }
 
         public void SetPlane(Plane? p)
@@ -60,12 +57,12 @@ namespace AirportBusinessLogic.Models
                 this.SendPlaneToNextStation(p);
             }
         }
-        public Airport.Data.Model.Station? UpdateStation(Airport.Data.Model.Station newStation)
-        {
-            if (newStation == null) return null;
-            _context.Stations.Update(newStation);
-            _context.SaveChanges();
-            return newStation;
-        }
+        //public Airport.Data.Model.Station? UpdateStation(Airport.Data.Model.Station newStation)
+        //{
+        //    if (newStation == null) return null;
+        //    _context.Stations.Update(newStation);
+        //    _context.SaveChanges();
+        //    return newStation;
+        //}
     }
 }

@@ -4,6 +4,235 @@
     "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Business.Test\\Business.Test.csproj": {}
   },
   "projects": {
+    "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj",
+        "projectName": "Airport.Data",
+        "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj",
+        "packagesPath": "C:\\Users\\lital\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\lital\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj",
+        "projectName": "AirportBusinessLogic",
+        "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj",
+        "packagesPath": "C:\\Users\\lital\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\lital\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj": {
+                "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportProject\\AirportProject.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportProject\\AirportProject.csproj",
+        "projectName": "AirportProject",
+        "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportProject\\AirportProject.csproj",
+        "packagesPath": "C:\\Users\\lital\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportProject\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\lital\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj": {
+                "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Business.Test\\Business.Test.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -31,7 +260,17 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj": {
+                "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj"
+              },
+              "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj"
+              },
+              "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportProject\\AirportProject.csproj": {
+                "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportProject\\AirportProject.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

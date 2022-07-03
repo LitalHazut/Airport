@@ -14,4 +14,10 @@
 		<PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
 		<PackageReference Include="coverlet.collector" Version="3.1.2" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Airport.Data\Airport.Data.csproj" />
+	  <ProjectReference Include="..\AirportBusinessLogic\AirportBusinessLogic.csproj" />
+	  <ProjectReference Include="..\AirportProject\AirportProject.csproj" />
+	</ItemGroup>
 </Project>
