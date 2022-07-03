@@ -1,0 +1,14 @@
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\bin\Debug\net6.0\Airport.Data.deps.json
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\bin\Debug\net6.0\Airport.Data.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\bin\Debug\net6.0\Airport.Data.pdb
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\Airport.Data.csproj.AssemblyReference.cache
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\Airport.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\Airport.Data.AssemblyInfoInputs.cache
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\Airport.Data.AssemblyInfo.cs
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\Airport.Data.csproj.CoreCompileInputs.cache
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\Airport.Data.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\refint\Airport.Data.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\Airport.Data.pdb
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\ref\Airport.Data.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\bin\Debug\net6.0\Airport.Data.runtimeconfig.json
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Data\obj\Debug\net6.0\Airport.Data.genruntimeconfig.cache
