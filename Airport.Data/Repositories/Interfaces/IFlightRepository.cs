@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Airport.Data.Repositories.Interfaces
 {
-    public interface IFlightRepository : IRepository<Flight>
-    {
+    public interface IFlightRepository<T> where T : class
+    { 
+        IQueryable<T> GetAll();
+        void Create(T entity);
 
     }
 }
