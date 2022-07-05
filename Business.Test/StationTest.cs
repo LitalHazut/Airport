@@ -1,3 +1,4 @@
+using Airport.Data.Model;
 using AirportBusinessLogic.Interfaces;
 using AirportBusinessLogic.Services;
 using Moq;
@@ -10,33 +11,24 @@ namespace Business.Test
         [TestMethod]
         public void TestQuantityOfStations()
         {
-            
-
             var stationRepositoryMock = new Mock<IStationRepository>();
-            stationRepositoryMock.SetupAllProperties();
-            stationRepositoryMock.SetupGet(s => s.GetAll().Count()).Returns(8);
+            var stationService = new StationService(stationRepositoryMock.Object);
 
-            Action act = () =>
-            {
-                var station = new StationService(stationRepositoryMock.Object);
-                Assert.AreEqual(8, station.GetAll().Count());
+            var stations = new List<Station>();
+            stations.Add(new Station { StationId = 1, Name = "First Station", FlightId = 1, Flight = null });
+            stations.Add(new Station { StationId = 2, Name = "Second Station", FlightId = 2, Flight = null });
 
+            stationRepositoryMock.Setup(s => s.GetAll()).Returns(stations.AsQueryable());
 
-            };
-            
+            Assert.AreEqual(stationService.GetAll().Count(), 2);
         }
-        public void TestAllConnectionsBetweenStations()
+        public void MoveFlightToFromStation1ToStation2()
         {
 
-            //check s - 1 s -2 
-            // s 2- s 3
-            //s 3- s 4
-            //s 4- s 5 
-            //s 5- s 6
-            //s 5- s 7
-            //s 6- s 8
-            //s 7- s 8
-            //s 8- s 4
+
+
+
+           
         }
     }
 }

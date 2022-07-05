@@ -1,4 +1,5 @@
 ﻿using Airport.Data.Contexts;
+using AirportBusinessLogic.Services;
 
 namespace AirportBusinessLogic.Models
 {
@@ -9,11 +10,12 @@ namespace AirportBusinessLogic.Models
         public Station[] NextStations { get; set; }
 
         public Plane? OccupingPlane = null;
-
+        
         public Station(Airport.Data.Model.Station data)
         {
             StationId = data.StationId;
-            Name = data.Name;            
+            Name = data.Name;   
+            
         }
 
         public void SetPlane(Plane? p)
@@ -56,13 +58,8 @@ namespace AirportBusinessLogic.Models
             {
                 this.SendPlaneToNextStation(p);
             }
+            //Update 
         }
-        //public Airport.Data.Model.Station? UpdateStation(Airport.Data.Model.Station newStation)
-        //{
-        //    if (newStation == null) return null;
-        //    _context.Stations.Update(newStation);
-        //    _context.SaveChanges();
-        //    return newStation;
-        //}
+       
     }
 }

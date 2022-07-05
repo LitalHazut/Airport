@@ -40,9 +40,14 @@ namespace Airport.Data.Repositories
             return _context.Stations;
         }
 
-        public Station Update(Station station)
+        public Station Update(Station newStation)
         {
-            throw new NotImplementedException();
+            if (newStation == null) return null;
+            _context.Stations.Update(newStation);
+            _context.SaveChanges();
+            return newStation;
         }
+
+
     }
 }
