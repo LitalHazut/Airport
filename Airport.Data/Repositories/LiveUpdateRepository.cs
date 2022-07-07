@@ -1,4 +1,5 @@
-﻿using Airport.Data.Model;
+﻿using Airport.Data.Contexts;
+using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,34 +11,52 @@ namespace Airport.Data.Repositories
 {
     public class LiveUpdateRepository : ILiveUpdateRepository<LiveUpdate>
     {
-        public Task Create(LiveUpdate entity)
+        private readonly AirportContext _context;
+        public LiveUpdateRepository(AirportContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task Delete(int id)
+        public void Create(LiveUpdate entity)
         {
-            throw new NotImplementedException();
+            _context.Add(entity);
         }
 
-        public Task<LiveUpdate> Get(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var liveUpdate = await Get(id);
+            if (liveUpdate == null) return false;
+            else
+            {
+                _context.Remove(liveUpdate);
+                return true;
+            }
+        }
+
+        public async Task<LiveUpdate?> Get(int id)
+        {
+            return await _context.LiveUpdates.FindAsync(id);
         }
 
         public IQueryable<LiveUpdate> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.LiveUpdates;
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(LiveUpdate entity)
+        public async Task<bool> Update(LiveUpdate entity)
         {
-            throw new NotImplementedException();
+            var liveUpdate = await Get(entity.LiveUpdateId);
+            if (liveUpdate == null) return false;
+            else
+            {
+                _context.Update(liveUpdate);
+                return true;
+            }
         }
     }
 }

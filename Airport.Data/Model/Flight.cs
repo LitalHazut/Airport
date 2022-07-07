@@ -11,6 +11,7 @@ namespace Airport.Data.Model
     {
         public Flight()
         {
+            LiveUpdates = new HashSet<LiveUpdate>();
             Stations = new HashSet<Station>();
         }
 
@@ -22,6 +23,8 @@ namespace Airport.Data.Model
         [Column(TypeName = "datetime")]
         public DateTime InsertionTime { get; set; }
 
+        [InverseProperty("Flight")]
+        public virtual ICollection<LiveUpdate> LiveUpdates { get; set; }
         [InverseProperty("Flight")]
         public virtual ICollection<Station> Stations { get; set; }
     }

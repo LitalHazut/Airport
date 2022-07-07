@@ -36,14 +36,14 @@ namespace Airport.Data.Contexts
             modelBuilder.Entity<LiveUpdate>(entity =>
             {
                 entity.HasOne(d => d.Flight)
-                    .WithMany()
+                    .WithMany(p => p.LiveUpdates)
                     .HasForeignKey(d => d.FlightId)
-                    .HasConstraintName("FK__LiveUpdat__Fligh__5441852A");
+                    .HasConstraintName("FK__LiveUpdat__Fligh__5CD6CB2B");
 
                 entity.HasOne(d => d.Station)
-                    .WithMany()
+                    .WithMany(p => p.LiveUpdates)
                     .HasForeignKey(d => d.StationId)
-                    .HasConstraintName("FK__LiveUpdat__Stati__5535A963");
+                    .HasConstraintName("FK__LiveUpdat__Stati__5DCAEF64");
             });
 
             modelBuilder.Entity<NextStation>(entity =>

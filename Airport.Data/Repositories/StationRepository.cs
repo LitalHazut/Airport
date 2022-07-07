@@ -12,27 +12,26 @@ namespace Airport.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(Station station)
+        public void Create(Station entity)
         {
-            _context.Add(station);
-            await _context.SaveChangesAsync();
+            _context.Add(entity);
         }
 
-        public async Task Delete(int stationId)
+        public async Task<bool> Delete(int id)
         {
-            //var tmpStation = Get(stationId);
-            //if (tmpStation == null) return null;
-            //_context.Stations.Remove(tmpStation);
-            //await _context.SaveChangesAsync();
-            //return tmpStation;
+            var station = await Get(id);
+            if (station == null) return false;
+            else
+            {
+                _context.Remove(station);
+                return true;
+            }
+
         }
 
-        public async Task<Station> Get(int id)
+        public async Task<Station?> Get(int id)
         {
-            //var tmpStation = _context.Stations.FirstOrDefault(s => s.StationId == id);
-            //    if (tmpStation == null) return null;
-            //       return tmpStation;
-            throw new NotImplementedException();
+          return await _context.Stations.FindAsync(id);
 
         }
 
@@ -43,15 +42,18 @@ namespace Airport.Data.Repositories
 
         public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
-        public async Task Update(Station newStation)
+        public async Task<bool> Update(Station entity)
         {
-            //if (newStation == null) return null;
-            //_context.Stations.Update(newStation);
-            //await _context.SaveChangesAsync();
-            //return newStation;
+            var station = await Get(entity.StationId);
+            if (station == null) return false;
+            else
+            {
+                _context.Update(station);
+                return true;
+            }
         }
     }
 }

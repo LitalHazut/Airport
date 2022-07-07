@@ -11,6 +11,7 @@ namespace Airport.Data.Model
     {
         public Station()
         {
+            LiveUpdates = new HashSet<LiveUpdate>();
             NextStationSources = new HashSet<NextStation>();
             NextStationTargets = new HashSet<NextStation>();
         }
@@ -22,6 +23,8 @@ namespace Airport.Data.Model
         [ForeignKey("FlightId")]
         [InverseProperty("Stations")]
         public virtual Flight? Flight { get; set; }
+        [InverseProperty("Station")]
+        public virtual ICollection<LiveUpdate> LiveUpdates { get; set; }
         [InverseProperty("Source")]
         public virtual ICollection<NextStation> NextStationSources { get; set; }
         [InverseProperty("Target")]

@@ -6,10 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Data.Model
 {
-    [Keyless]
     [Table("LiveUpdate")]
     public partial class LiveUpdate
     {
+        [Key]
+        public int LiveUpdateId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime UpdateTime { get; set; }
         public bool IsEntering { get; set; }
@@ -17,8 +18,10 @@ namespace Airport.Data.Model
         public int? StationId { get; set; }
 
         [ForeignKey("FlightId")]
+        [InverseProperty("LiveUpdates")]
         public virtual Flight? Flight { get; set; }
         [ForeignKey("StationId")]
+        [InverseProperty("LiveUpdates")]
         public virtual Station? Station { get; set; }
     }
 }

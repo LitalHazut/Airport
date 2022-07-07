@@ -1,38 +1,57 @@
-﻿using Airport.Data.Model;
+﻿using Airport.Data.Contexts;
+using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 
 namespace Airport.Data.Repositories
 {
     public class FlightRepository : IFlightRepository<Flight>
     {
-        public Task Create(Flight entity)
+        private readonly AirportContext _context;
+        public FlightRepository(AirportContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task Delete(int id)
+        public void Create(Flight entity)
         {
-            throw new NotImplementedException();
+            _context.Add(entity);
         }
 
-        public Task<Flight> Get(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var flight = await Get(id);
+            if(flight == null)  return false;
+            else
+            {
+                _context.Remove(flight);    
+                return true;
+            }
+        }
+
+        public async Task<Flight?> Get(int id)
+        {
+            return await _context.Flights.FindAsync(id);
         }
 
         public IQueryable<Flight> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Flights;
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(Flight entity)
+        public async Task<bool> Update(Flight entity)
         {
-            throw new NotImplementedException();
+            var flight = await Get(entity.FlightId);
+            if (flight == null) return false;
+            else
+            {
+                _context.Update(flight);
+                return true;
+            }
         }
     }
 }
