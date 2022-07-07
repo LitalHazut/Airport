@@ -1,9 +1,8 @@
 ﻿using Airport.Data.Model;
 
-
 namespace Airport.Data.Repositories.Interfaces
 {
-    public interface IStationRepository : IRepository<Station>
+    public interface IStationRepository<T> : IRepository<Station>
     {
     }
 }

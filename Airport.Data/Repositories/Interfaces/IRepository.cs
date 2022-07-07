@@ -1,12 +1,14 @@
 ﻿
 namespace Airport.Data.Repositories.Interfaces
 {
-    public interface IRepository<T> where T: class
+    public interface IRepository<T> where T : class
     {
-        T Get(int id);
+        Task<T> Get(int id);
         IQueryable<T> GetAll();
-        T Delete(int id);
-        T Update(T entity);
-        void Create(T entity);
+        Task Delete(int id);
+        Task Update(T entity);
+        Task Create(T entity);
+        Task SaveChangesAsync();
+
     }
 }

@@ -258,3 +258,11 @@ C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\obj\Debug\net6.0\AirportProject.csproj.CopyComplete
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Airport.Data.dll
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Airport.Data.pdb
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\obj\Debug\net6.0\AirportProject.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\AirportBusinessLogic.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\AirportBusinessLogic.pdb

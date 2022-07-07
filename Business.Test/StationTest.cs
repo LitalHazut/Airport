@@ -12,23 +12,33 @@ namespace Business.Test
         public void TestQuantityOfStations()
         {
             var stationRepositoryMock = new Mock<IStationRepository>();
-            var stationService = new StationService(stationRepositoryMock.Object);
+            var stationService = new StationService1(stationRepositoryMock.Object);
 
             var stations = new List<Station>();
-            stations.Add(new Station { StationId = 1, Name = "First Station", FlightId = 1, Flight = null });
-            stations.Add(new Station { StationId = 2, Name = "Second Station", FlightId = 2, Flight = null });
+            stations.Add(new Station { StationId = 1,FlightId=1});
+            stations.Add(new Station { StationId = 2, FlightId = 2 });
 
             stationRepositoryMock.Setup(s => s.GetAll()).Returns(stations.AsQueryable());
 
             Assert.AreEqual(stationService.GetAll().Count(), 2);
         }
-        public void MoveFlightToFromStation1ToStation2()
+
+        public void MoveFlightFromStation1ToStation2()
         {
+            var stationRepositoryMock = new Mock<IStationRepository>();
+            var stationService = new StationService1(stationRepositoryMock.Object);
+
+            var stations = new List<Station>();
+            var station1 = new Station { StationId = 1,  FlightId = 1 };
+            var station2 = new Station { StationId = 2,  FlightId = 2 };
+            stations.Add(station1);
+            stations.Add(station2);
+
+            var flight = new Flight { FlightId = 3 };
 
 
 
 
-           
         }
     }
 }

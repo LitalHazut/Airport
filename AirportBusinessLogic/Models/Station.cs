@@ -1,7 +1,4 @@
-﻿using Airport.Data.Contexts;
-using AirportBusinessLogic.Services;
-
-namespace AirportBusinessLogic.Models
+﻿namespace AirportBusinessLogic.Models
 {
     public class Station
     {
@@ -14,8 +11,7 @@ namespace AirportBusinessLogic.Models
         public Station(Airport.Data.Model.Station data)
         {
             StationId = data.StationId;
-            Name = data.Name;   
-            
+
         }
 
         public void SetPlane(Plane? p)

@@ -16,6 +16,11 @@ namespace Airport.Data.Model
 
         [Key]
         public int FlightId { get; set; }
+        public bool IsAscending { get; set; }
+        public bool IsPending { get; set; }
+        public bool IsDone { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime InsertionTime { get; set; }
 
         [InverseProperty("Flight")]
         public virtual ICollection<Station> Stations { get; set; }

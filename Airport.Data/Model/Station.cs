@@ -17,8 +17,6 @@ namespace Airport.Data.Model
 
         [Key]
         public int StationId { get; set; }
-        [StringLength(200)]
-        public string? Name { get; set; }
         public int? FlightId { get; set; }
 
         [ForeignKey("FlightId")]

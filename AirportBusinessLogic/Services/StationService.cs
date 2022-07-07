@@ -1,38 +1,18 @@
-﻿
-using AirportBusinessLogic.Models;
+﻿using AirportBusinessLogic.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AirportBusinessLogic.Services
 {
-    public class StationService
+    public class StationService:IStationService
     {
-        private readonly Interfaces.IStationRepository _stationRepository;
-
-        public StationService()
+        private readonly IStationService _stationService;
+        public StationService(IStationService stationService)
         {
-
-        }
-
-        public StationService(Interfaces.IStationRepository stationRepository)
-        {
-            _stationRepository = stationRepository;
-        }
-
-        public IQueryable<Station> GetAll()
-        {
-            var allStations= _stationRepository.GetAll();
-            return allStations.Select(station => new Station(station));
-        }
-        //public Station Update(Station newStation)
-        //{
-          
-        //}
-
-        public void MoveFlightToNextStation(Station station1,Station station2,Plane p)
-        {
-            station1.SetPlane(p);
-            station2.HandlePlane(p);
-            
+            _stationService = stationService;
         }
     }
-
 }

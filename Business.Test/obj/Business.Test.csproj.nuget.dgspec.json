@@ -176,6 +176,9 @@
             "projectReferences": {
               "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj": {
                 "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Data\\Airport.Data.csproj"
+              },
+              "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj"
               }
             }
           }
@@ -196,6 +199,10 @@
               "target": "Package",
               "version": "[6.0.6, )"
             },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.4, )"
@@ -209,6 +216,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.5, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
             }
           },
           "imports": [
