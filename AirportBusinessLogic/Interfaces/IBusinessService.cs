@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace AirportBusinessLogic.Interfaces
 {
-    public interface IFlightService<T> where T : class
+    public interface IBusinessService
     {
-        IQueryable<T> GetAll();
-
 
     }
 }

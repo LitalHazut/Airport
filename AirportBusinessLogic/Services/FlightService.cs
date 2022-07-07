@@ -1,19 +1,20 @@
-﻿using AirportBusinessLogic.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Airport.Data.Model;
+using Airport.Data.Repositories.Interfaces;
+using AirportBusinessLogic.Interfaces;
 
 namespace AirportBusinessLogic.Services
 {
-    public class FlightService:IFlightService
+    public class FlightService:IFlightService<Flight>
     {
-        private readonly IFlightService _flightService;
-        public FlightService(IFlightService flightService)
+        private readonly IFlightRepository<Flight> _flightRepository;
+        public FlightService(IFlightRepository<Flight> flightRepository)
         {
-            _flightService = flightService;
+            _flightRepository=flightRepository; 
         }
 
+        public IQueryable<Flight> GetAll()
+        {
+            return _flightRepository.GetAll();
+        }
     }
 }

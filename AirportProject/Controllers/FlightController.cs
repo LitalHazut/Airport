@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Airport.Data.Model;
+using AirportBusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AirportProject.Controllers
 {
@@ -6,9 +8,17 @@ namespace AirportProject.Controllers
     [Route("[controller]")]
     public class FlightController : Controller
     {
+        private readonly IFlightService<Flight> _flightService;
+        public FlightController(IFlightService<Flight> flightService)
+        {
+            _flightService = flightService;
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var allFlight = _flightService.GetAll();
+            return View(allFlight);
         }
     }
 }
