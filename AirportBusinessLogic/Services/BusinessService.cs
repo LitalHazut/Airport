@@ -11,9 +11,9 @@ namespace AirportBusinessLogic.Services
     public class BusinessService: IBusinessService
     {
         private readonly IFlightService<Flight> _flightService;
-        private readonly IStationService _stationService;
-        private readonly ILiveUpdateService _liveUpdateService;
-        public BusinessService(IFlightService<Flight> flightService, IStationService stationService, ILiveUpdateService liveUpdateService)
+        private readonly IStationService<Station> _stationService;
+        private readonly ILiveUpdateService<LiveUpdate> _liveUpdateService;
+        public BusinessService(IFlightService<Flight> flightService, IStationService<Station> stationService, ILiveUpdateService<LiveUpdate> liveUpdateService)
         {
             _flightService=flightService;
             _stationService=stationService; 

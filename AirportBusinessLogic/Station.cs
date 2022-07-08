@@ -1,4 +1,4 @@
-﻿namespace AirportBusinessLogic.Models
+﻿namespace AirportBusinessLogic.Dtos
 {
     public class Station
     {
@@ -6,7 +6,7 @@
         public string? Name { get; set; }
         public Station[] NextStations { get; set; }
 
-        public Plane? OccupingPlane = null;
+        public ReadFlightDto? OccupingPlane = null;
         
         public Station(Airport.Data.Model.Station data)
         {
@@ -14,7 +14,7 @@
 
         }
 
-        public void SetPlane(Plane? p)
+        public void SetPlane(ReadFlightDto? p)
         {
             this.OccupingPlane = p;
         }
@@ -24,7 +24,7 @@
             return this.OccupingPlane != null;
 
         }
-        private void SendPlaneToNextStation(Plane p)
+        private void SendPlaneToNextStation(ReadFlightDto p)
         {
             var station = this.NextStations?.First(station => station.IsOccupied());
 
@@ -40,11 +40,11 @@
             return this.NextStations.Length == 0;
         }
 
-        private void HandlePlaneOnFinalStation(Plane p)
+        private void HandlePlaneOnFinalStation(ReadFlightDto p)
         {
             this.SetPlane(null);
         }
-        public void HandlePlane(Plane p)
+        public void HandlePlane(ReadFlightDto p)
         {
             if(this.IsLastStation())
             {

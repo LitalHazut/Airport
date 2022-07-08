@@ -1,4 +1,4 @@
-﻿using AirportBusinessLogic.Models;
+﻿using AirportBusinessLogic.Dtos;
 
 namespace AirportBusinessLogic.Services
 {
@@ -22,7 +22,7 @@ namespace AirportBusinessLogic.Services
             return allStations.Select(station => new Station(station));
         }
 
-        public void MoveFlightToNextStation(Station station1,Station station2,Plane p)
+        public void MoveFlightToNextStation(Station station1,Station station2, ReadFlightDto p)
         {
  
         }
