@@ -14,32 +14,32 @@ namespace AirportBusinessLogic.Services
 
         public void Create(Station entity)
         {
-            throw new NotImplementedException();
+            _stationRepository.Create(entity);
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            return await _stationRepository.Delete(id);
         }
 
-        public Task<Station?> Get(int id)
+        public async Task<Station?> Get(int id)
         {
-            throw new NotImplementedException();
+            return await _stationRepository.Get(id);
         }
 
         public IQueryable<Station> GetAll()
         {
-            throw new NotImplementedException();
+             return _stationRepository.GetAll();
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _stationRepository.SaveChangesAsync();    
         }
 
-        public Task<bool> Update(Station entity)
+        public async Task<bool> Update(Station entity)
         {
-            throw new NotImplementedException();
+            return await _stationRepository.Update(entity);
         }
     }
 }

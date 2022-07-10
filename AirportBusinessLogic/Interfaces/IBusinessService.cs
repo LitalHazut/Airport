@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Airport.Data.Model;
 
 namespace AirportBusinessLogic.Interfaces
 {
     public interface IBusinessService
     {
-
+        Task<IEnumerable<Station>> GetAllStation();
+        Task<IEnumerable<Flight>> GetAllFlights();
+         Flight CreateNewFlight();
     }
 }

@@ -1,11 +1,7 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AirportBusinessLogic.Services
 {
@@ -19,32 +15,32 @@ namespace AirportBusinessLogic.Services
 
         public void Create(LiveUpdate entity)
         {
-            throw new NotImplementedException();
+            _liveUpdateRepository.Create(entity);
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+           return await _liveUpdateRepository.Delete(id);
         }
 
-        public Task<LiveUpdate?> Get(int id)
+        public async Task<LiveUpdate?> Get(int id)
         {
-            throw new NotImplementedException();
+            return await _liveUpdateRepository.Get(id);
         }
 
         public IQueryable<LiveUpdate> GetAll()
         {
-            throw new NotImplementedException();
+           return _liveUpdateRepository.GetAll();
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _liveUpdateRepository.SaveChangesAsync();
         }
 
-        public Task<bool> Update(LiveUpdate entity)
+        public async Task<bool> Update(LiveUpdate entity)
         {
-            throw new NotImplementedException();
+            return await _liveUpdateRepository.Update(entity);
         }
     }
 }

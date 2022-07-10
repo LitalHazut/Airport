@@ -1,4 +1,5 @@
-﻿using AirportBusinessLogic.Interfaces;
+﻿using Airport.Data.Model;
+using AirportBusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirportProject.Controllers
@@ -11,11 +12,22 @@ namespace AirportProject.Controllers
 
         public AirportController(IBusinessService businessService)
         {
-            _businessService= businessService;
+            _businessService = businessService;
         }
-        public IActionResult Index()
+
+        [HttpGet("GetAllStations")]
+        public async Task<ActionResult<IEnumerable<Station>>> GetAllStations()
         {
-            return View();
+            var allStations = await _businessService.GetAllStation();
+            return View(allStations);
+        }
+
+
+        [HttpGet("GetAllFlights")]
+        public async Task<ActionResult<IEnumerable<Flight>>> GetAllFlights()
+        {
+            var allFlights = await _businessService.GetAllFlights();
+            return View(allFlights);
         }
     }
 }

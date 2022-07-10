@@ -348,3 +348,5 @@ C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Business.Test\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Business.Test\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Business.Test\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Business.Test\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Business.Test\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

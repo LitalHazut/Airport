@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AirportBusinessLogic.Dtos
 {
-    public class WriteFlightDto
+    public class FlightCreateDto
     {
         public bool IsAscending { get; set; }
 

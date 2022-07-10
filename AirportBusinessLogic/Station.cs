@@ -6,7 +6,7 @@
         public string? Name { get; set; }
         public Station[] NextStations { get; set; }
 
-        public ReadFlightDto? OccupingPlane = null;
+        public FlightReadDto? OccupingPlane = null;
         
         public Station(Airport.Data.Model.Station data)
         {
@@ -14,7 +14,7 @@
 
         }
 
-        public void SetPlane(ReadFlightDto? p)
+        public void SetPlane(FlightReadDto? p)
         {
             this.OccupingPlane = p;
         }
@@ -24,7 +24,7 @@
             return this.OccupingPlane != null;
 
         }
-        private void SendPlaneToNextStation(ReadFlightDto p)
+        private void SendPlaneToNextStation(FlightReadDto p)
         {
             var station = this.NextStations?.First(station => station.IsOccupied());
 
@@ -40,11 +40,11 @@
             return this.NextStations.Length == 0;
         }
 
-        private void HandlePlaneOnFinalStation(ReadFlightDto p)
+        private void HandlePlaneOnFinalStation(FlightReadDto p)
         {
             this.SetPlane(null);
         }
-        public void HandlePlane(ReadFlightDto p)
+        public void HandlePlane(FlightReadDto p)
         {
             if(this.IsLastStation())
             {

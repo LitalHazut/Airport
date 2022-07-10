@@ -1,11 +1,6 @@
 ﻿using Airport.Data.Contexts;
 using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Airport.Data.Repositories
 {

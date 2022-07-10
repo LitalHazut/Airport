@@ -38,12 +38,12 @@ namespace Airport.Data.Contexts
                 entity.HasOne(d => d.Flight)
                     .WithMany(p => p.LiveUpdates)
                     .HasForeignKey(d => d.FlightId)
-                    .HasConstraintName("FK__LiveUpdat__Fligh__5CD6CB2B");
+                    .HasConstraintName("FK__LiveUpdat__Fligh__05D8E0BE");
 
                 entity.HasOne(d => d.Station)
                     .WithMany(p => p.LiveUpdates)
                     .HasForeignKey(d => d.StationId)
-                    .HasConstraintName("FK__LiveUpdat__Stati__5DCAEF64");
+                    .HasConstraintName("FK__LiveUpdat__Stati__06CD04F7");
             });
 
             modelBuilder.Entity<NextStation>(entity =>
@@ -55,13 +55,13 @@ namespace Airport.Data.Contexts
                     .WithMany(p => p.NextStationSources)
                     .HasForeignKey(d => d.SourceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__NextStati__Sourc__4E88ABD4");
+                    .HasConstraintName("FK__NextStati__Sourc__02084FDA");
 
                 entity.HasOne(d => d.Target)
                     .WithMany(p => p.NextStationTargets)
                     .HasForeignKey(d => d.TargetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__NextStati__Targe__4F7CD00D");
+                    .HasConstraintName("FK__NextStati__Targe__02FC7413");
             });
 
             modelBuilder.Entity<Station>(entity =>
@@ -69,7 +69,7 @@ namespace Airport.Data.Contexts
                 entity.HasOne(d => d.Flight)
                     .WithMany(p => p.Stations)
                     .HasForeignKey(d => d.FlightId)
-                    .HasConstraintName("FK__Station__FlightI__4BAC3F29");
+                    .HasConstraintName("FK__Station__FlightI__7F2BE32F");
             });
 
             OnModelCreatingPartial(modelBuilder);

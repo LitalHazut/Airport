@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Airport.Data.Model
 {
     [Table("Station")]
+    [Index("StationNumber", Name = "UQ__Station__26EDF8CD2EE26010", IsUnique = true)]
     public partial class Station
     {
         public Station()
@@ -19,6 +20,7 @@ namespace Airport.Data.Model
         [Key]
         public int StationId { get; set; }
         public int? FlightId { get; set; }
+        public int StationNumber { get; set; }
 
         [ForeignKey("FlightId")]
         [InverseProperty("Stations")]

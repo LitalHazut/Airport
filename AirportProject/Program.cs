@@ -3,15 +3,13 @@ using Airport.Data.Model;
 using Airport.Data.Repositories;
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
+using AirportBusinessLogic.Profiles;
 using AirportBusinessLogic.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
-//builder.Services.AddDbContext<AirportContext>(options =>
-//options.UseSqlServer(builder.Configuration.GetConnectionString("AirportDataConnection")));
 
 builder.Services.AddDbContext<AirportContext>(opt =>
     opt.UseInMemoryDatabase("Airport")
@@ -24,6 +22,8 @@ builder.Services.AddScoped<IStationService<Station>, StationService>();
 builder.Services.AddScoped<ILiveUpdateRepository<LiveUpdate>, LiveUpdateRepository>();
 builder.Services.AddScoped<ILiveUpdateService<LiveUpdate>, LiveUpdateService>();
 builder.Services.AddScoped<IBusinessService, BusinessService>();
+
+builder.Services.AddAutoMapper(typeof(FlightsProfile).Assembly);
 
 builder.Services.AddCors(options =>
 {
@@ -44,9 +44,10 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
+        Version = "v1",
+        Title = "Airport API",
 
     });
-
 });
 
 var app = builder.Build();

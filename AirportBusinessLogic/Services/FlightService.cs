@@ -1,25 +1,26 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
-    public class FlightService: IFlightService<Flight>
+    public class FlightService : IFlightService<Flight>
     {
         private readonly IFlightRepository<Flight> _flightRepository;
         public FlightService(IFlightRepository<Flight> flightRepository)
         {
-            _flightRepository=flightRepository; 
+            _flightRepository = flightRepository;
         }
 
         public void Create(Flight entity)
         {
-            throw new NotImplementedException();
+            _flightRepository.Create(entity);
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+           return await _flightRepository.Delete(id);
         }
 
         public async Task<Flight?> Get(int id)
@@ -29,17 +30,17 @@ namespace AirportBusinessLogic.Services
 
         public IQueryable<Flight> GetAll()
         {
-           return _flightRepository.GetAll();
+            return _flightRepository.GetAll();
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _flightRepository.SaveChangesAsync();
         }
 
-        public Task<bool> Update(Flight entity)
+        public async Task<bool> Update(Flight entity)
         {
-            throw new NotImplementedException();
+          return await _flightRepository.Update(entity);
         }
     }
 }

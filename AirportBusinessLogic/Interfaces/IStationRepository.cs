@@ -1,5 +1,4 @@
-﻿
-using AirportBusinessLogic.Dtos;
+﻿using AirportBusinessLogic.Dtos;
 
 namespace AirportBusinessLogic.Interfaces
 {
