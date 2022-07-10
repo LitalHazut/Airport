@@ -1,5 +1,6 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
+using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,17 +21,12 @@ namespace AirportBusinessLogic.Services
 
         public async Task<bool> Delete(int id)
         {
-           return await _flightRepository.Delete(id);
+            return await _flightRepository.Delete(id);
         }
 
         public async Task<Flight?> Get(int id)
         {
             return await _flightRepository.Get(id);
-        }
-
-        public IQueryable<Flight> GetAll()
-        {
-            return _flightRepository.GetAll();
         }
 
         public async Task SaveChangesAsync()
@@ -40,7 +36,31 @@ namespace AirportBusinessLogic.Services
 
         public async Task<bool> Update(Flight entity)
         {
-          return await _flightRepository.Update(entity);
+            return await _flightRepository.Update(entity);
         }
+        public async Task AddNewFlight(FlightReadDto flightDto)
+        {
+            Flight flight = new Flight()
+            {
+                IsAscending = flightDto.IsAscending,
+                IsPending = true,
+                IsDone = false
+               
+            };
+            _flightRepository.Create(flight);
+            await _flightRepository.SaveChangesAsync();
+        }
+        public IEnumerable<FlightReadDto> GetAll()
+        {
+            List<FlightReadDto> flights = new();
+
+            _flightRepository.GetAll().ToList().ForEach(flight =>
+            {
+                flights.Add(new FlightReadDto() { FlightId = flight.FlightId, IsAscending = flight.IsAscending });
+            });
+            return flights;
+        }
+
+
     }
 }

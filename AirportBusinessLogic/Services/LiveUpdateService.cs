@@ -27,12 +27,6 @@ namespace AirportBusinessLogic.Services
         {
             return await _liveUpdateRepository.Get(id);
         }
-
-        public IQueryable<LiveUpdate> GetAll()
-        {
-           return _liveUpdateRepository.GetAll();
-        }
-
         public async Task SaveChangesAsync()
         {
             await _liveUpdateRepository.SaveChangesAsync();

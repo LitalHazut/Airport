@@ -1,4 +1,6 @@
-﻿using Airport.Data.Model;
+﻿using Airport.Data.Contexts;
+using Airport.Data.Model;
+using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,32 +9,42 @@ namespace AirportBusinessLogic.Services
     public class BusinessService :IBusinessService 
     {
         private readonly IFlightService<Flight> _flightService;
-        private readonly IStationService<Station> _stationService;
+        private readonly IStationService<StationReadDto> _stationService;
         private readonly ILiveUpdateService<LiveUpdate> _liveUpdateService;
-        public BusinessService(IFlightService<Flight> flightService, IStationService<Station> stationService, ILiveUpdateService<LiveUpdate> liveUpdateService)
+        private readonly AirportContext _context;
+        public BusinessService(IFlightService<Flight> flightService, IStationService<StationReadDto> stationService, ILiveUpdateService<LiveUpdate> liveUpdateService, AirportContext _context)
         {
             _flightService = flightService;
             _stationService = stationService;
             _liveUpdateService = liveUpdateService;
+            _context = _context;
         }
 
-        public Flight CreateNewFlight()
+        public Task AddNewFlight(FlightCreateDto flight)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Flight>> GetAllFlights()
+        public Task<IEnumerable<FlightReadDto>> GetAllFlights()
         {
-            return await _flightService.GetAll().ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Station>> GetAllStation()
+        public async Task<IEnumerable<StationReadDto>> GetAllStationsStatus()
         {
-            return await _stationService.GetAll().ToListAsync();
+            List<StationReadDto> listDtos = new();
+            IEnumerable<StationReadDto> list = await _stationService.GetAllStations();
+            return list;
         }
-            
-   
 
-      
+        public Task<IEnumerable<FlightReadDto>> GetFinishedRoutesHistory()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<int>> GetNextStations()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
