@@ -16,13 +16,13 @@ namespace AirportBusinessLogic.Services
             _stationRepository = stationRepository;
         }
 
-        public IQueryable<Station> GetAll()
+        public IQueryable<Station1> GetAll()
         {
             var allStations= _stationRepository.GetAll();
-            return allStations.Select(station => new Station(station));
+            return allStations.Select(station => new Station1(station));
         }
 
-        public void MoveFlightToNextStation(Station station1,Station station2, FlightReadDto p)
+        public void MoveFlightToNextStation(Station1 station1,Station1 station2, FlightReadDto p)
         {
  
         }

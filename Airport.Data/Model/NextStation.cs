@@ -10,16 +10,16 @@ namespace Airport.Data.Model
     public partial class NextStation
     {
         [Key]
-        public int SourceId { get; set; }
-        [Key]
-        public int TargetId { get; set; }
-        public bool? FlightType { get; set; }
+        public int NextStationId { get; set; }
+        public int? SourceId { get; set; }
+        public int? TargetId { get; set; }
+        public bool FlightType { get; set; }
 
         [ForeignKey("SourceId")]
         [InverseProperty("NextStationSources")]
-        public virtual Station Source { get; set; } = null!;
+        public virtual Station? Source { get; set; }
         [ForeignKey("TargetId")]
         [InverseProperty("NextStationTargets")]
-        public virtual Station Target { get; set; } = null!;
+        public virtual Station? Target { get; set; }
     }
 }

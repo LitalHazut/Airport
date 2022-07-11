@@ -5,10 +5,8 @@ namespace AirportBusinessLogic.Interfaces
     {
         Task<IEnumerable<T>> GetAll();
         Task<T?> Get(int id);
-        Task<bool> Delete(int id);
-        Task<bool> Update(T entity);
-        void Create(T entity);
-        Task SaveChangesAsync();
+        Task Create(T entity);
+      
     
     }
 }

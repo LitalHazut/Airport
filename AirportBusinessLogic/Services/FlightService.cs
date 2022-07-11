@@ -14,14 +14,19 @@ namespace AirportBusinessLogic.Services
             _flightRepository = flightRepository;
         }
 
-        public void Create(Flight entity)
+        public async Task Create(Flight entity)
         {
-            _flightRepository.Create(entity);
-        }
+            Flight flight = new Flight()
+            {
+                IsAscending = entity.IsAscending,
+                IsPending = true,
+                IsDone = false,
+                InsertionTime = DateTime.Now,
 
-        public async Task<bool> Delete(int id)
-        {
-            return await _flightRepository.Delete(id);
+            };
+            _flightRepository.Create(flight);
+            await _flightRepository.SaveChangesAsync();
+          
         }
 
         public async Task<Flight?> Get(int id)
@@ -29,29 +34,12 @@ namespace AirportBusinessLogic.Services
             return await _flightRepository.Get(id);
         }
 
-        public async Task SaveChangesAsync()
-        {
-            await _flightRepository.SaveChangesAsync();
-        }
-
-        public async Task<bool> Update(Flight entity)
-        {
-            return await _flightRepository.Update(entity);
-        }
-        public async Task AddNewFlight(FlightReadDto flightDto)
-        {
-            Flight flight = new Flight()
-            {
-                IsAscending = flightDto.IsAscending,
-                IsPending = true,
-                IsDone = false
-
-            };
-            _flightRepository.Create(flight);
-            await _flightRepository.SaveChangesAsync();
-        }
-
         public Task<IEnumerable<Flight>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Flight>> GetPendingFlightsByIsAscending(bool isAscending)
         {
             throw new NotImplementedException();
         }

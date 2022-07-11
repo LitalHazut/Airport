@@ -12,16 +12,10 @@ namespace AirportBusinessLogic.Services
             _liveUpdateRepository = liveUpdateRepository;
         }
 
-        public void Create(LiveUpdate entity)
+        public async Task Create(LiveUpdate entity)
         {
             _liveUpdateRepository.Create(entity);
         }
-
-        public async Task<bool> Delete(int id)
-        {
-           return await _liveUpdateRepository.Delete(id);
-        }
-
         public async Task<LiveUpdate?> Get(int id)
         {
             return await _liveUpdateRepository.Get(id);
@@ -30,16 +24,6 @@ namespace AirportBusinessLogic.Services
         public Task<IEnumerable<LiveUpdate>> GetAll()
         {
             throw new NotImplementedException();
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _liveUpdateRepository.SaveChangesAsync();
-        }
-
-        public async Task<bool> Update(LiveUpdate entity)
-        {
-            return await _liveUpdateRepository.Update(entity);
         }
     }
 }

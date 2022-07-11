@@ -4,6 +4,6 @@ namespace AirportBusinessLogic.Interfaces
 {
     public interface IStationService<T>: ICRUDService<Station>
     {
-
+        
     }
 }

@@ -17,8 +17,10 @@ builder.Services.AddDbContext<AirportContext>(opt =>
 
 builder.Services.AddScoped<IFlightRepository<Flight>, FlightRepository>();
 builder.Services.AddScoped<IFlightService<Flight>, FlightService>();
+builder.Services.AddScoped<INextStationRepository<NextStation>, NextStationRepository>();
 builder.Services.AddScoped<IStationRepository<Station>, StationRepository>();
 builder.Services.AddScoped<IStationService<Station>, StationService>();
+builder.Services.AddScoped<INextStationService<NextStation>, NextStationService>();
 builder.Services.AddScoped<ILiveUpdateRepository<LiveUpdate>, LiveUpdateRepository>();
 builder.Services.AddScoped<ILiveUpdateService<LiveUpdate>, LiveUpdateService>();
 builder.Services.AddScoped<IBusinessService, BusinessService>();

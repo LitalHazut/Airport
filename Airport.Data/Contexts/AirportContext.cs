@@ -48,20 +48,15 @@ namespace Airport.Data.Contexts
 
             modelBuilder.Entity<NextStation>(entity =>
             {
-                entity.HasKey(e => new { e.SourceId, e.TargetId })
-                    .HasName("NextStationId");
-
                 entity.HasOne(d => d.Source)
                     .WithMany(p => p.NextStationSources)
                     .HasForeignKey(d => d.SourceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__NextStati__Sourc__1AD3FDA4");
+                    .HasConstraintName("FK__NextStati__Sourc__22751F6C");
 
                 entity.HasOne(d => d.Target)
                     .WithMany(p => p.NextStationTargets)
                     .HasForeignKey(d => d.TargetId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__NextStati__Targe__1BC821DD");
+                    .HasConstraintName("FK__NextStati__Targe__236943A5");
             });
 
             modelBuilder.Entity<Station>(entity =>

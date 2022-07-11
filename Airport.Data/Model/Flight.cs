@@ -22,6 +22,7 @@ namespace Airport.Data.Model
         public bool IsDone { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime InsertionTime { get; set; }
+        public bool? TimerFinished { get; set; }
 
         [InverseProperty("Flight")]
         public virtual ICollection<LiveUpdate> LiveUpdates { get; set; }

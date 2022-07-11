@@ -2,8 +2,8 @@
 
 namespace AirportBusinessLogic.Interfaces
 {
-    public interface IStationRepository : Airport.Data.Repositories.Interfaces.IStationRepository<Station>
+    public interface IStationRepository : Airport.Data.Repositories.Interfaces.IStationRepository<Station1>
     {
-        void Update(Station newStation);
+        void Update(Station1 newStation);
     }
 }

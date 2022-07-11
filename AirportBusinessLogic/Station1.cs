@@ -1,14 +1,14 @@
 ﻿namespace AirportBusinessLogic.Dtos
 {
-    public class Station
+    public class Station1
     {
         public int StationId { get; set; }
         public string? Name { get; set; }
-        public Station[] NextStations { get; set; }
+        public Station1[] NextStations { get; set; }
 
         public FlightReadDto? OccupingPlane = null;
         
-        public Station(Airport.Data.Model.Station data)
+        public Station1(Airport.Data.Model.Station data)
         {
             StationId = data.StationId;
 

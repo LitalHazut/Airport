@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "W2425gAbn0gorokW+YJovtEo3D+Gun/lZSVRP5uXYku6/ApcBhr/XXo6kO7uviYRv9PY3hCS6p/zEgxiiID7lQ==",
+  "dgSpecHash": "5sKFpciseE7CSgZFeLpUM8gvWhahhdicRK/s26k1dY3M8ARvNUYU+2HI5mKoGFq/2wbZTh532CPA1zKSGRE0KA==",
   "success": true,
   "projectFilePath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,10 @@
     "C:\\Users\\lital\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\lital\\.nuget\\packages\\microsoft.aspnetcore.authorization\\6.0.6\\microsoft.aspnetcore.authorization.6.0.6.nupkg.sha512",
+    "C:\\Users\\lital\\.nuget\\packages\\microsoft.aspnetcore.components\\6.0.6\\microsoft.aspnetcore.components.6.0.6.nupkg.sha512",
+    "C:\\Users\\lital\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\6.0.6\\microsoft.aspnetcore.components.analyzers.6.0.6.nupkg.sha512",
+    "C:\\Users\\lital\\.nuget\\packages\\microsoft.aspnetcore.metadata\\6.0.6\\microsoft.aspnetcore.metadata.6.0.6.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.build\\17.0.0\\microsoft.build.17.0.0.nupkg.sha512",
@@ -46,7 +50,7 @@
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.extensions.logging\\6.0.0\\microsoft.extensions.logging.6.0.0.nupkg.sha512",
-    "C:\\Users\\lital\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\lital\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.1\\microsoft.extensions.logging.abstractions.6.0.1.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\microsoft.identity.client\\4.21.1\\microsoft.identity.client.4.21.1.nupkg.sha512",
