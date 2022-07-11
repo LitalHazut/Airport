@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Airport.Data.Model
 {
     [Table("Station")]
-    [Index("StationNumber", Name = "UQ__Station__26EDF8CD2EE26010", IsUnique = true)]
     public partial class Station
     {
         public Station()
@@ -17,15 +16,15 @@ namespace Airport.Data.Model
             NextStationTargets = new HashSet<NextStation>();
         }
 
-        [Key]
         public int StationId { get; set; }
         public int? FlightId { get; set; }
+        [Key]
         public int StationNumber { get; set; }
 
         [ForeignKey("FlightId")]
         [InverseProperty("Stations")]
         public virtual Flight? Flight { get; set; }
-        [InverseProperty("Station")]
+        [InverseProperty("StationNumberNavigation")]
         public virtual ICollection<LiveUpdate> LiveUpdates { get; set; }
         [InverseProperty("Source")]
         public virtual ICollection<NextStation> NextStationSources { get; set; }

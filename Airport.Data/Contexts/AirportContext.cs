@@ -38,12 +38,12 @@ namespace Airport.Data.Contexts
                 entity.HasOne(d => d.Flight)
                     .WithMany(p => p.LiveUpdates)
                     .HasForeignKey(d => d.FlightId)
-                    .HasConstraintName("FK__LiveUpdat__Fligh__05D8E0BE");
+                    .HasConstraintName("FK__LiveUpdat__Fligh__1EA48E88");
 
-                entity.HasOne(d => d.Station)
+                entity.HasOne(d => d.StationNumberNavigation)
                     .WithMany(p => p.LiveUpdates)
-                    .HasForeignKey(d => d.StationId)
-                    .HasConstraintName("FK__LiveUpdat__Stati__06CD04F7");
+                    .HasForeignKey(d => d.StationNumber)
+                    .HasConstraintName("FK__LiveUpdat__Stati__1F98B2C1");
             });
 
             modelBuilder.Entity<NextStation>(entity =>
@@ -55,21 +55,28 @@ namespace Airport.Data.Contexts
                     .WithMany(p => p.NextStationSources)
                     .HasForeignKey(d => d.SourceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__NextStati__Sourc__02084FDA");
+                    .HasConstraintName("FK__NextStati__Sourc__1AD3FDA4");
 
                 entity.HasOne(d => d.Target)
                     .WithMany(p => p.NextStationTargets)
                     .HasForeignKey(d => d.TargetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__NextStati__Targe__02FC7413");
+                    .HasConstraintName("FK__NextStati__Targe__1BC821DD");
             });
 
             modelBuilder.Entity<Station>(entity =>
             {
+                entity.HasKey(e => e.StationNumber)
+                    .HasName("PK__Station__26EDF8CC23747422");
+
+                entity.Property(e => e.StationNumber).ValueGeneratedNever();
+
+                entity.Property(e => e.StationId).ValueGeneratedOnAdd();
+
                 entity.HasOne(d => d.Flight)
                     .WithMany(p => p.Stations)
                     .HasForeignKey(d => d.FlightId)
-                    .HasConstraintName("FK__Station__FlightI__7F2BE32F");
+                    .HasConstraintName("FK__Station__FlightI__17F790F9");
             });
 
             OnModelCreatingPartial(modelBuilder);

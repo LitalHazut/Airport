@@ -49,5 +49,10 @@ namespace AirportBusinessLogic.Services
             });
             return listDtos;
         }
+
+        public Task<IEnumerable<Station>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

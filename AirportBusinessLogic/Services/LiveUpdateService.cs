@@ -2,7 +2,6 @@
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
 
-
 namespace AirportBusinessLogic.Services
 {
     public class LiveUpdateService : ILiveUpdateService<LiveUpdate>
@@ -27,6 +26,12 @@ namespace AirportBusinessLogic.Services
         {
             return await _liveUpdateRepository.Get(id);
         }
+
+        public Task<IEnumerable<LiveUpdate>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SaveChangesAsync()
         {
             await _liveUpdateRepository.SaveChangesAsync();

@@ -15,13 +15,13 @@ namespace Airport.Data.Model
         public DateTime UpdateTime { get; set; }
         public bool IsEntering { get; set; }
         public int? FlightId { get; set; }
-        public int? StationId { get; set; }
+        public int? StationNumber { get; set; }
 
         [ForeignKey("FlightId")]
         [InverseProperty("LiveUpdates")]
         public virtual Flight? Flight { get; set; }
-        [ForeignKey("StationId")]
+        [ForeignKey("StationNumber")]
         [InverseProperty("LiveUpdates")]
-        public virtual Station? Station { get; set; }
+        public virtual Station? StationNumberNavigation { get; set; }
     }
 }

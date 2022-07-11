@@ -45,22 +45,19 @@ namespace AirportBusinessLogic.Services
                 IsAscending = flightDto.IsAscending,
                 IsPending = true,
                 IsDone = false
-               
+
             };
             _flightRepository.Create(flight);
             await _flightRepository.SaveChangesAsync();
         }
-        public IEnumerable<FlightReadDto> GetAll()
+
+        public Task<IEnumerable<Flight>> GetAll()
         {
-            List<FlightReadDto> flights = new();
-
-            _flightRepository.GetAll().ToList().ForEach(flight =>
-            {
-                flights.Add(new FlightReadDto() { FlightId = flight.FlightId, IsAscending = flight.IsAscending });
-            });
-            return flights;
+            throw new NotImplementedException();
         }
-
-
     }
+
+
+
 }
+
