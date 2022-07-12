@@ -61,7 +61,6 @@ namespace AirportBusinessLogic.Services
                     }
                 }
             }
-
             if (success)
             {
                 if (flight.IsPending)
