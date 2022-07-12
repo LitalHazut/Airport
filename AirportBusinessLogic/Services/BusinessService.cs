@@ -56,8 +56,8 @@ namespace AirportBusinessLogic.Services
                         success = true;
                         station = route.Target;
                         route.Target.FlightId = flight.FlightId;
-                        
-                        await _stationService.Update(station);
+
+                        await _stationService.InsertFlight(station.StationNumber, flight.FlightId);
                     }
                 }
             }

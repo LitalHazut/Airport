@@ -51,5 +51,13 @@ namespace AirportBusinessLogic.Services
         {
             return await _stationRepository.Update(entity);
         }
+
+        public async Task InsertFlight(int stationNumber, int? flightId)
+        {
+            var station = await _stationRepository.Get(stationNumber);
+            station!.FlightId = flightId;
+            await _stationRepository.SaveChangesAsync();
+
+        }
     }
 }
