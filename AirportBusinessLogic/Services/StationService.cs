@@ -37,7 +37,7 @@ namespace AirportBusinessLogic.Services
             return listDtos;
         }
 
-        public async Task<IEnumerable<Station>> GetAll()
+        public async Task<List<Station>> GetAll()
         {
             return await _stationRepository.GetAll().ToListAsync();
         }

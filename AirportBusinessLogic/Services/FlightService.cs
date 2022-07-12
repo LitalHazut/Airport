@@ -30,7 +30,7 @@ namespace AirportBusinessLogic.Services
             return await _flightRepository.Get(id);
         }
 
-        public async Task<IEnumerable<Flight>> GetAll()
+        public async Task<List<Flight>> GetAll()
         {
             return await _flightRepository.GetAll().ToListAsync();
         }

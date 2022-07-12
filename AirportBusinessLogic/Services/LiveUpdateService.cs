@@ -23,7 +23,7 @@ namespace AirportBusinessLogic.Services
             return await _liveUpdateRepository.Get(id);
         }
 
-        public async Task<IEnumerable<LiveUpdate>> GetAll()
+        public async Task<List<LiveUpdate>> GetAll()
         {
             return await _liveUpdateRepository.GetAll().ToListAsync();
         }

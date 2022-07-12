@@ -23,7 +23,7 @@ namespace AirportBusinessLogic.Services
            return await _nextStationRepository.Get(id);
         }
 
-        public async Task<IEnumerable<NextStation>> GetAll()
+        public async Task<List<NextStation>> GetAll()
         {
             return await _nextStationRepository.GetAll().ToListAsync();
         }

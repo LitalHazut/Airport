@@ -102,7 +102,7 @@ namespace AirportBusinessLogic.Services
                 }
                 if (currentStation != null)
                 {
-                    currentStation.FlightId = null;
+                    await _stationService.InsertFlight(currentStation.StationNumber, null);
                     await SendWaitingInLineFlightIfPossible(currentStation);
                 }
                 await _context.SaveChangesAsync();
@@ -123,10 +123,24 @@ namespace AirportBusinessLogic.Services
         {
             flight.TimerFinished = false;
             Console.WriteLine($"{flight.FlightId} start Timer");
-            await Task.Delay(15000);
+            var random =new Random();            
+            await Task.Delay(random.Next(3000,10000));
             flight.TimerFinished = true;
             Console.WriteLine($"{flight.FlightId} stopTimer");
             await MoveToNextStationIfPossible(flight);
+        }
+
+        public async Task StartApp()
+        {
+            List<Station> allStations = await _stationService.GetAll();
+            foreach (var station in allStations)
+            {
+                if (station.FlightId != null)
+                {
+                    var flight = await _flightService.Get((int)station.FlightId);
+                    Task timerTask = Task.Run(() => StartTimer(flight!));
+                }
+            }
         }
 
         public Task<IEnumerable<FlightReadDto>> GetAllFlights()

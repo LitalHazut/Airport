@@ -9,6 +9,8 @@ namespace AirportBusinessLogic.Interfaces
         Task<IEnumerable<FlightReadDto>> GetAllFlights();
         Task AddNewFlight(FlightCreateDto flight);
         Task<IEnumerable<FlightReadDto>> GetFinishedRoutesHistory();
-       
+        Task StartApp();
+
+
      }
 }

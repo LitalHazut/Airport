@@ -12,7 +12,8 @@ namespace AirportProject.Controllers
     public class AirportController : Controller
     {
         private readonly IBusinessService _businessService;
-       
+        private bool _isWorking;
+
         public AirportController(IBusinessService businessService)
         {
             _businessService = businessService;
@@ -31,5 +32,18 @@ namespace AirportProject.Controllers
         {
             await _businessService.AddNewFlight(flight);
         }
+
+        [Route("[action]", Name = "StartApp")]
+        [HttpPost]
+        public async Task StartApp()
+        {
+            if (!_isWorking)
+            {
+                _isWorking = true;
+                await _businessService.StartApp();
+            }
+
+        }
+
     }
 }
