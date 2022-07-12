@@ -35,7 +35,6 @@ namespace AirportBusinessLogic.Services
             MoveToNextStationIfPossible(flightToRead);
             await _flightService.Create(flightToRead);
         }
-
         private async void MoveToNextStationIfPossible(Flight flight)
         {
             var currentStation = _context.Stations.FirstOrDefault(s => s.FlightId == flight.FlightId);

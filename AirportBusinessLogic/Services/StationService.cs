@@ -1,5 +1,6 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
+using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,13 +18,14 @@ namespace AirportBusinessLogic.Services
         {
             
             _stationRepository.Create(entity);
+            await _stationRepository.SaveChangesAsync();
         }
         public async Task<Station?> Get(int id)
         {
             return await _stationRepository.Get(id);
         }
 
-        public async Task<IEnumerable<Dtos.StationReadDto>> GetAllStations()
+        public async Task<IEnumerable<StationReadDto>> GetAllStations()
         {
             List<Dtos.StationReadDto> listDtos = new();
             var stationsList = await _stationRepository.GetAll().ToListAsync();
@@ -35,9 +37,9 @@ namespace AirportBusinessLogic.Services
             return listDtos;
         }
 
-        public Task<IEnumerable<Station>> GetAll()
+        public async Task<IEnumerable<Station>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _stationRepository.GetAll().ToListAsync();
         }
 
         

@@ -34,9 +34,9 @@ namespace AirportBusinessLogic.Services
             return await _flightRepository.Get(id);
         }
 
-        public Task<IEnumerable<Flight>> GetAll()
+        public async Task<IEnumerable<Flight>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _flightRepository.GetAll().ToListAsync();
         }
 
         public Task<List<Flight>> GetPendingFlightsByIsAscending(bool isAscending)

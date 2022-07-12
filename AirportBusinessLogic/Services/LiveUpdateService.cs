@@ -1,6 +1,7 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
@@ -15,15 +16,16 @@ namespace AirportBusinessLogic.Services
         public async Task Create(LiveUpdate entity)
         {
             _liveUpdateRepository.Create(entity);
+            await _liveUpdateRepository.SaveChangesAsync();
         }
         public async Task<LiveUpdate?> Get(int id)
         {
             return await _liveUpdateRepository.Get(id);
         }
 
-        public Task<IEnumerable<LiveUpdate>> GetAll()
+        public async Task<IEnumerable<LiveUpdate>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _liveUpdateRepository.GetAll().ToListAsync();
         }
     }
 }

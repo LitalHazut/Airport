@@ -28,17 +28,19 @@ namespace AirportBusinessLogic.Services
             return await _nextStationRepository.GetAll().ToListAsync();
         }
 
+        //Get all Pointers of stations and add to list
         public List<Station> GetSourcesStations(Station station)
         {
             List<Station> sourceStations = new();
             _nextStationRepository.GetAll()
            .Include(s => s.SourceId)
-           .Where(s => s.TargetId == station.StationNumber && s.SourceId != null).ToList()
+           .Where(s => s.TargetId == station.StationNumber && s.SourceId != null)
+           .ToList()
            .ForEach(s => sourceStations.Add(s.Source!));
             return sourceStations;
 
         }
-
+        // all station that waiting outside
         public bool? IsFirstAscendingStation(Station currentStation)
         {
             var waitingNextStation = _nextStationRepository.GetAll().
