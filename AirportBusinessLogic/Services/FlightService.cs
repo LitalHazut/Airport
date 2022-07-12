@@ -35,10 +35,6 @@ namespace AirportBusinessLogic.Services
             return await _flightRepository.GetAll().ToListAsync();
         }
 
-        private Flight? GetPendingFlightsByIsAscending(bool isAscending)
-        {
-            return _flightRepository.GetAll().FirstOrDefault(flight => flight.IsAscending == isAscending); 
-        }
         public async Task<Flight?> GetFirstFlightInQueue(List<Station> sourcesStations, bool? isFirstAscendingStation)
         {
             Flight? selectedFlight = null;
@@ -66,7 +62,8 @@ namespace AirportBusinessLogic.Services
 
             if (isFirstAscendingStation != null)
             {
-                var pendingFirstFlight =  GetPendingFlightsByIsAscending((bool)isFirstAscendingStation);
+                var pendingFirstFlight = _flightRepository.GetAll().FirstOrDefault(flight => flight.IsAscending == isFirstAscendingStation && flight.IsPending == true);
+
                 if (pendingFirstFlight != null)
                 {
                     if (selectedFlight == null) selectedFlight = pendingFirstFlight;

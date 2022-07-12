@@ -3,8 +3,6 @@ using Airport.Data.Model;
 using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace AirportBusinessLogic.Services
@@ -32,7 +30,8 @@ namespace AirportBusinessLogic.Services
         {
             var flightToRead = _mapper.Map<Flight>(flight);
             await _flightService.Create(flightToRead);
-           await MoveToNextStationIfPossible(flightToRead);
+            await MoveToNextStationIfPossible(flightToRead);
+            Console.WriteLine($"asc = {flightToRead.IsAscending} pend = {flightToRead.IsPending} flightId = {flightToRead.FlightId}");
 
         }
         private async Task MoveToNextStationIfPossible(Flight flight)
@@ -63,9 +62,11 @@ namespace AirportBusinessLogic.Services
             }
             if (success)
             {
+                Console.WriteLine($"Flight {flight.FlightId} succeed");
                 if (flight.IsPending)
                 {
                     flight.IsPending = false;
+                    Console.WriteLine($"Flight {flight.FlightId} started thr route");
                 }
                 else
                 {
@@ -104,9 +105,11 @@ namespace AirportBusinessLogic.Services
                     await _stationService.InsertFlight(currentStation.StationNumber, null);
                     await SendWaitingInLineFlightIfPossible(currentStation);
                 }
-                await _context.SaveChangesAsync();
-           
+                Console.WriteLine("Saved Changes");
+                //await _context.SaveChangesAsync();
             }
+            else
+                Console.WriteLine($"Flight {flight.FlightId} hasnt managed to move next");
         }
 
         private async Task SendWaitingInLineFlightIfPossible(Station currentStation)
@@ -122,25 +125,28 @@ namespace AirportBusinessLogic.Services
         {
             flight.TimerFinished = false;
             Console.WriteLine($"{flight.FlightId} start Timer");
-            var random =new Random();            
-            await Task.Delay(random.Next(3000,10000));
-            flight.TimerFinished = true;
+            var random = new Random();
+            await Task.Delay(random.Next(3000, 10000));
             Console.WriteLine($"{flight.FlightId} stopTimer");
+            flight.TimerFinished = true;
             await MoveToNextStationIfPossible(flight);
         }
 
         public async Task StartApp()
         {
             List<Station> allStations = await _stationService.GetAll();
-            foreach (var station in allStations)
+            Parallel.ForEach(allStations, async station =>
             {
                 if (station.FlightId != null)
                 {
                     var flight = await _flightService.Get((int)station.FlightId);
-                    Task timerTask = Task.Run(() => StartTimer(flight!));
+
+                    await StartTimer(flight!);
                 }
-            }
+            });
+
         }
+
 
         public Task<IEnumerable<FlightReadDto>> GetAllFlights()
         {

@@ -15,7 +15,7 @@ builder.Services.AddDbContext<AirportContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AirPortDataConnectionString"));
 }
-    , ServiceLifetime.Transient);
+    , ServiceLifetime.Singleton);
 
 builder.Services.AddScoped<IFlightRepository<Flight>, FlightRepository>();
 builder.Services.AddScoped<IFlightService<Flight>, FlightService>();
@@ -26,7 +26,7 @@ builder.Services.AddScoped<INextStationService<NextStation>, NextStationService>
 builder.Services.AddScoped<ILiveUpdateRepository<LiveUpdate>, LiveUpdateRepository>();
 builder.Services.AddScoped<ILiveUpdateService<LiveUpdate>, LiveUpdateService>();
 builder.Services.AddScoped<IBusinessService, BusinessService>();
-
+builder.Services.AddRouting();
 builder.Services.AddAutoMapper(typeof(FlightsProfile).Assembly);
 
 builder.Services.AddCors(options =>
