@@ -27,6 +27,21 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "EcoCore/7.0.0.14149": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Eco.Handles.dll": {},
+          "lib/net40/Eco.Interfaces.dll": {},
+          "lib/net40/Eco.LinqExtender.dll": {},
+          "lib/net40/MDriven.Net.Http.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Eco.Handles.dll": {},
+          "lib/net40/Eco.Interfaces.dll": {},
+          "lib/net40/Eco.LinqExtender.dll": {},
+          "lib/net40/MDriven.Net.Http.dll": {}
+        }
+      },
       "Humanizer.Core/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -3134,6 +3149,22 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "icon.png",
         "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "EcoCore/7.0.0.14149": {
+      "sha512": "XKhOfedkJrA7T/Qxw78tGzERgcs6v1BXDIfcMBqR/BMIpFeUh7/IPaRkv2KKlty1zgKT5QWQsrSv4IJhk6/7FQ==",
+      "type": "package",
+      "path": "ecocore/7.0.0.14149",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "EcoCore.nuspec.org",
+        "ecocore.7.0.0.14149.nupkg.sha512",
+        "ecocore.nuspec",
+        "lib/net40/Eco.Handles.dll",
+        "lib/net40/Eco.Interfaces.dll",
+        "lib/net40/Eco.LinqExtender.dll",
+        "lib/net40/MDriven.Net.Http.dll"
       ]
     },
     "Humanizer.Core/2.2.0": {
@@ -9579,6 +9610,7 @@
       "Airport.Data >= 1.0.0",
       "AutoMapper >= 11.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 11.0.0",
+      "EcoCore >= 7.0.0.14149",
       "Microsoft.AspNetCore.Components >= 6.0.6"
     ]
   },
@@ -9638,6 +9670,10 @@
             "target": "Package",
             "version": "[11.0.0, )"
           },
+          "EcoCore": {
+            "target": "Package",
+            "version": "[7.0.0.14149, )"
+          },
           "Microsoft.AspNetCore.Components": {
             "target": "Package",
             "version": "[6.0.6, )"
@@ -9661,5 +9697,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EcoCore 7.0.0.14149' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "EcoCore",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

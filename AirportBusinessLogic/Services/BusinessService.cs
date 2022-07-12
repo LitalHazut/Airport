@@ -3,8 +3,8 @@ using Airport.Data.Model;
 using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
+using System.Windows.Threading;
 
 namespace AirportBusinessLogic.Services
 {
@@ -16,7 +16,7 @@ namespace AirportBusinessLogic.Services
         private readonly INextStationService<NextStation> _nextStationService;
         private readonly AirportContext _context;
         private readonly IMapper _mapper;
-        private readonly Dispatcher dispatcher;
+        private readonly Dispatcher dispatcherTimer;
         public BusinessService(IFlightService<Flight> flightService, IStationService<StationReadDto> stationService,
             ILiveUpdateService<LiveUpdate> liveUpdateService, AirportContext context, IMapper mapper, INextStationService<NextStation> nextStationService)
         {
@@ -26,7 +26,7 @@ namespace AirportBusinessLogic.Services
             _nextStationService = nextStationService;
             _context = context;
             _mapper = mapper;
-            //dispatcher = new Dispatcher();
+            dispatcherTimer = new DispatcherTimer();
         }
 
         public async Task AddNewFlight(FlightCreateDto flight)
@@ -62,22 +62,42 @@ namespace AirportBusinessLogic.Services
             });
             if (success)
             {
-                LiveUpdate update = new LiveUpdate()
+                if (flight.IsPending)
                 {
-                    FlightId = flight.FlightId,
-                    IsEntering = false,
-                    StationNumber = (int)stationNumber!,
-                    UpdateTime = DateTime.Now
+                    flight.IsPending = false;
+                }
+                else
+                {
+                    LiveUpdate leavingupdate = new LiveUpdate()
+                    {
+                        FlightId = flight.FlightId,
+                        IsEntering = false,
+                        StationNumber = (int)stationNumber,
+                        UpdateTime = DateTime.Now
+                    };
+                    await _liveUpdateService.Create(leavingupdate);
+                    Console.WriteLine("Flight left station x");
 
-                };
-                _liveUpdateService.Create(update);
-                currentStation!.FlightId = null;
+                }
+                if (flight.IsDone!)
+                {
+                    LiveUpdate entringupdate = new LiveUpdate()
+                    {
+                        FlightId = flight.FlightId,
+                        IsEntering = true,
+                        StationNumber = (int)stationNumber,
+                        UpdateTime = DateTime.Now
+                    };
+                    await _liveUpdateService.Create(entringupdate);
+                    Console.WriteLine("Flight entring station y");
+                }
+                else Console.WriteLine("Flight finished the route");
+
                 if (currentStation != null)
                 {
                     currentStation.FlightId = null;
                     OccupyStationIfPossible(currentStation);
                 }
-                if (flight.IsPending) flight.IsPending = false;
                 await _context.SaveChangesAsync();
             }
         }
@@ -87,13 +107,12 @@ namespace AirportBusinessLogic.Services
             var sourcesStations = _nextStationService.GetSourcesStations(currentStation);
             bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
             bool isAsc = (bool)isFirstAscendingStation;
-            var selectedFlight = await _flightService.GetFirstFlightInQueue(sourcesStations,isAsc);
-            if (selectedFlight != null) MoveToNextStationIfPossible(selectedFlight);
 
+            var selectedFlight = await _flightService.GetFirstFlightInQueue(sourcesStations, isAsc);
+            if (selectedFlight != null) MoveToNextStationIfPossible(selectedFlight);
         }
         private async void StartTimer(Flight flight)
         {
-
         }
 
         public Task<IEnumerable<FlightReadDto>> GetAllFlights()

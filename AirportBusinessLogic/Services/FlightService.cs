@@ -26,7 +26,7 @@ namespace AirportBusinessLogic.Services
             };
             _flightRepository.Create(flight);
             await _flightRepository.SaveChangesAsync();
-          
+
         }
 
         public async Task<Flight?> Get(int id)
@@ -39,11 +39,11 @@ namespace AirportBusinessLogic.Services
             return await _flightRepository.GetAll().ToListAsync();
         }
 
-        public Task<List<Flight>> GetPendingFlightsByIsAscending(bool isAscending)
+        public Task<Flight?> GetPendingFlightsByIsAscending(bool isAscending)
         {
             throw new NotImplementedException();
         }
-        public async Task<Flight?> GetFirstFlightInQueue(List<Station> sourcesStations,bool? isFirstAscendingStation)
+        public async Task<Flight?> GetFirstFlightInQueue(List<Station> sourcesStations, bool? isFirstAscendingStation)
         {
             Flight? selectedFlight = null;
 
@@ -53,31 +53,34 @@ namespace AirportBusinessLogic.Services
                 if (flighyId != null)
                 {
                     Flight flightToCheck = await Get((int)flighyId);
-                    if (selectedFlight == null) selectedFlight = flightToCheck;
-                    else
+                    if (flightToCheck.TimerFinished == true)
                     {
-                        if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime)
+                        if (selectedFlight == null) selectedFlight = flightToCheck;
+                        else
                         {
-                            selectedFlight = flightToCheck;
+                            if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime)
+                            {
+                                selectedFlight = flightToCheck;
+                            }
                         }
                     }
+
                 }
             }
 
             if (isFirstAscendingStation != null)
             {
-
-                var pendingList = await GetPendingFlightsByIsAscending((bool)isFirstAscendingStation);
-                if (pendingList.Count != 0)
+                var pendingFirstFlight = await GetPendingFlightsByIsAscending((bool)isFirstAscendingStation);
+                if (pendingFirstFlight.Count != 0)
                 {
-                    if (selectedFlight == null) selectedFlight = pendingList[0];
+                    if (selectedFlight == null) selectedFlight = pendingFirstFlight[0];
                     else
                     {
-                        if (selectedFlight.InsertionTime >= pendingList[0].InsertionTime) selectedFlight = pendingList[0];
+                        if (selectedFlight.InsertionTime >= pendingFirstFlight[0].InsertionTime) selectedFlight = pendingFirstFlight[0];
                     }
                 }
             }
-           return selectedFlight;
+            return selectedFlight;
         }
     }
 
