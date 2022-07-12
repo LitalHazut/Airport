@@ -121,7 +121,6 @@ namespace AirportBusinessLogic.Services
 
 
         }
-    
         private async void StartTimer(Flight flight)
         {
 
