@@ -268,10 +268,6 @@ C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\AirportBusinessLogic.pdb
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Eco.Handles.dll
-C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Eco.Interfaces.dll
-C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Eco.LinqExtender.dll
-C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\MDriven.Net.Http.dll
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\AirportProject\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll

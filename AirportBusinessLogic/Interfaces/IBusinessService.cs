@@ -1,4 +1,5 @@
-﻿using AirportBusinessLogic.Dtos;
+﻿using Airport.Data.Model;
+using AirportBusinessLogic.Dtos;
 
 namespace AirportBusinessLogic.Interfaces
 {
@@ -8,6 +9,6 @@ namespace AirportBusinessLogic.Interfaces
         Task<IEnumerable<FlightReadDto>> GetAllFlights();
         Task AddNewFlight(FlightCreateDto flight);
         Task<IEnumerable<FlightReadDto>> GetFinishedRoutesHistory();
-    
-    }
+       
+     }
 }

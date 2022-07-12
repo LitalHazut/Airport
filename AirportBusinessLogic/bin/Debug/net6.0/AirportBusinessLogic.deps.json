@@ -11,7 +11,6 @@
           "Airport.Data": "1.0.0",
           "AutoMapper": "11.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
-          "EcoCore": "7.0.0.14149",
           "Microsoft.AspNetCore.Components": "6.0.6"
         },
         "runtime": {
@@ -38,26 +37,6 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {
             "assemblyVersion": "11.0.0.0",
             "fileVersion": "11.0.0.0"
-          }
-        }
-      },
-      "EcoCore/7.0.0.14149": {
-        "runtime": {
-          "lib/net40/Eco.Handles.dll": {
-            "assemblyVersion": "7.0.0.14149",
-            "fileVersion": "7.0.0.14149"
-          },
-          "lib/net40/Eco.Interfaces.dll": {
-            "assemblyVersion": "7.0.0.14149",
-            "fileVersion": "7.0.0.14149"
-          },
-          "lib/net40/Eco.LinqExtender.dll": {
-            "assemblyVersion": "7.0.0.14149",
-            "fileVersion": "7.0.0.14149"
-          },
-          "lib/net40/MDriven.Net.Http.dll": {
-            "assemblyVersion": "7.0.0.14149",
-            "fileVersion": "7.0.0.14149"
           }
         }
       },
@@ -2381,13 +2360,6 @@
       "sha512": "sha512-0asw5WxdCFh2OTi9Gv+oKyH9SzxwYQSnO8TV5Dd0GggovILzJW4UimP26JAcxc3yB5NnC5urooZ1BBs8ElpiBw==",
       "path": "automapper.extensions.microsoft.dependencyinjection/11.0.0",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512"
-    },
-    "EcoCore/7.0.0.14149": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-XKhOfedkJrA7T/Qxw78tGzERgcs6v1BXDIfcMBqR/BMIpFeUh7/IPaRkv2KKlty1zgKT5QWQsrSv4IJhk6/7FQ==",
-      "path": "ecocore/7.0.0.14149",
-      "hashPath": "ecocore.7.0.0.14149.nupkg.sha512"
     },
     "Humanizer.Core/2.2.0": {
       "type": "package",

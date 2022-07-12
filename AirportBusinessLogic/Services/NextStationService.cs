@@ -47,7 +47,19 @@ namespace AirportBusinessLogic.Services
                 FirstOrDefault(n => n.TargetId == currentStation.StationNumber && n.Source == null);
             return waitingNextStation == null ? null : waitingNextStation.FlightType;
         }
+        public async Task<List<NextStation>> GetListNextStations(int? currentStationNumber, bool isAsc)
+        {
+            return await _nextStationRepository
+                .GetAll()
+                .Include(n => n.Target)
+                .Where(n => n.SourceId == currentStationNumber && n.FlightType == isAsc && 
+                (n.Target == null || n.Target.FlightId == null)).ToListAsync();
+          
+        }
 
-        
+        public async Task<bool> Update(NextStation entity)
+        {
+            return await _nextStationRepository.Update(entity);
+        }
     }
 }

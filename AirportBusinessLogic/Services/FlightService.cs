@@ -78,6 +78,11 @@ namespace AirportBusinessLogic.Services
             }
             return selectedFlight;
         }
+
+        public async Task<bool> Update(Flight entity)
+        {
+            return await _flightRepository.Update(entity);
+        }
     }
 
 

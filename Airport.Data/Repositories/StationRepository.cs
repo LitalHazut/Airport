@@ -1,6 +1,7 @@
 ﻿using Airport.Data.Contexts;
 using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Data.Repositories
 {
@@ -52,6 +53,7 @@ namespace Airport.Data.Repositories
             else
             {
                 _context.Update(station);
+                await _context.SaveChangesAsync();
                 return true;
             }
         }

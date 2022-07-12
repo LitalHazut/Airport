@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "5p3Bs0zuOzWbI1dQ5hAs8pqxcwNN0zVvmhnn9VaLStAEQ3rilq9eNvldBmkYQkZowl5IzJNnkoPgW9rZZBniRg==",
+  "dgSpecHash": "5sKFpciseE7CSgZFeLpUM8gvWhahhdicRK/s26k1dY3M8ARvNUYU+2HI5mKoGFq/2wbZTh532CPA1zKSGRE0KA==",
   "success": true,
   "projectFilePath": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\AirportBusinessLogic\\AirportBusinessLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lital\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
-    "C:\\Users\\lital\\.nuget\\packages\\ecocore\\7.0.0.14149\\ecocore.7.0.0.14149.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
@@ -181,16 +180,5 @@
     "C:\\Users\\lital\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\lital\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'EcoCore 7.0.0.14149' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "EcoCore",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }

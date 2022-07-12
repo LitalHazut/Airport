@@ -32,35 +32,36 @@ namespace AirportBusinessLogic.Services
         {
             var flightToRead = _mapper.Map<Flight>(flight);
             await _flightService.Create(flightToRead);
-            MoveToNextStationIfPossible(flightToRead);
+           await MoveToNextStationIfPossible(flightToRead);
 
         }
-        private async void MoveToNextStationIfPossible(Flight flight)
+        private async Task MoveToNextStationIfPossible(Flight flight)
         {
-            var currentStation = _context.Stations.FirstOrDefault(s => s.FlightId == flight.FlightId);
-            int? stationNumber = currentStation != null ? currentStation.StationNumber : null;
-            var nextRoutes = _context.NextStations
-                .Include(n => n.Target)
-                .Where(n => n.SourceId == stationNumber && n.FlightType == flight.IsAscending &&
-                (n.Target == null || n.Target.FlightId == null)).ToList();
-
+            Station? station = null;
+            var currentStation = await _stationService.GetStationByFlightId(flight.FlightId);
+            int? currentStationNumber = currentStation != null ? currentStation.StationNumber : null;
+            var nextRoutes = await _nextStationService.GetListNextStations(currentStationNumber, flight.IsAscending);
             var success = false;
-            nextRoutes.ForEach(n =>
+            foreach (var route in nextRoutes)
             {
                 if (!success)
                 {
-                    if (n.Target == null)
+                    if (route.Target == null)
                     {
                         success = true;
                         flight.IsDone = true;
                     }
-                    else if (n.Target.FlightId == null)
+                    else if (route.Target.FlightId == null)
                     {
                         success = true;
-                        //******* occupy next station
+                        station = route.Target;
+                        route.Target.FlightId = flight.FlightId;
+                        
+                        await _stationService.Update(station);
                     }
                 }
-            });
+            }
+
             if (success)
             {
                 if (flight.IsPending)
@@ -73,26 +74,26 @@ namespace AirportBusinessLogic.Services
                     {
                         FlightId = flight.FlightId,
                         IsEntering = false,
-                        StationNumber = (int)stationNumber,
+                        StationNumber = currentStation!.StationNumber,
                         UpdateTime = DateTime.Now
                     };
                     await _liveUpdateService.Create(leavingupdate);
-                    Console.WriteLine($"Flight {flight.FlightId} left station x");
+                    Console.WriteLine($"Flight {flight.FlightId} left station {currentStation!.StationNumber}");
 
                 }
-                if (flight.IsDone!)
+                if (!flight.IsDone)
                 {
-                    ///******** next station
+
                     LiveUpdate entringupdate = new LiveUpdate()
                     {
                         FlightId = flight.FlightId,
                         IsEntering = true,
-                        StationNumber = (int)stationNumber,
+                        StationNumber = station!.StationNumber,
                         UpdateTime = DateTime.Now
                     };
                     await _liveUpdateService.Create(entringupdate);
-                    Console.WriteLine($"Flight {flight.FlightId} entring station y");
-                    StartTimer(flight);
+                    Console.WriteLine($"Flight {flight.FlightId} entring station {station!.StationNumber}");
+                    Task timerTask = Task.Run(() => StartTimer(flight));
                 }
                 else
                 {
@@ -102,27 +103,30 @@ namespace AirportBusinessLogic.Services
                 if (currentStation != null)
                 {
                     currentStation.FlightId = null;
-                    OccupyStationIfPossible(currentStation);
+                    await SendWaitingInLineFlightIfPossible(currentStation);
                 }
                 await _context.SaveChangesAsync();
+           
             }
         }
 
-        private async void OccupyStationIfPossible(Station currentStation)
+        private async Task SendWaitingInLineFlightIfPossible(Station currentStation)
         {
             var sourcesStations = _nextStationService.GetSourcesStations(currentStation);
             bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
-            bool isAsc = (bool)isFirstAscendingStation;
+            bool isAsc = (bool)isFirstAscendingStation!;
 
             var selectedFlight = await _flightService.GetFirstFlightInQueue(sourcesStations, isAsc);
-            if (selectedFlight != null) MoveToNextStationIfPossible(selectedFlight);
+            if (selectedFlight != null) await MoveToNextStationIfPossible(selectedFlight);
         }
-        private async void StartTimer(Flight flight)
+        private async Task StartTimer(Flight flight)
         {
             flight.TimerFinished = false;
+            Console.WriteLine($"{flight.FlightId} start Timer");
             await Task.Delay(15000);
-            flight.TimerFinished=true;
-            MoveToNextStationIfPossible(flight);
+            flight.TimerFinished = true;
+            Console.WriteLine($"{flight.FlightId} stopTimer");
+            await MoveToNextStationIfPossible(flight);
         }
 
         public Task<IEnumerable<FlightReadDto>> GetAllFlights()
@@ -140,6 +144,6 @@ namespace AirportBusinessLogic.Services
             throw new NotImplementedException();
         }
 
-        
+
     }
 }

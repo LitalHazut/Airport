@@ -42,6 +42,14 @@ namespace AirportBusinessLogic.Services
             return await _stationRepository.GetAll().ToListAsync();
         }
 
-        
+        public async Task<Station?> GetStationByFlightId(int id)
+        {
+            return await _stationRepository.GetAll().FirstOrDefaultAsync(station => station.FlightId == id);
+        }
+
+        public async Task<bool> Update(Station entity)
+        {
+            return await _stationRepository.Update(entity);
+        }
     }
 }

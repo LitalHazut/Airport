@@ -144,10 +144,6 @@
               "target": "Package",
               "version": "[11.0.0, )"
             },
-            "EcoCore": {
-              "target": "Package",
-              "version": "[7.0.0.14149, )"
-            },
             "Microsoft.AspNetCore.Components": {
               "target": "Package",
               "version": "[6.0.6, )"

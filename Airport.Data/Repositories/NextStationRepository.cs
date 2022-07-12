@@ -28,7 +28,7 @@ namespace Airport.Data.Repositories
 
         public IQueryable<NextStation> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.NextStations;
         }
 
         public Task SaveChangesAsync()
