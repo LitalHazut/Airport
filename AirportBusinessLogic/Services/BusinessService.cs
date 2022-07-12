@@ -84,40 +84,11 @@ namespace AirportBusinessLogic.Services
 
         private async void OccupyStationIfPossible(Station currentStation)
         {
-            Flight? selectedFlight = null;
             var sourcesStations = _nextStationService.GetSourcesStations(currentStation);
-            foreach (var sourceStation in sourcesStations)
-            {
-               var flighyId= sourceStation.FlightId;
-                if(flighyId!=null)
-                {
-                   Flight flightToCheck= await _flightService.Get((int)flighyId);
-                    if(selectedFlight==null) selectedFlight=flightToCheck;
-                    else
-                    {
-                        if(selectedFlight.InsertionTime >= flightToCheck!.InsertionTime)
-                        {
-                            selectedFlight = flightToCheck;
-                        }
-                    }
-                }
-            }
             bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
-            if (isFirstAscendingStation != null)
-            {
-                bool isAsc = (bool)isFirstAscendingStation;
-                var pendingList = await _flightService.GetPendingFlightsByIsAscending(isAsc);
-                if (pendingList.Count != 0)
-                {
-                    if (selectedFlight == null) selectedFlight = pendingList[0];
-                    else
-                    {
-                        if (selectedFlight.InsertionTime >= pendingList[0].InsertionTime) selectedFlight = pendingList[0];
-                    }
-                }
-            }
+            bool isAsc = (bool)isFirstAscendingStation;
+            var selectedFlight = await _flightService.GetFirstFlightInQueue(sourcesStations,isAsc);
             if (selectedFlight != null) MoveToNextStationIfPossible(selectedFlight);
-
 
         }
         private async void StartTimer(Flight flight)

@@ -43,6 +43,42 @@ namespace AirportBusinessLogic.Services
         {
             throw new NotImplementedException();
         }
+        public async Task<Flight?> GetFirstFlightInQueue(List<Station> sourcesStations,bool? isFirstAscendingStation)
+        {
+            Flight? selectedFlight = null;
+
+            foreach (var sourceStation in sourcesStations)
+            {
+                var flighyId = sourceStation.FlightId;
+                if (flighyId != null)
+                {
+                    Flight flightToCheck = await Get((int)flighyId);
+                    if (selectedFlight == null) selectedFlight = flightToCheck;
+                    else
+                    {
+                        if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime)
+                        {
+                            selectedFlight = flightToCheck;
+                        }
+                    }
+                }
+            }
+
+            if (isFirstAscendingStation != null)
+            {
+
+                var pendingList = await GetPendingFlightsByIsAscending((bool)isFirstAscendingStation);
+                if (pendingList.Count != 0)
+                {
+                    if (selectedFlight == null) selectedFlight = pendingList[0];
+                    else
+                    {
+                        if (selectedFlight.InsertionTime >= pendingList[0].InsertionTime) selectedFlight = pendingList[0];
+                    }
+                }
+            }
+           return selectedFlight;
+        }
     }
 
 
