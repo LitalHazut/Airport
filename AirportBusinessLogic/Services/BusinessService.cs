@@ -3,21 +3,21 @@ using Airport.Data.Model;
 using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
-using System.Windows.Threading;
+
 
 namespace AirportBusinessLogic.Services
 {
     public class BusinessService : IBusinessService
     {
         private readonly IFlightService<Flight> _flightService;
-        private readonly IStationService<StationReadDto> _stationService;
+        private readonly IStationService<Station> _stationService;
         private readonly ILiveUpdateService<LiveUpdate> _liveUpdateService;
         private readonly INextStationService<NextStation> _nextStationService;
         private readonly AirportContext _context;
         private readonly IMapper _mapper;
-        private readonly Dispatcher dispatcherTimer;
-        public BusinessService(IFlightService<Flight> flightService, IStationService<StationReadDto> stationService,
+        public BusinessService(IFlightService<Flight> flightService, IStationService<Station> stationService,
             ILiveUpdateService<LiveUpdate> liveUpdateService, AirportContext context, IMapper mapper, INextStationService<NextStation> nextStationService)
         {
             _flightService = flightService;
@@ -26,21 +26,21 @@ namespace AirportBusinessLogic.Services
             _nextStationService = nextStationService;
             _context = context;
             _mapper = mapper;
-            dispatcherTimer = new DispatcherTimer();
         }
 
         public async Task AddNewFlight(FlightCreateDto flight)
         {
             var flightToRead = _mapper.Map<Flight>(flight);
-            MoveToNextStationIfPossible(flightToRead);
             await _flightService.Create(flightToRead);
+            MoveToNextStationIfPossible(flightToRead);
+
         }
         private async void MoveToNextStationIfPossible(Flight flight)
         {
             var currentStation = _context.Stations.FirstOrDefault(s => s.FlightId == flight.FlightId);
             int? stationNumber = currentStation != null ? currentStation.StationNumber : null;
             var nextRoutes = _context.NextStations
-                .Include(n => n.TargetId)
+                .Include(n => n.Target)
                 .Where(n => n.SourceId == stationNumber && n.FlightType == flight.IsAscending &&
                 (n.Target == null || n.Target.FlightId == null)).ToList();
 
@@ -57,6 +57,7 @@ namespace AirportBusinessLogic.Services
                     else if (n.Target.FlightId == null)
                     {
                         success = true;
+                        //******* occupy next station
                     }
                 }
             });
@@ -76,11 +77,12 @@ namespace AirportBusinessLogic.Services
                         UpdateTime = DateTime.Now
                     };
                     await _liveUpdateService.Create(leavingupdate);
-                    Console.WriteLine("Flight left station x");
+                    Console.WriteLine($"Flight {flight.FlightId} left station x");
 
                 }
                 if (flight.IsDone!)
                 {
+                    ///******** next station
                     LiveUpdate entringupdate = new LiveUpdate()
                     {
                         FlightId = flight.FlightId,
@@ -89,10 +91,14 @@ namespace AirportBusinessLogic.Services
                         UpdateTime = DateTime.Now
                     };
                     await _liveUpdateService.Create(entringupdate);
-                    Console.WriteLine("Flight entring station y");
+                    Console.WriteLine($"Flight {flight.FlightId} entring station y");
+                    StartTimer(flight);
                 }
-                else Console.WriteLine("Flight finished the route");
-
+                else
+                {
+                    flight.TimerFinished = null;
+                    Console.WriteLine($"Flight {flight.FlightId} finished the route");
+                }
                 if (currentStation != null)
                 {
                     currentStation.FlightId = null;
@@ -113,6 +119,10 @@ namespace AirportBusinessLogic.Services
         }
         private async void StartTimer(Flight flight)
         {
+            flight.TimerFinished = false;
+            await Task.Delay(15000);
+            flight.TimerFinished=true;
+            MoveToNextStationIfPossible(flight);
         }
 
         public Task<IEnumerable<FlightReadDto>> GetAllFlights()
@@ -130,9 +140,6 @@ namespace AirportBusinessLogic.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<int>> GetNextStations()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

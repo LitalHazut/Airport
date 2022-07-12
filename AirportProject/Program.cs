@@ -11,9 +11,11 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AirportContext>(opt =>
-    opt.UseInMemoryDatabase("Airport")
-);
+builder.Services.AddDbContext<AirportContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AirPortDataConnectionString"));
+}
+    , ServiceLifetime.Transient);
 
 builder.Services.AddScoped<IFlightRepository<Flight>, FlightRepository>();
 builder.Services.AddScoped<IFlightService<Flight>, FlightService>();

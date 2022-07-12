@@ -1,6 +1,5 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
-using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,15 +15,12 @@ namespace AirportBusinessLogic.Services
 
         public async Task Create(Flight entity)
         {
-            Flight flight = new Flight()
-            {
-                IsAscending = entity.IsAscending,
-                IsPending = true,
-                IsDone = false,
-                InsertionTime = DateTime.Now,
+            entity.IsPending = true;
+            entity.IsDone = false;
+            entity.InsertionTime = DateTime.Now;
 
-            };
-            _flightRepository.Create(flight);
+            
+            _flightRepository.Create(entity);
             await _flightRepository.SaveChangesAsync();
 
         }
@@ -39,9 +35,9 @@ namespace AirportBusinessLogic.Services
             return await _flightRepository.GetAll().ToListAsync();
         }
 
-        public Task<Flight?> GetPendingFlightsByIsAscending(bool isAscending)
+        private Flight? GetPendingFlightsByIsAscending(bool isAscending)
         {
-            throw new NotImplementedException();
+            return _flightRepository.GetAll().FirstOrDefault(flight => flight.IsAscending == isAscending); 
         }
         public async Task<Flight?> GetFirstFlightInQueue(List<Station> sourcesStations, bool? isFirstAscendingStation)
         {
@@ -70,13 +66,13 @@ namespace AirportBusinessLogic.Services
 
             if (isFirstAscendingStation != null)
             {
-                var pendingFirstFlight = await GetPendingFlightsByIsAscending((bool)isFirstAscendingStation);
-                if (pendingFirstFlight.Count != 0)
+                var pendingFirstFlight =  GetPendingFlightsByIsAscending((bool)isFirstAscendingStation);
+                if (pendingFirstFlight != null)
                 {
-                    if (selectedFlight == null) selectedFlight = pendingFirstFlight[0];
+                    if (selectedFlight == null) selectedFlight = pendingFirstFlight;
                     else
                     {
-                        if (selectedFlight.InsertionTime >= pendingFirstFlight[0].InsertionTime) selectedFlight = pendingFirstFlight[0];
+                        if (selectedFlight.InsertionTime >= pendingFirstFlight.InsertionTime) selectedFlight = pendingFirstFlight;
                     }
                 }
             }

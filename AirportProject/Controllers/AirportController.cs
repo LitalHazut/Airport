@@ -26,7 +26,7 @@ namespace AirportProject.Controllers
         }
 
         [Route("[action]", Name = "AddNewFlight")]
-        [HttpPost(Name = "AddNewFlight")]
+        [HttpPost]
         public async Task AddNewFlight(FlightCreateDto flight)
         {
             await _businessService.AddNewFlight(flight);
