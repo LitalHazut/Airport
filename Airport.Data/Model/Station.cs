@@ -16,7 +16,6 @@ namespace Airport.Data.Model
             NextStationTargets = new HashSet<NextStation>();
         }
 
-        public int StationId { get; set; }
         public int? FlightId { get; set; }
         [Key]
         public int StationNumber { get; set; }

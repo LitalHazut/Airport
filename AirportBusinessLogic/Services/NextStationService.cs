@@ -33,7 +33,7 @@ namespace AirportBusinessLogic.Services
         {
             List<Station> sourceStations = new();
             _nextStationRepository.GetAll()
-           .Include(s => s.SourceId)
+           .Include(s => s.Source)
            .Where(s => s.TargetId == station.StationNumber && s.SourceId != null)
            .ToList()
            .ForEach(s => sourceStations.Add(s.Source!));

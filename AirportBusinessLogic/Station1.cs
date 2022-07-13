@@ -10,7 +10,7 @@
         
         public Station1(Airport.Data.Model.Station data)
         {
-            StationId = data.StationId;
+            //StationId = data.StationId;
 
         }
 

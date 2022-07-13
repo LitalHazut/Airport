@@ -38,12 +38,12 @@ namespace Airport.Data.Contexts
                 entity.HasOne(d => d.Flight)
                     .WithMany(p => p.LiveUpdates)
                     .HasForeignKey(d => d.FlightId)
-                    .HasConstraintName("FK__LiveUpdat__Fligh__1EA48E88");
+                    .HasConstraintName("FK__LiveUpdat__Fligh__2FCF1A8A");
 
                 entity.HasOne(d => d.StationNumberNavigation)
                     .WithMany(p => p.LiveUpdates)
                     .HasForeignKey(d => d.StationNumber)
-                    .HasConstraintName("FK__LiveUpdat__Stati__1F98B2C1");
+                    .HasConstraintName("FK__LiveUpdat__Stati__30C33EC3");
             });
 
             modelBuilder.Entity<NextStation>(entity =>
@@ -51,27 +51,25 @@ namespace Airport.Data.Contexts
                 entity.HasOne(d => d.Source)
                     .WithMany(p => p.NextStationSources)
                     .HasForeignKey(d => d.SourceId)
-                    .HasConstraintName("FK__NextStati__Sourc__22751F6C");
+                    .HasConstraintName("FK__NextStati__Sourc__2BFE89A6");
 
                 entity.HasOne(d => d.Target)
                     .WithMany(p => p.NextStationTargets)
                     .HasForeignKey(d => d.TargetId)
-                    .HasConstraintName("FK__NextStati__Targe__236943A5");
+                    .HasConstraintName("FK__NextStati__Targe__2CF2ADDF");
             });
 
             modelBuilder.Entity<Station>(entity =>
             {
                 entity.HasKey(e => e.StationNumber)
-                    .HasName("PK__Station__26EDF8CC23747422");
+                    .HasName("PK__Station__26EDF8CC9B357DA9");
 
                 entity.Property(e => e.StationNumber).ValueGeneratedNever();
-
-                entity.Property(e => e.StationId).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.Flight)
                     .WithMany(p => p.Stations)
                     .HasForeignKey(d => d.FlightId)
-                    .HasConstraintName("FK__Station__FlightI__17F790F9");
+                    .HasConstraintName("FK__Station__FlightI__29221CFB");
             });
 
             OnModelCreatingPartial(modelBuilder);

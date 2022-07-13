@@ -15,7 +15,7 @@ builder.Services.AddDbContext<AirportContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AirPortDataConnectionString"));
 }
-    , ServiceLifetime.Singleton);
+    , ServiceLifetime.Transient);
 
 builder.Services.AddScoped<IFlightRepository<Flight>, FlightRepository>();
 builder.Services.AddScoped<IFlightService<Flight>, FlightService>();

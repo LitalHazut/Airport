@@ -45,7 +45,7 @@ namespace AirportBusinessLogic.Services
                 if (flighyId != null)
                 {
                     Flight flightToCheck = await Get((int)flighyId);
-                    if (flightToCheck.TimerFinished == true)
+                    if (flightToCheck!.TimerFinished == true)
                     {
                         if (selectedFlight == null) selectedFlight = flightToCheck;
                         else

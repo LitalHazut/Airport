@@ -48,7 +48,7 @@ namespace Airport.Data.Repositories
 
         public async Task<bool> Update(Station entity)
         {
-            var station = await Get(entity.StationId);
+            var station = await Get(entity.StationNumber);
             if (station == null) return false;
             else
             {
