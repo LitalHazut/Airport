@@ -17,9 +17,9 @@ namespace Airport.Data.Repositories
             _context.Add(entity);
         }
 
-        public async Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            var liveUpdate = await Get(id);
+            var liveUpdate = Get(id);
             if (liveUpdate == null) return false;
             else
             {
@@ -28,9 +28,9 @@ namespace Airport.Data.Repositories
             }
         }
 
-        public async Task<LiveUpdate?> Get(int id)
+        public LiveUpdate? Get(int id)
         {
-            return await _context.LiveUpdates.FindAsync(id);
+            return _context.LiveUpdates.Find(id);
         }
 
         public IQueryable<LiveUpdate> GetAll()
@@ -43,9 +43,9 @@ namespace Airport.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> Update(LiveUpdate entity)
+        public bool Update(LiveUpdate entity)
         {
-            var liveUpdate = await Get(entity.LiveUpdateId);
+            var liveUpdate = Get(entity.LiveUpdateId);
             if (liveUpdate == null) return false;
             else
             {

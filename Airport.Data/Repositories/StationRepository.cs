@@ -18,9 +18,9 @@ namespace Airport.Data.Repositories
             _context.Add(entity);
         }
 
-        public async Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            var station = await Get(id);
+            var station = Get(id);
             if (station == null) return false;
             else
             {
@@ -30,9 +30,9 @@ namespace Airport.Data.Repositories
 
         }
 
-        public async Task<Station?> Get(int id)
+        public Station? Get(int id)
         {
-          return await _context.Stations.FindAsync(id);
+          return _context.Stations.Find(id);
 
         }
 
@@ -46,14 +46,14 @@ namespace Airport.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> Update(Station entity)
+        public bool Update(Station entity)
         {
-            var station = await Get(entity.StationNumber);
+            var station =  Get(entity.StationNumber);
             if (station == null) return false;
             else
             {
                 _context.Update(station);
-                await _context.SaveChangesAsync();
+               _context.SaveChangesAsync();
                 return true;
             }
         }

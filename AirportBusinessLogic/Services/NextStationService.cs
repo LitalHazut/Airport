@@ -18,9 +18,9 @@ namespace AirportBusinessLogic.Services
             _nextStationRepository.Create(entity);
             await _nextStationRepository.SaveChangesAsync();
         }
-        public async Task<NextStation?> Get(int id)
+        public NextStation? Get(int id)
         {
-           return await _nextStationRepository.Get(id);
+           return _nextStationRepository.Get(id);
         }
 
         public async Task<List<NextStation>> GetAll()
@@ -57,9 +57,9 @@ namespace AirportBusinessLogic.Services
           
         }
 
-        public async Task<bool> Update(NextStation entity)
+        public bool Update(NextStation entity)
         {
-            return await _nextStationRepository.Update(entity);
+            return _nextStationRepository.Update(entity);
         }
     }
 }

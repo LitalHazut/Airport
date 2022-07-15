@@ -20,9 +20,9 @@ namespace AirportBusinessLogic.Services
             _stationRepository.Create(entity);
             await _stationRepository.SaveChangesAsync();
         }
-        public async Task<Station?> Get(int id)
+        public Station? Get(int id)
         {
-            return await _stationRepository.Get(id);
+            return _stationRepository.Get(id);
         }
 
         public async Task<IEnumerable<StationReadDto>> GetAllStations()
@@ -47,14 +47,14 @@ namespace AirportBusinessLogic.Services
             return await _stationRepository.GetAll().FirstOrDefaultAsync(station => station.FlightId == id);
         }
 
-        public async Task<bool> Update(Station entity)
+        public bool Update(Station entity)
         {
-            return await _stationRepository.Update(entity);
+            return  _stationRepository.Update(entity);
         }
 
         public async Task InsertFlight(int stationNumber, int? flightId)
         {
-            var station = await _stationRepository.Get(stationNumber);
+            var station = _stationRepository.Get(stationNumber);
             station!.FlightId = flightId;
             await _stationRepository.SaveChangesAsync();
 

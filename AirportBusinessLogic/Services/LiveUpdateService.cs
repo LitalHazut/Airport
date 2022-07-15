@@ -18,9 +18,9 @@ namespace AirportBusinessLogic.Services
             _liveUpdateRepository.Create(entity);
             await _liveUpdateRepository.SaveChangesAsync();
         }
-        public async Task<LiveUpdate?> Get(int id)
+        public LiveUpdate? Get(int id)
         {
-            return await _liveUpdateRepository.Get(id);
+            return _liveUpdateRepository.Get(id);
         }
 
         public async Task<List<LiveUpdate>> GetAll()
@@ -28,9 +28,9 @@ namespace AirportBusinessLogic.Services
             return await _liveUpdateRepository.GetAll().ToListAsync();
         }
 
-        public async Task<bool> Update(LiveUpdate entity)
+        public bool Update(LiveUpdate entity)
         {
-            return await _liveUpdateRepository.Update(entity);
+            return _liveUpdateRepository.Update(entity);
         }
     }
 }

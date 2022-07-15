@@ -133,7 +133,7 @@ namespace AirportBusinessLogic.Services
         {
             var sourcesStations = _nextStationService.GetSourcesStations(currentStation);
             bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
-            var selectedFlight = await _flightService.GetFirstFlightInQueue(sourcesStations, isFirstAscendingStation);
+            var selectedFlight = _flightService.GetFirstFlightInQueue(sourcesStations, isFirstAscendingStation);
             if (selectedFlight != null) await MoveNextIfPossible(selectedFlight);
         }
         private async Task StartTimer(Flight flight)
@@ -159,10 +159,8 @@ namespace AirportBusinessLogic.Services
                 if (station.FlightId != null)
                 {
                     var flight = _flightsCollection.First(f => station.FlightId == f.FlightId);
-
                     await StartTimer(flight!);
                 }
-
             });
         }
         void SaveChanges()

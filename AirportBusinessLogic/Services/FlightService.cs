@@ -25,9 +25,9 @@ namespace AirportBusinessLogic.Services
 
         }
 
-        public async Task<Flight?> Get(int id)
+        public Flight? Get(int id)
         {
-            return await _flightRepository.Get(id);
+            return  _flightRepository.Get(id);
         }
 
         public async Task<List<Flight>> GetAll()
@@ -35,7 +35,7 @@ namespace AirportBusinessLogic.Services
             return await _flightRepository.GetAll().ToListAsync();
         }
 
-        public async Task<Flight?> GetFirstFlightInQueue(List<Station> sourcesStations, bool? isFirstAscendingStation)
+        public Flight? GetFirstFlightInQueue(List<Station> sourcesStations, bool? isFirstAscendingStation)
         {
             Flight? selectedFlight = null;
 
@@ -44,7 +44,7 @@ namespace AirportBusinessLogic.Services
                 var flighyId = sourceStation.FlightId;
                 if (flighyId != null)
                 {
-                    Flight flightToCheck = await Get((int)flighyId);
+                    Flight flightToCheck = Get((int)flighyId);
                     if (flightToCheck!.TimerFinished == true)
                     {
                         if (selectedFlight == null) selectedFlight = flightToCheck;
@@ -76,9 +76,9 @@ namespace AirportBusinessLogic.Services
             return selectedFlight;
         }
 
-        public async Task<bool> Update(Flight entity)
+        public bool Update(Flight entity)
         {
-            return await _flightRepository.Update(entity);
+            return _flightRepository.Update(entity);
         }
     }
 

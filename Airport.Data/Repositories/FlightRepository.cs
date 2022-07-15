@@ -17,9 +17,9 @@ namespace Airport.Data.Repositories
             _context.Add(entity);
         }
 
-        public async Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            var flight = await Get(id);
+            var flight = Get(id);
             if(flight == null)  return false;
             else
             {
@@ -28,9 +28,9 @@ namespace Airport.Data.Repositories
             }
         }
 
-        public async Task<Flight?> Get(int id)
+        public Flight? Get(int id)
         {
-            return await _context.Flights.FindAsync(id);
+            return _context.Flights.Find(id);
         }
 
         public IQueryable<Flight> GetAll()
@@ -43,9 +43,9 @@ namespace Airport.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> Update(Flight entity)
+        public bool Update(Flight entity)
         {
-            var flight = await Get(entity.FlightId);
+            var flight = Get(entity.FlightId);
             if (flight == null) return false;
             else
             {

@@ -16,12 +16,12 @@ namespace Airport.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<NextStation?> Get(int id)
+        public NextStation? Get(int id)
         {
             throw new NotImplementedException();
         }
@@ -36,7 +36,7 @@ namespace Airport.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(NextStation entity)
+        public bool Update(NextStation entity)
         {
             throw new NotImplementedException();
         }
