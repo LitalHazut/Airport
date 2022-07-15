@@ -35,10 +35,21 @@ namespace AirportBusinessLogic.Services
         public async Task AddNewFlight(FlightCreateDto flight)
         {
             var newFlight = _mapper.Map<Flight>(flight);
-            SaveNewFlight(newFlight);
+            ContextFunctionsLock(2,newFlight);
             _flightsCollection.Add(newFlight);
             await MoveNextIfPossible(newFlight);
             Console.WriteLine($"asc = {newFlight.IsAscending} pend = {newFlight.IsPending} flightId = {newFlight.FlightId}");
+        }
+
+        public List<NextStation> GetRoutesByCurrentStationAndAsc(int? currentStationNumber, bool isAscending)
+        {
+            var list2 = new List<NextStation>();
+            _nextStationsCollection.ToList().ForEach(route =>
+            {
+                if (route.SourceId == currentStationNumber && route.FlightType == isAscending && (route.Target == null || route.Target.FlightId == null))
+                    list2.Add(route);
+            });
+            return list2;
         }
 
         private async Task MoveNextIfPossible(Flight flight)
@@ -48,7 +59,7 @@ namespace AirportBusinessLogic.Services
             Station? station = null;
             var currentStation = _stationsCollection.FirstOrDefault(station => station.FlightId == flight.FlightId);
             int? currentStationNumber = currentStation != null ? currentStation.StationNumber : null;
-            var nextRoutes = await _nextStationService.GetListNextStations(currentStationNumber, flight.IsAscending);
+            var nextRoutes = GetRoutesByCurrentStationAndAsc(currentStationNumber, flight.IsAscending);
 
             var success = false;
             foreach (var route in nextRoutes)
@@ -59,19 +70,24 @@ namespace AirportBusinessLogic.Services
                     {
                         success = true;
                         flight.IsDone = true;
-                        UpdateFlight(flight);
+                        ContextFunctionsLock(4, flight);
                         Console.WriteLine($"Flight {flight.FlightId} is done");
                     }
                     else
                     {
-                        if (route.Target!.FlightId == null)
+                        station = _stationsCollection.First(station => station.StationNumber == (int)route.TargetId!);
+                        Console.WriteLine($"Checking if station {station.StationNumber} is empty");
+                        if (station.FlightId == null)
                         {
+                            Console.WriteLine($"{station.StationNumber} is empty");
+
                             success = true;
-                            station = _stationsCollection.First(station => station.StationNumber == (int)route.TargetId!);
                             station.FlightId = flight.FlightId;
-                            UpdateStation(station);
-                            Console.WriteLine($"Station {station.StationNumber} occupation updated");
+                            ContextFunctionsLock(3, station);
+                            Console.WriteLine($"Station {station.StationNumber} is now filled by {flight.FlightId}");
                         }
+                        else
+                            Console.WriteLine($"{station.StationNumber} is not empty");
                     }
                 }
             }
@@ -81,7 +97,7 @@ namespace AirportBusinessLogic.Services
                 if (flight.IsPending)
                 {
                     flight.IsPending = false;
-                    UpdateFlight(flight);
+                    ContextFunctionsLock(4, flight);
                     Console.WriteLine($"Flight {flight.FlightId} started the route");
                 }
                 else
@@ -94,7 +110,7 @@ namespace AirportBusinessLogic.Services
                         UpdateTime = DateTime.Now
                     };
                     _liveUpdatesCollection.Add(leavingUpdate);
-                    SaveNewLiveUpdate(leavingUpdate);
+                    ContextFunctionsLock(1, leavingUpdate);
                     Console.WriteLine($"Flight {flight.FlightId} left station {currentStation!.StationNumber}");
                 }
                 if (!flight.IsDone)
@@ -107,20 +123,21 @@ namespace AirportBusinessLogic.Services
                         UpdateTime = DateTime.Now
                     };
                     _liveUpdatesCollection.Add(enteringUpdate);
-                    SaveNewLiveUpdate(enteringUpdate);
+                    ContextFunctionsLock(1, enteringUpdate);
                     Console.WriteLine($"Flight {flight.FlightId} enters station {station!.StationNumber}, station {station.StationNumber} is occupied by {station.FlightId}");
                     task = StartTimer(flight);
                 }
                 else
                 {
                     flight.TimerFinished = null;
-                    UpdateFlight(flight);
+                    ContextFunctionsLock(4, flight);
                     Console.WriteLine($"Flight {flight.FlightId} finished the route");
                 }
                 if (currentStation != null)
                 {
                     currentStation.FlightId = null;
-                    UpdateStation(currentStation);
+                    ContextFunctionsLock(3, currentStation);
+                    Console.WriteLine($"{currentStation.StationNumber} is now available, trying to find new flight to get in");
                     await SendWaitingInLineFlightIfPossible(currentStation);
                 }
             }
@@ -139,29 +156,31 @@ namespace AirportBusinessLogic.Services
         private async Task StartTimer(Flight flight)
         {
             flight.TimerFinished = false;
-            UpdateFlight(flight);
+            ContextFunctionsLock(4, flight);
             Console.WriteLine($"{flight.FlightId} timer started");
             var rand = new Random();
             await Task.Delay(rand.Next(3000, 10000));
             Console.WriteLine($"{flight.FlightId} timer finished");
             flight.TimerFinished = true;
-            UpdateFlight(flight);
+            ContextFunctionsLock(4, flight);
             Console.WriteLine("Before Move Next function");
             await MoveNextIfPossible(flight);
         }
 
         public async Task StartApp()
         {
-            List<Station> allStations = _stationsCollection.ToList();
-
-            Parallel.ForEach(allStations, async station =>
+            List<Station> allStations = await _stationService.GetAll();
+            List<Task> allTasks = new();
+            foreach (Station station in allStations)
             {
                 if (station.FlightId != null)
                 {
-                    var flight = _flightsCollection.First(f => station.FlightId == f.FlightId);
-                    await StartTimer(flight!);
+                    var flight = _flightsCollection.First(flight => station.FlightId == flight.FlightId);
+                    var task = StartTimer(flight);
+                    allTasks.Add(task);
                 }
-            });
+            }
+            await Task.WhenAll(allTasks);
         }
         void SaveChanges()
         {
@@ -170,10 +189,32 @@ namespace AirportBusinessLogic.Services
                 _context.SaveChanges();
             }
         }
+        void ContextFunctionsLock(int num, IEntity entity)
+        {
+            lock (obj)
+            {
+                switch (num)
+                {
+                    case 1:
+                        SaveNewLiveUpdate((LiveUpdate)entity);
+                        break;
+                    case 2:
+                        SaveNewFlight((Flight)entity);
+                        break;
+                    case 3:
+                        UpdateStation((Station)entity);
+                        break;
+                    case 4:
+                        UpdateFlight((Flight)entity);
+                        break;
+                }
+            }
+
+        }
         private void SaveNewLiveUpdate(LiveUpdate update)
         {
             _context.LiveUpdates.Add(update);
-            SaveChanges();
+            _context.SaveChanges();
 
         }
         private void SaveNewFlight(Flight flight)
@@ -182,18 +223,18 @@ namespace AirportBusinessLogic.Services
             flight.IsDone = false;
             flight.InsertionTime = DateTime.Now;
             _context.Flights.Add(flight);
-            SaveChanges();
+            _context.SaveChanges();
         }
         private void UpdateStation(Station station)
         {
             _context.Stations.Update(station);
-            SaveChanges();
+            _context.SaveChanges();
 
         }
         private void UpdateFlight(Flight flight)
         {
             _context.Flights.Update(flight);
-            SaveChanges();
+            _context.SaveChanges();
         }
 
         public Task<IEnumerable<FlightReadDto>> GetAllFlights()

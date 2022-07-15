@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Airport.Data.Model
 {
     [Table("NextStation")]
-    public partial class NextStation
+    public partial class NextStation: IEntity
     {
         [Key]
         public int NextStationId { get; set; }

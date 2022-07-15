@@ -7,7 +7,6 @@ namespace AirportBusinessLogic.Interfaces
     {
         List<Station> GetSourcesStations(Station station);
         bool? IsFirstAscendingStation(Station currentStation);
-        Task<List<NextStation>> GetListNextStations(int? cuurentStation, bool isAsc);
 
     }
 }

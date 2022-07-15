@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Data.Model
 {
     [Table("Station")]
-    public partial class Station
+    public partial class Station: IEntity
     {
         public Station()
         {

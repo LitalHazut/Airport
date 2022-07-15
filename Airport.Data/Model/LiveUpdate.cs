@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Airport.Data.Model
 {
     [Table("LiveUpdate")]
-    public partial class LiveUpdate
+    public partial class LiveUpdate: IEntity
     {
         [Key]
         public int LiveUpdateId { get; set; }
