@@ -34,48 +34,6 @@ namespace AirportBusinessLogic.Services
         {
             return await _flightRepository.GetAll().ToListAsync();
         }
-
-        public Flight? GetFirstFlightInQueue(List<Station> sourcesStations, bool? isFirstAscendingStation)
-        {
-            Flight? selectedFlight = null;
-
-            foreach (var sourceStation in sourcesStations)
-            {
-                var flighyId = sourceStation.FlightId;
-                if (flighyId != null)
-                {
-                    Flight flightToCheck = Get((int)flighyId);
-                    if (flightToCheck!.TimerFinished == true)
-                    {
-                        if (selectedFlight == null) selectedFlight = flightToCheck;
-                        else
-                        {
-                            if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime)
-                            {
-                                selectedFlight = flightToCheck;
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            if (isFirstAscendingStation != null)
-            {
-                var pendingFirstFlight = _flightRepository.GetAll().FirstOrDefault(flight => flight.IsAscending == isFirstAscendingStation && flight.IsPending == true);
-
-                if (pendingFirstFlight != null)
-                {
-                    if (selectedFlight == null) selectedFlight = pendingFirstFlight;
-                    else
-                    {
-                        if (selectedFlight.InsertionTime >= pendingFirstFlight.InsertionTime) selectedFlight = pendingFirstFlight;
-                    }
-                }
-            }
-            return selectedFlight;
-        }
-
         public bool Update(Flight entity)
         {
             return _flightRepository.Update(entity);

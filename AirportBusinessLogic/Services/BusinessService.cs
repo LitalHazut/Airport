@@ -150,7 +150,7 @@ namespace AirportBusinessLogic.Services
         {
             var sourcesStations = _nextStationService.GetSourcesStations(currentStation);
             bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
-            var selectedFlight = _flightService.GetFirstFlightInQueue(sourcesStations, isFirstAscendingStation);
+            var selectedFlight = GetFirstFlightInQueue(sourcesStations, isFirstAscendingStation);
             if (selectedFlight != null) await MoveNextIfPossible(selectedFlight);
         }
         private async Task StartTimer(Flight flight)
@@ -182,13 +182,6 @@ namespace AirportBusinessLogic.Services
             }
             await Task.WhenAll(allTasks);
         }
-        void SaveChanges()
-        {
-            lock (obj)
-            {
-                _context.SaveChanges();
-            }
-        }
         void ContextFunctionsLock(int num, IEntity entity)
         {
             lock (obj)
@@ -211,6 +204,53 @@ namespace AirportBusinessLogic.Services
             }
 
         }
+
+        private Flight? GetFirstFlightInQueue(List<Station> pointingStations, bool? isFirstAscendingStation)
+        {
+            Flight? selectedFlight = null;
+            foreach (var pointingStation in pointingStations)
+            {
+                var flightId = pointingStation.FlightId;
+                if (flightId != null)
+                {
+                    Flight flightToCheck = _flightsCollection.First(flight => flight.FlightId == (int)flightId);
+                    if (flightToCheck!.TimerFinished == true)
+                    {
+                        if (selectedFlight == null) selectedFlight = flightToCheck;
+                        else
+                        {
+                            if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime) selectedFlight = flightToCheck;
+                        }
+                    }
+                }
+            }
+            //returns if its a first station in an ascendingRoute(true), descendingRoute(false) or neither(null)
+
+            if (isFirstAscendingStation != null)
+            {
+                var pendingFirstFlight = _flightsCollection.FirstOrDefault(flight => flight.IsAscending == isFirstAscendingStation && flight.IsPending == true);
+                if (pendingFirstFlight != null)
+                {
+                    if (selectedFlight == null) selectedFlight = pendingFirstFlight;
+                    else
+                    {
+                        if (selectedFlight.InsertionTime >= pendingFirstFlight.InsertionTime) selectedFlight = pendingFirstFlight;
+                    }
+                }
+            }
+            if (selectedFlight == null)
+            {
+                Console.WriteLine("No flight is waiting");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine($"{selectedFlight} is the first line in queue");
+                return selectedFlight;
+            }
+        }
+
+
         private void SaveNewLiveUpdate(LiveUpdate update)
         {
             _context.LiveUpdates.Add(update);
