@@ -31,7 +31,7 @@ namespace AirportBusinessLogic.Services
             _mapper = mapper;
             _flightsCollection = _context.Flights.ToList();
             _stationsCollection = _context.Stations.ToList();
-            _liveUpdatesCollection = _context.LiveUpdates.ToList();          
+            _liveUpdatesCollection = _context.LiveUpdates.ToList();
             _nextStationsCollection = _context.NextStations.Include(route => route.Target).Include(route => route.Source).ToList();
 
         }
@@ -296,7 +296,7 @@ namespace AirportBusinessLogic.Services
 
             }
         }
-            private void SaveNewLiveUpdate(LiveUpdate update)
+        private void SaveNewLiveUpdate(LiveUpdate update)
         {
             _context.LiveUpdates.Add(update);
             _context.SaveChanges();
@@ -324,12 +324,12 @@ namespace AirportBusinessLogic.Services
         public List<FlightReadDto> GetAllFlights()
         {
             var dtoFlightList = new List<FlightReadDto>();
-            dtoFlightList.ForEach(flight =>
+            _flightsCollection.ForEach(flight =>
             {
-                var flightDto= _mapper.Map<FlightReadDto>(flight);
+                var flightDto = _mapper.Map<FlightReadDto>(flight);
                 dtoFlightList.Add(flightDto);
             });
-            return new List<FlightReadDto>();
+            return dtoFlightList;
         }
 
         public Task<List<StationReadDto>> GetAllStationsStatus()

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AirportProject.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AirportController : Controller
     {
         private readonly IBusinessService _businessService;
@@ -20,10 +20,12 @@ namespace AirportProject.Controllers
             _businessService = businessService;
         }
 
-        [HttpGet("GetPendingFlightsByAsc")]
+        [Route("[action]", Name = "GetPendingFlightsByAsc")]
+        [HttpGet]
         public List<FlightReadDto> GetPendingFlightsByAsc()
         {
-            return _businessService.GetAllFlights();
+            var list= _businessService.GetAllFlights();
+            return list;
         }
 
 
