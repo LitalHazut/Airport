@@ -20,12 +20,13 @@ namespace AirportProject.Controllers
             _businessService = businessService;
         }
 
-        [Route("[action]", Name = "GetPendingFlightsByAsc")]
+        [Route("[action]/{isAsc:bool}")]
         [HttpGet]
-        public List<FlightReadDto> GetPendingFlightsByAsc()
+        public async Task<List<FlightReadDto>> GetPendingFlightsByAsc(bool isAsc)
         {
-            var list= _businessService.GetAllFlights();
+            var list= await _businessService.GetPendingFlightsByAsc(isAsc);
             return list;
+           
         }
 
 
@@ -45,7 +46,6 @@ namespace AirportProject.Controllers
         public async Task AddNewFlight(FlightCreateDto flight)
         {
             await _businessService.AddNewFlight(flight);
-            //var addFlight = BackgroundJob.Enqueue(() => _businessService.AddNewFlight(flight));
         }
 
         [Route("[action]", Name = "StartApp")]

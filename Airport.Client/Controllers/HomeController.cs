@@ -10,11 +10,11 @@ namespace Airport.Client.Controllers
     public class HomeController : Controller
     {
         AirportApi _api = new AirportApi();
-        public async Task<IActionResult> GetPendingFlightsByAsc()
+        public async Task<IActionResult> GetPendingFlightsByAsc(bool isAsc)
         {
             List<FlightReadDto> flightList = new List<FlightReadDto>();
             HttpClient client = _api.Initial();
-            HttpResponseMessage res = await client.GetAsync("api/Airport/GetPendingFlightsByAsc");
+            HttpResponseMessage res = await client.GetAsync($"api/Airport/GetPendingFlightsByAsc/{isAsc}");
             if (res.IsSuccessStatusCode)
             {
                 var result= res.Content.ReadAsStringAsync().Result;

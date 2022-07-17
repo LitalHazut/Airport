@@ -37,13 +37,6 @@ namespace AirportBusinessLogic.Services
         }
         public async Task AddNewFlight(FlightCreateDto flight)
         {
-            //    var newFlight = _mapper.Map<Flight>(flight);
-            //    ContextFunctionsLock(2, newFlight);
-            //    _flightsCollection.Add(newFlight);
-
-            //    await MoveNextIfPossible(newFlight);
-            //    Console.WriteLine($"asc = {newFlight.IsAscending} pend = {newFlight.IsPending} flightId = {newFlight.FlightId}");
-
             List<Task> list = new();
             for (int i = 0; i < 10; i++)
             {
@@ -332,16 +325,26 @@ namespace AirportBusinessLogic.Services
             return dtoFlightList;
         }
 
-        public Task<List<StationReadDto>> GetAllStationsStatus()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public Task<List<FlightReadDto>> GetFinishedRoutesHistory()
         {
             throw new NotImplementedException();
         }
 
+        public async Task<List<FlightReadDto>> GetPendingFlightsByAsc(bool isAsc)
+        {
+            List<FlightReadDto> listDto = new List<FlightReadDto>();
+            var list = await _context.Flights
+                .Where(flight => flight.IsPending == true && flight.IsAscending == isAsc)
+                .ToListAsync();
+            list.ForEach(flight =>
+            {
+                listDto.Add(_mapper.Map<FlightReadDto>(flight));
+
+            });
+            return listDto;
+        }
     }
 }
 
