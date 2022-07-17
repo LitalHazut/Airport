@@ -5,6 +5,8 @@ using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
 using AirportBusinessLogic.Profiles;
 using AirportBusinessLogic.Services;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -15,7 +17,8 @@ builder.Services.AddDbContext<AirportContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AirPortDataConnectionString"));
 }
-    , ServiceLifetime.Transient);
+, ServiceLifetime.Transient);
+builder.Services.AddControllers();
 
 builder.Services.AddScoped<IFlightRepository<Flight>, FlightRepository>();
 builder.Services.AddScoped<IFlightService<Flight>, FlightService>();
@@ -29,30 +32,34 @@ builder.Services.AddScoped<IBusinessService, BusinessService>();
 builder.Services.AddRouting();
 builder.Services.AddAutoMapper(typeof(FlightsProfile).Assembly);
 
-builder.Services.AddCors(options =>
-{
+builder.Services.AddCors(options => {
     options.AddPolicy("myPolicy",
-                      policy =>
-                      {
+                      policy => {
                           policy
-                            .WithOrigins("https://localhost:7237")
+                            .WithOrigins("https://localhost:5042")
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                       });
 });
 
-builder.Services.AddControllers();
+var connectionString = builder.Configuration.GetConnectionString("AirPortDataConnectionString");
+builder.Services.AddHangfire(configuration => configuration
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings()
+        .UseSqlServerStorage(connectionString, new SqlServerStorageOptions
+        {
+            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+            QueuePollInterval = TimeSpan.Zero,
+            UseRecommendedIsolationLevel = true,
+            DisableGlobalLocks = true
+        }));
+builder.Services.AddHangfireServer();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Airport API",
+builder.Services.AddSwaggerGen();
 
-    });
-});
 
 var app = builder.Build();
 
@@ -61,6 +68,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger(); // Generate the JSON doc based on my code
 	app.UseSwaggerUI(); // Expose a url for the json "/swagger"
 }
+app.UseHangfireDashboard();
 
 app.UseHttpsRedirection();
 

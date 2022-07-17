@@ -28,35 +28,6 @@ namespace AirportBusinessLogic.Services
             return await _nextStationRepository.GetAll().ToListAsync();
         }
 
-        //Get all Pointers of stations and add to list
-        public List<Station> GetSourcesStations(Station station)
-        {
-            List<Station> sourceStations = new();
-            _nextStationRepository.GetAll()
-           .Include(s => s.Source)
-           .Where(s => s.TargetId == station.StationNumber && s.SourceId != null)
-           .ToList()
-           .ForEach(s => sourceStations.Add(s.Source!));
-            return sourceStations;
-
-        }
-        // all station that waiting outside
-        public bool? IsFirstAscendingStation(Station currentStation)
-        {
-            var waitingNextStation = _nextStationRepository.GetAll().
-                FirstOrDefault(n => n.TargetId == currentStation.StationNumber && n.Source == null);
-            return waitingNextStation == null ? null : waitingNextStation.FlightType;
-        }
-        //public async Task<List<NextStation>> GetListNextStations(int? currentStationNumber, bool isAsc)
-        //{
-        //    return await _nextStationRepository
-        //        .GetAll()
-        //        .Include(n => n.Target)
-        //        .Where(n => n.SourceId == currentStationNumber && n.FlightType == isAsc && 
-        //        (n.Target == null || n.Target.FlightId == null)).ToListAsync();
-          
-        //}
-
         public bool Update(NextStation entity)
         {
             return _nextStationRepository.Update(entity);

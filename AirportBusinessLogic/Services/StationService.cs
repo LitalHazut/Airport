@@ -27,11 +27,11 @@ namespace AirportBusinessLogic.Services
 
         public async Task<IEnumerable<StationReadDto>> GetAllStations()
         {
-            List<Dtos.StationReadDto> listDtos = new();
+            List<StationReadDto> listDtos = new();
             var stationsList = await _stationRepository.GetAll().ToListAsync();
             _stationRepository.GetAll().ToList().ForEach(station =>
             {
-                Dtos.StationReadDto stationDto = new() {  FlightId = station.FlightId, StationNumber = station.StationNumber };
+                StationReadDto stationDto = new() {  FlightId = station.FlightId, StationNumber = station.StationNumber };
                 listDtos.Add(stationDto);
             });
             return listDtos;

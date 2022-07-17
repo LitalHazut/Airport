@@ -5,12 +5,12 @@ namespace AirportBusinessLogic.Interfaces
 {
     public interface IBusinessService
     {
-        Task<IEnumerable<StationReadDto>> GetAllStationsStatus();
-        Task<IEnumerable<FlightReadDto>> GetAllFlights();
+        Task<List<StationReadDto>> GetAllStationsStatus();
+        Task<List<FlightReadDto>> GetFinishedRoutesHistory();
         Task AddNewFlight(FlightCreateDto flight);
-        Task<IEnumerable<FlightReadDto>> GetFinishedRoutesHistory();
+        List<FlightReadDto> GetAllFlights();
         Task StartApp();
 
 
-     }
+    }
 }

@@ -3,6 +3,8 @@ using Airport.Data.Model;
 using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+
 namespace AirportBusinessLogic.Services
 {
     public class BusinessService : IBusinessService
@@ -13,10 +15,10 @@ namespace AirportBusinessLogic.Services
         private readonly INextStationService<NextStation> _nextStationService;
         private readonly AirportContext _context;
         private readonly IMapper _mapper;
-        ICollection<Flight> _flightsCollection;
-        ICollection<Station> _stationsCollection;
-        ICollection<LiveUpdate> _liveUpdatesCollection;
-        ICollection<NextStation> _nextStationsCollection;
+        List<Flight> _flightsCollection;
+        List<Station> _stationsCollection;
+        List<LiveUpdate> _liveUpdatesCollection;
+        List<NextStation> _nextStationsCollection;
         private object obj = new object();
         public BusinessService(IFlightService<Flight> flightService, IStationService<Station> stationService,
             ILiveUpdateService<LiveUpdate> liveUpdateService, AirportContext context, IMapper mapper, INextStationService<NextStation> nextStationService)
@@ -29,16 +31,28 @@ namespace AirportBusinessLogic.Services
             _mapper = mapper;
             _flightsCollection = _context.Flights.ToList();
             _stationsCollection = _context.Stations.ToList();
-            _liveUpdatesCollection = _context.LiveUpdates.ToList();
-            _nextStationsCollection = _context.NextStations.ToList();
+            _liveUpdatesCollection = _context.LiveUpdates.ToList();          
+            _nextStationsCollection = _context.NextStations.Include(route => route.Target).Include(route => route.Source).ToList();
+
         }
         public async Task AddNewFlight(FlightCreateDto flight)
         {
-            var newFlight = _mapper.Map<Flight>(flight);
-            ContextFunctionsLock(2,newFlight);
-            _flightsCollection.Add(newFlight);
-            await MoveNextIfPossible(newFlight);
-            Console.WriteLine($"asc = {newFlight.IsAscending} pend = {newFlight.IsPending} flightId = {newFlight.FlightId}");
+            //    var newFlight = _mapper.Map<Flight>(flight);
+            //    ContextFunctionsLock(2, newFlight);
+            //    _flightsCollection.Add(newFlight);
+
+            //    await MoveNextIfPossible(newFlight);
+            //    Console.WriteLine($"asc = {newFlight.IsAscending} pend = {newFlight.IsPending} flightId = {newFlight.FlightId}");
+
+            List<Task> list = new();
+            for (int i = 0; i < 10; i++)
+            {
+                var newFlight = _mapper.Map<Flight>(flight);
+                ContextFunctionsLock(2, newFlight);
+                _flightsCollection.Add(newFlight);
+                list.Add(MoveNextIfPossible(newFlight));
+            }
+            await Task.WhenAll(list);
         }
 
         public List<NextStation> GetRoutesByCurrentStationAndAsc(int? currentStationNumber, bool isAscending)
@@ -75,8 +89,9 @@ namespace AirportBusinessLogic.Services
                     }
                     else
                     {
-                        station = _stationsCollection.First(station => station.StationNumber == (int)route.TargetId!);
+                        station = GetStation((int)route.TargetId!);
                         Console.WriteLine($"Checking if station {station.StationNumber} is empty");
+
                         if (station.FlightId == null)
                         {
                             Console.WriteLine($"{station.StationNumber} is empty");
@@ -148,10 +163,14 @@ namespace AirportBusinessLogic.Services
 
         private async Task SendWaitingInLineFlightIfPossible(Station currentStation)
         {
-            var sourcesStations = _nextStationService.GetSourcesStations(currentStation);
-            bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
+            var sourcesStations = GetSourcesStations(currentStation);
+            bool? isFirstAscendingStation = IsFirstAscendingStation(currentStation);
             var selectedFlight = GetFirstFlightInQueue(sourcesStations, isFirstAscendingStation);
-            if (selectedFlight != null) await MoveNextIfPossible(selectedFlight);
+            if (selectedFlight != null)
+            {
+                Console.WriteLine($"Sending Flight {selectedFlight.FlightId} to try moving next (must work)");
+                await MoveNextIfPossible(selectedFlight);
+            }
         }
         private async Task StartTimer(Flight flight)
         {
@@ -169,7 +188,7 @@ namespace AirportBusinessLogic.Services
 
         public async Task StartApp()
         {
-            List<Station> allStations = await _stationService.GetAll();
+            List<Station> allStations = _stationsCollection;
             List<Task> allTasks = new();
             foreach (Station station in allStations)
             {
@@ -203,6 +222,25 @@ namespace AirportBusinessLogic.Services
                 }
             }
 
+        }
+        private List<Station> GetSourcesStations(Station station)
+        {
+            List<Station> sourceStations = new();
+            _nextStationsCollection.ForEach(next =>
+            {
+                if (next.TargetId == station.StationNumber && next.SourceId != null)
+                {
+                    sourceStations.Add(next.Source!);
+                }
+            });
+            return sourceStations;
+        }
+
+        private bool? IsFirstAscendingStation(Station currentStation)
+        {
+            var waitingNextStation = _nextStationsCollection
+                .FirstOrDefault(n => n.TargetId == currentStation.StationNumber && n.Source == null);
+            return waitingNextStation == null ? null : waitingNextStation.FlightType;
         }
 
         private Flight? GetFirstFlightInQueue(List<Station> pointingStations, bool? isFirstAscendingStation)
@@ -245,17 +283,23 @@ namespace AirportBusinessLogic.Services
             }
             else
             {
-                Console.WriteLine($"{selectedFlight} is the first line in queue");
+                Console.WriteLine($"{selectedFlight.FlightId} is the first line in queue");
                 return selectedFlight;
             }
         }
 
+        private Station? GetStation(int number)
+        {
+            lock (obj)
+            {
+                return _context.Stations.Find(number);
 
-        private void SaveNewLiveUpdate(LiveUpdate update)
+            }
+        }
+            private void SaveNewLiveUpdate(LiveUpdate update)
         {
             _context.LiveUpdates.Add(update);
             _context.SaveChanges();
-
         }
         private void SaveNewFlight(Flight flight)
         {
@@ -277,17 +321,23 @@ namespace AirportBusinessLogic.Services
             _context.SaveChanges();
         }
 
-        public Task<IEnumerable<FlightReadDto>> GetAllFlights()
+        public List<FlightReadDto> GetAllFlights()
+        {
+            var dtoFlightList = new List<FlightReadDto>();
+            dtoFlightList.ForEach(flight =>
+            {
+                var flightDto= _mapper.Map<FlightReadDto>(flight);
+                dtoFlightList.Add(flightDto);
+            });
+            return new List<FlightReadDto>();
+        }
+
+        public Task<List<StationReadDto>> GetAllStationsStatus()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<StationReadDto>> GetAllStationsStatus()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<FlightReadDto>> GetFinishedRoutesHistory()
+        public Task<List<FlightReadDto>> GetFinishedRoutesHistory()
         {
             throw new NotImplementedException();
         }

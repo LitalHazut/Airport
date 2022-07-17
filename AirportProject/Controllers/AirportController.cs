@@ -2,6 +2,7 @@
 using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using AutoMapper;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -19,18 +20,30 @@ namespace AirportProject.Controllers
             _businessService = businessService;
         }
 
-        [HttpGet("GetAllFlights")]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetAllFlights()
+        [HttpGet("GetPendingFlightsByAsc")]
+        public List<FlightReadDto> GetPendingFlightsByAsc()
         {
-            var allFlights = await _businessService.GetAllFlights();
-            return View(allFlights);
+            return _businessService.GetAllFlights();
         }
 
+
+        [Route("[action]", Name = "AddNewFlightList")]
+        [HttpPost]
+        public async Task AddNewFlightList(int num, bool isAsc)
+        {
+            for (int i = 0; i < num; i++)
+            {
+                FlightCreateDto newFlight = new() { IsAscending = isAsc };
+                AddNewFlight(newFlight);
+                //_businessService.AddNewFlight(new() { IsAscending = isAsc });
+            }
+        }
         [Route("[action]", Name = "AddNewFlight")]
         [HttpPost]
         public async Task AddNewFlight(FlightCreateDto flight)
         {
             await _businessService.AddNewFlight(flight);
+            //var addFlight = BackgroundJob.Enqueue(() => _businessService.AddNewFlight(flight));
         }
 
         [Route("[action]", Name = "StartApp")]
@@ -40,7 +53,7 @@ namespace AirportProject.Controllers
             if (!_isWorking)
             {
                 _isWorking = true;
-                await _businessService.StartApp();
+                var startApp = BackgroundJob.Enqueue(() => _businessService.StartApp());
             }
 
         }
