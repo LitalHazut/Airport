@@ -349,7 +349,6 @@ namespace AirportBusinessLogic.Services
             {
                 listDtos.Add(_mapper.Map<Station>(station));
             });
-            var x=6;
             return listDtos;
         }
     }

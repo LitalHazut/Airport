@@ -1,11 +1,40 @@
 ﻿@model IEnumerable<Airport.Data.Model.Station>
 
+<script type="text/javascript">
+    $("document").ready(function(){
+        setInterval(function(){
+        $.ajax({
+            type: 'Get',
+            url: '@Url.Action("LoadStations")',
+            dataType:'json',
+            contentType: "application/json;charset=utf-8",
+            success: function(data){
+                debugger;
+                alert("success");
+                $.each(data,function(key,item){
+                   $('tbody').append('<tr>\
+                <td>'+item.FlightId+'</td>\
+                <td>'+item.StationNumber+'</td>\
+            </tr>');
+                });
+            },
+            error:function(reponse){
+                debugger;
+                alert('error');
+            }
+        });
+        },5000);
+    });
+</script>
+
 @{
     ViewData["Title"] = "GetAllStationsStatus";
 }
-
-<h1>Get All Stations Status</h1>
-
+<div>
+    <h1>Get All Stations Status</h1>
+    <a class="btn btn-sm btn-outline-secondary" asp-action="AddNewFlight" asp-route-isAsc="true">Add New ASC Flight</a>
+    <a class="btn btn-sm btn-outline-secondary" asp-action="AddNewFlight" asp-route-isAsc="false"> Add New DESC Flight</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -19,15 +48,16 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FlightId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StationNumber)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StationNumber)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

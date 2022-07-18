@@ -5,6 +5,8 @@ using AirportBusinessLogic.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text;
+
 
 namespace Airport.Client.Controllers
 {
@@ -26,6 +28,38 @@ namespace Airport.Client.Controllers
             return View(flightList);
         }
 
+        public async Task<IActionResult> AddNewFlight(bool isAsc)
+        {
+            using (var client = _api.Initial())
+            {
+                var endpoint = "api/Airport/AddNewFlight";
+                var flight = new FlightCreateDto()
+                {
+                    IsAscending = isAsc
+                };
+
+                var newFlight = JsonConvert.SerializeObject(flight);
+                var payload = new StringContent(newFlight, Encoding.UTF8, "application/json");
+                var result = client.PostAsync(endpoint, payload).Result.Content.ReadAsStringAsync().Result;
+            }
+
+            return RedirectToAction("GetAllStationsStatus", "Home");
+        }
+        public async Task<JsonResult> LoadStations()
+        {
+            List<Station> stationList = new List<Station>();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync("api/Airport/GetAllStationsStatus");
+            if (res.IsSuccessStatusCode)
+            {
+                var result = res.Content.ReadAsStringAsync().Result;
+                stationList = JsonConvert.DeserializeObject<List<Station>>(result)!;
+               
+            }
+
+            return Json(new { data = stationList });
+        }
+           
         public async Task<IActionResult> SeeAllLiveUpdates()
         {
             List<LiveUpdate> liveUpdates = new List<LiveUpdate>();
@@ -51,8 +85,6 @@ namespace Airport.Client.Controllers
             }
             return View(station);
         }
-
-
         public IActionResult Index()
         {
             return View();

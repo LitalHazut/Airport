@@ -295,3 +295,10 @@ C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\obj\Debug\net6.0\Airport.Client.pdb
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\obj\Debug\net6.0\Airport.Client.genruntimeconfig.cache
 C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\obj\Debug\net6.0\ref\Airport.Client.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll

@@ -24,9 +24,7 @@ body {
     width: 80px;
 }
 body {
- 
     background-image: url("../images/flight.png");
-    background-position: center;
+    background-position:center ;
     background-size: cover;
-   
 }
