@@ -20,7 +20,7 @@ namespace Airport.Client.Controllers
             if (res.IsSuccessStatusCode)
             {
                 var result = res.Content.ReadAsStringAsync().Result;
-                flightList = JsonConvert.DeserializeObject<List<FlightReadDto>>(result);
+                flightList = JsonConvert.DeserializeObject<List<FlightReadDto>>(result)!;
             }
 
             return View(flightList);
@@ -34,7 +34,7 @@ namespace Airport.Client.Controllers
             if (res.IsSuccessStatusCode)
             {
                 var result = res.Content.ReadAsStringAsync().Result;
-                liveUpdates = JsonConvert.DeserializeObject<List<LiveUpdate>>(result);
+                liveUpdates = JsonConvert.DeserializeObject<List<LiveUpdate>>(result)!;
             }
             return View(liveUpdates);
         }
@@ -47,7 +47,7 @@ namespace Airport.Client.Controllers
             if (res.IsSuccessStatusCode)
             {
                 var result = res.Content.ReadAsStringAsync().Result;
-                station = JsonConvert.DeserializeObject<List<Station>>(result);
+                station = JsonConvert.DeserializeObject<List<Station>>(result)!;
             }
             return View(station);
         }
