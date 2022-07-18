@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Uey8F7yNC2/qcBKRP7ljVlO0Mf5wWv/zN1Uzp+Gvk5w=",
+  "Hash": "2TDYrLQXGU9CbNuxyTkEa3NYD5Q3F3d+mDh6MtjdV6A=",
   "Source": "Airport.Client",
   "BasePath": "_content/Airport.Client",
   "Mode": "Default",
@@ -83,6 +83,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Client\\wwwroot\\images\\flight.png",
+      "SourceId": "Airport.Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Client\\wwwroot\\",
+      "BasePath": "_content/Airport.Client",
+      "RelativePath": "images/flight.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\flight.png"
+    },
+    {
+      "Identity": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Client\\wwwroot\\images\\plane.png",
+      "SourceId": "Airport.Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Client\\wwwroot\\",
+      "BasePath": "_content/Airport.Client",
+      "RelativePath": "images/plane.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\plane.png"
     },
     {
       "Identity": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Client\\wwwroot\\js\\site.js",

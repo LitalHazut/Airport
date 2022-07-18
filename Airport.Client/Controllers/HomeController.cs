@@ -1,5 +1,6 @@
 ﻿using Airport.Client.Helper;
 using Airport.Client.Models;
+using Airport.Data.Model;
 using AirportBusinessLogic.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ namespace Airport.Client.Controllers
     public class HomeController : Controller
     {
         AirportApi _api = new AirportApi();
+
         public async Task<IActionResult> GetPendingFlightsByAsc(bool isAsc)
         {
             List<FlightReadDto> flightList = new List<FlightReadDto>();
@@ -17,17 +19,40 @@ namespace Airport.Client.Controllers
             HttpResponseMessage res = await client.GetAsync($"api/Airport/GetPendingFlightsByAsc/{isAsc}");
             if (res.IsSuccessStatusCode)
             {
-                var result= res.Content.ReadAsStringAsync().Result;
+                var result = res.Content.ReadAsStringAsync().Result;
                 flightList = JsonConvert.DeserializeObject<List<FlightReadDto>>(result);
             }
 
             return View(flightList);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> SeeAllLiveUpdates()
         {
-            return View();
+            List<LiveUpdate> liveUpdates = new List<LiveUpdate>();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync("api/Airport/SeeAllLiveUpdates");
+            if (res.IsSuccessStatusCode)
+            {
+                var result = res.Content.ReadAsStringAsync().Result;
+                liveUpdates = JsonConvert.DeserializeObject<List<LiveUpdate>>(result);
+            }
+            return View(liveUpdates);
         }
+
+        public async Task<IActionResult> GetAllStationsStatus()
+        {
+            List<Station> station = new List<Station>();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync("api/Airport/GetAllStationsStatus");
+            if (res.IsSuccessStatusCode)
+            {
+                var result = res.Content.ReadAsStringAsync().Result;
+                station = JsonConvert.DeserializeObject<List<Station>>(result);
+            }
+            return View(station);
+        }
+
+
         public IActionResult Index()
         {
             return View();

@@ -313,7 +313,6 @@ namespace AirportBusinessLogic.Services
             _context.Flights.Update(flight);
             _context.SaveChanges();
         }
-
         public List<FlightReadDto> GetAllFlights()
         {
             var dtoFlightList = new List<FlightReadDto>();
@@ -324,14 +323,6 @@ namespace AirportBusinessLogic.Services
             });
             return dtoFlightList;
         }
-
-
-
-        public Task<List<FlightReadDto>> GetFinishedRoutesHistory()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<FlightReadDto>> GetPendingFlightsByAsc(bool isAsc)
         {
             List<FlightReadDto> listDto = new List<FlightReadDto>();
@@ -344,6 +335,22 @@ namespace AirportBusinessLogic.Services
 
             });
             return listDto;
+        }
+        public async Task<List<LiveUpdate>> SeeAllLiveUpdates()
+        {
+            return await _liveUpdateService.GetAll();
+        }
+
+        public async Task<List<Station>> GetAllStationsStatus()
+        {
+            List<Station> list = await _stationService.GetAll();
+            List<Station> listDtos = new();
+            list.ForEach(station =>
+            {
+                listDtos.Add(_mapper.Map<Station>(station));
+            });
+            var x=6;
+            return listDtos;
         }
     }
 }

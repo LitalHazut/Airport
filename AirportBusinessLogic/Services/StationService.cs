@@ -24,19 +24,6 @@ namespace AirportBusinessLogic.Services
         {
             return _stationRepository.Get(id);
         }
-
-        public async Task<IEnumerable<StationReadDto>> GetAllStations()
-        {
-            List<StationReadDto> listDtos = new();
-            var stationsList = await _stationRepository.GetAll().ToListAsync();
-            _stationRepository.GetAll().ToList().ForEach(station =>
-            {
-                StationReadDto stationDto = new() {  FlightId = station.FlightId, StationNumber = station.StationNumber };
-                listDtos.Add(stationDto);
-            });
-            return listDtos;
-        }
-
         public async Task<List<Station>> GetAll()
         {
             return await _stationRepository.GetAll().ToListAsync();

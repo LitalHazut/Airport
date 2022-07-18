@@ -1,26 +1,28 @@
-﻿@model IEnumerable<AirportBusinessLogic.Dtos.FlightReadDto>
+﻿@model IEnumerable<Airport.Data.Model.LiveUpdate>
 
 @{
-    ViewData["Title"] = "GetPendingFlightsByAsc";
+    ViewData["Title"] = "SeeAllLiveUpdates";
 }
 
+<h1>See All Live Updates</h1>
 <table class="table">
+
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LiveUpdateId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsEntering)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.FlightId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsAscending)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPending)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InsertionTime)
+                @Html.DisplayNameFor(model => model.StationNumber)
             </th>
             <th></th>
         </tr>
@@ -29,25 +31,26 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.LiveUpdateId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsEntering)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.FlightId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsAscending)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPending)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InsertionTime)
+                @Html.DisplayFor(modelItem => item.StationNumber)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
+            
         </tr>
 }
     </tbody>

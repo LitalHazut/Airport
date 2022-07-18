@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\lital\Desktop\Coursesoftwaredeveloper\FinalProject\AirportBusinessLogic\Airport.Client
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/lital/Desktop/Coursesoftwaredeveloper/FinalProject/AirportBusinessLogic/Airport.Client/Views/Home/GetAllStationsStatus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxHZXRBbGxTdGF0aW9uc1N0YXR1cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/lital/Desktop/Coursesoftwaredeveloper/FinalProject/AirportBusinessLogic/Airport.Client/Views/Home/GetPendingFlightsByAsc.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxHZXRQZW5kaW5nRmxpZ2h0c0J5QXNjLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -23,8 +27,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lital/Desktop/Coursesoftwaredeveloper/FinalProject/AirportBusinessLogic/Airport.Client/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/Users/lital/Desktop/Coursesoftwaredeveloper/FinalProject/AirportBusinessLogic/Airport.Client/Views/Home/SeeAllLiveUpdates.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZWVBbGxMaXZlVXBkYXRlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lital/Desktop/Coursesoftwaredeveloper/FinalProject/AirportBusinessLogic/Airport.Client/Views/Shared/Error.cshtml]
