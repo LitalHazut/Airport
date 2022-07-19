@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2TDYrLQXGU9CbNuxyTkEa3NYD5Q3F3d+mDh6MtjdV6A=",
+  "Hash": "wCAvJgI3FikUwFLWzR4NzqsnLbPmG3psT0q2i/cVqjQ=",
   "Source": "Airport.Client",
   "BasePath": "_content/Airport.Client",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Client\\wwwroot\\css\\station.css",
+      "SourceId": "Airport.Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Client\\wwwroot\\",
+      "BasePath": "_content/Airport.Client",
+      "RelativePath": "css/station.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\station.css"
     },
     {
       "Identity": "C:\\Users\\lital\\Desktop\\Coursesoftwaredeveloper\\FinalProject\\AirportBusinessLogic\\Airport.Client\\wwwroot\\favicon.ico",

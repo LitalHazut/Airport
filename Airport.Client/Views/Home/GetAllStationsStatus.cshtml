@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Airport.Data.Model.Station>
+<link rel="stylesheet" href="~/css/station.css" asp-append-version="true" />
 
 <script type="text/javascript">
     $("document").ready(function(){
@@ -7,23 +8,17 @@
             type: 'Get',
             url: '@Url.Action("LoadStations")',
             dataType:'json',
-            contentType: "application/json;charset=utf-8",
-            success: function(data){
-                debugger;
-                alert("success");
-                $.each(data,function(key,item){
-                   $('tbody').append('<tr>\
-                <td>'+item.FlightId+'</td>\
-                <td>'+item.StationNumber+'</td>\
-            </tr>');
-                });
-            },
+              success: function(response) {
+                    $.each(response.stationList, function(index, station){
+                        $(".flightInStation:eq("+index+")").html(stationList.flightId);
+                    });
+              },
             error:function(reponse){
                 debugger;
                 alert('error');
             }
         });
-        },5000);
+        },2000);
     });
 </script>
 @{
@@ -35,6 +30,42 @@
     <a class="btn btn-outline-info" asp-action="AddNewFlight" asp-route-isAsc="true">Add New ASC Flight</a>
     <a class="btn btn-outline-info" asp-action="AddNewFlight" asp-route-isAsc="false"> Add New DESC Flight</a>
 </div>
+
+<div class="d-flex justify-content-center">
+    <div class="d-flex flex-wrap col-8">
+        @foreach (var item in Model)
+        {
+            var className = "bi bi-" + @item.StationNumber + "-square-fill";
+            <div class="card station">
+                <div class="card-header d-flex justify-content-center">
+                     <i class="@className"></i>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">flight in station</p>
+                    <p class="card-text flightInStation">@item.FlightId</p>
+                    
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <table class="table">
     <thead>
         <tr>
@@ -51,7 +82,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="flightIdLine">
                     @Html.DisplayFor(modelItem => item.FlightId)
                 </td>
                 <td>
@@ -61,3 +92,5 @@
         }
     </tbody>
 </table>
+
+

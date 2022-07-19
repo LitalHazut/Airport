@@ -192,6 +192,10 @@ namespace AirportBusinessLogic.Services
                     allTasks.Add(task);
                 }
             }
+            var ascFirstFlight = _flightsCollection.FirstOrDefault(flight => flight.IsPending == true && flight.IsAscending);
+            var descFirstFlight = _flightsCollection.FirstOrDefault(flight => flight.IsPending == true && !flight.IsAscending);
+            if (ascFirstFlight != null) allTasks.Add(MoveNextIfPossible(ascFirstFlight));
+            if (descFirstFlight != null) allTasks.Add(MoveNextIfPossible(descFirstFlight));
             await Task.WhenAll(allTasks);
         }
         void ContextFunctionsLock(int num, IEntity entity)

@@ -26,7 +26,7 @@ namespace AirportProject.Controllers
             if (!_isWorking)
             {
                 _isWorking = true;
-                var startApp = BackgroundJob.Enqueue(() => _businessService.StartApp());
+                await _businessService.StartApp();
             }
 
         }
@@ -35,9 +35,9 @@ namespace AirportProject.Controllers
         [HttpGet]
         public async Task<List<FlightReadDto>> GetPendingFlightsByAsc(bool isAsc)
         {
-            var list= await _businessService.GetPendingFlightsByAsc(isAsc);
+            var list = await _businessService.GetPendingFlightsByAsc(isAsc);
             return list;
-           
+
         }
 
         [Route("[action]", Name = "AddNewFlightList")]
@@ -47,7 +47,7 @@ namespace AirportProject.Controllers
             for (int i = 0; i < num; i++)
             {
                 FlightCreateDto newFlight = new() { IsAscending = isAsc };
-                 AddNewFlight(newFlight);
+                AddNewFlight(newFlight);
             }
         }
 

@@ -45,6 +45,7 @@ namespace Airport.Client.Controllers
 
             return RedirectToAction("GetAllStationsStatus", "Home");
         }
+        
         public async Task<JsonResult> LoadStations()
         {
             List<Station> stationList = new List<Station>();
@@ -57,7 +58,7 @@ namespace Airport.Client.Controllers
                
             }
 
-            return Json(new { data = stationList });
+            return Json(new { stationList = stationList });
         }
            
         public async Task<IActionResult> SeeAllLiveUpdates(int pageNum=1)
