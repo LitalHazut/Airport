@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Airport.Data.Model.Station>
 
-@*<script type="text/javascript">
+<script type="text/javascript">
     $("document").ready(function(){
         setInterval(function(){
         $.ajax({
@@ -9,18 +9,14 @@
             dataType:'json',
             contentType: "application/json;charset=utf-8",
             success: function(data){
-             var vehicleListData = '';
                 debugger;
                 alert("success");
                 $.each(data,function(key,item){
-                    
-            vehicleListData += '<tr>';
-            vehicleListData += '<td>'+item.FlightId+'</td>';
-            vehicleListData += '<td>'+item.StationNumber+'</td>';
-            vehicleListData += '</tr>';
-             $('#vehicleList').append(vehicleListData);
-             alert("succsess2")
-              });
+                   $('tbody').append('<tr>\
+                <td>'+item.FlightId+'</td>\
+                <td>'+item.StationNumber+'</td>\
+            </tr>');
+                });
             },
             error:function(reponse){
                 debugger;
@@ -29,15 +25,15 @@
         });
         },5000);
     });
-</script>*@
-
+</script>
 @{
     ViewData["Title"] = "GetAllStationsStatus";
 }
+<a class="btn btn-outline-info" asp-action="Index">Return Back</a>
 <div>
     <h1>Get All Stations Status</h1>
-    <a class="btn btn-sm btn-outline-secondary" asp-action="AddNewFlight" asp-route-isAsc="true">Add New ASC Flight</a>
-    <a class="btn btn-sm btn-outline-secondary" asp-action="AddNewFlight" asp-route-isAsc="false"> Add New DESC Flight</a>
+    <a class="btn btn-outline-info" asp-action="AddNewFlight" asp-route-isAsc="true">Add New ASC Flight</a>
+    <a class="btn btn-outline-info" asp-action="AddNewFlight" asp-route-isAsc="false"> Add New DESC Flight</a>
 </div>
 <table class="table">
     <thead>
@@ -51,7 +47,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody id="vehicleList">
+    <tbody>
         @foreach (var item in Model)
         {
             <tr>

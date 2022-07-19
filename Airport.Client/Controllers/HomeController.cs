@@ -60,7 +60,7 @@ namespace Airport.Client.Controllers
             return Json(new { data = stationList });
         }
            
-        public async Task<IActionResult> SeeAllLiveUpdates()
+        public async Task<IActionResult> SeeAllLiveUpdates(int pageNum=1)
         {
             List<LiveUpdate> liveUpdates = new List<LiveUpdate>();
             HttpClient client = _api.Initial();
@@ -70,7 +70,25 @@ namespace Airport.Client.Controllers
                 var result = res.Content.ReadAsStringAsync().Result;
                 liveUpdates = JsonConvert.DeserializeObject<List<LiveUpdate>>(result)!;
             }
-            return View(liveUpdates);
+
+            liveUpdates.Reverse();
+            var elementCountForPage = 15;
+            var startingIndex = (pageNum - 1) * elementCountForPage;
+            var count= Math.Min(elementCountForPage, liveUpdates.Count-startingIndex);
+            var pageList = liveUpdates.GetRange(startingIndex, count);
+            var lastPage = liveUpdates.Count / elementCountForPage;
+            if(liveUpdates.Count % elementCountForPage != 0)
+            {
+                lastPage++;
+            }
+            LiveUpdateViewModel viewModel = new()
+            {
+                IsFirstPage = pageNum == 1,
+                IsLastPage = pageNum == lastPage,
+                LiveUpdateList = pageList,
+                CurrentPage = pageNum
+            };
+            return View(viewModel);
         }
 
         public async Task<IActionResult> GetAllStationsStatus()
