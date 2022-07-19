@@ -4,13 +4,16 @@
     ViewData["Title"] = "SeeAllLiveUpdates";
 }
 
-<h1>See All Live Updates</h1>
+<h1>Live Updates</h1>
 <table class="table">
 
     <thead>
         <tr>
-            <th>
+            @*  <th>
                 @Html.DisplayNameFor(model => model.LiveUpdateId)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FlightId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UpdateTime)
@@ -18,9 +21,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsEntering)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FlightId)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.StationNumber)
             </th>
@@ -28,24 +29,26 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LiveUpdateId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsEntering)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FlightId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StationNumber)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                @* <td>
+                    @Html.DisplayFor(modelItem => item.LiveUpdateId)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsEntering)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StationNumber)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Airport.Data.Model.Station>
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     $("document").ready(function(){
         setInterval(function(){
         $.ajax({
@@ -9,14 +9,18 @@
             dataType:'json',
             contentType: "application/json;charset=utf-8",
             success: function(data){
+             var vehicleListData = '';
                 debugger;
                 alert("success");
                 $.each(data,function(key,item){
-                   $('tbody').append('<tr>\
-                <td>'+item.FlightId+'</td>\
-                <td>'+item.StationNumber+'</td>\
-            </tr>');
-                });
+                    
+            vehicleListData += '<tr>';
+            vehicleListData += '<td>'+item.FlightId+'</td>';
+            vehicleListData += '<td>'+item.StationNumber+'</td>';
+            vehicleListData += '</tr>';
+             $('#vehicleList').append(vehicleListData);
+             alert("succsess2")
+              });
             },
             error:function(reponse){
                 debugger;
@@ -25,7 +29,7 @@
         });
         },5000);
     });
-</script>
+</script>*@
 
 @{
     ViewData["Title"] = "GetAllStationsStatus";
@@ -47,7 +51,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="vehicleList">
         @foreach (var item in Model)
         {
             <tr>
