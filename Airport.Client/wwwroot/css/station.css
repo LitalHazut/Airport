@@ -1,9 +1,14 @@
 ﻿body {
 }
-.station{
-    width:20%;
-    margin:0.5rem;
+.station {
+    width: 20%;
+    margin: .5rem;
 }
-.card-body{
-    height:8rem;
+
+.card-body {
+    height: 6rem;
+}
+
+.station .card-header {
+    background-color: green;
 }

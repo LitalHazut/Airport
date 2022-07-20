@@ -37,15 +37,15 @@ namespace AirportBusinessLogic.Services
         }
         public async Task AddNewFlight(FlightCreateDto flight)
         {
-            List<Task> list = new();
-            for (int i = 0; i < 10; i++)
+            Task task = null;
+            var newFlight = _mapper.Map<Flight>(flight);
+            ContextFunctionsLock(2, newFlight);
+            _flightsCollection.Add(newFlight);
+            if (newFlight == _flightsCollection.First(flight => flight.IsPending == true && flight.IsAscending == newFlight.IsAscending))
             {
-                var newFlight = _mapper.Map<Flight>(flight);
-                ContextFunctionsLock(2, newFlight);
-                _flightsCollection.Add(newFlight);
-                list.Add(MoveNextIfPossible(newFlight));
+                task = MoveNextIfPossible(newFlight);
             }
-            await Task.WhenAll(list);
+            if (task != null) await task;
         }
 
         public List<NextStation> GetRoutesByCurrentStationAndAsc(int? currentStationNumber, bool isAscending)
@@ -171,7 +171,7 @@ namespace AirportBusinessLogic.Services
             ContextFunctionsLock(4, flight);
             Console.WriteLine($"{flight.FlightId} timer started");
             var rand = new Random();
-            await Task.Delay(rand.Next(3000, 10000));
+            await Task.Delay(rand.Next(1000, 3000));
             Console.WriteLine($"{flight.FlightId} timer finished");
             flight.TimerFinished = true;
             ContextFunctionsLock(4, flight);

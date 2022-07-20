@@ -1,12 +1,13 @@
 ﻿using Airport.Data.Model;
 using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
-using Hangfire;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace AirportProject.Controllers
 {
+    [EnableCors("myPolicy")]
     [ApiController]
     [Route("api/[controller]")]
     public class AirportController : Controller
@@ -40,16 +41,16 @@ namespace AirportProject.Controllers
 
         }
 
-        [Route("[action]", Name = "AddNewFlightList")]
-        [HttpPost]
-        public async Task AddNewFlightList(int num, bool isAsc)
-        {
-            for (int i = 0; i < num; i++)
-            {
-                FlightCreateDto newFlight = new() { IsAscending = isAsc };
-                AddNewFlight(newFlight);
-            }
-        }
+        //[Route("[action]", Name = "AddNewFlightList")]
+        //[HttpPost]
+        //public async Task AddNewFlightList(int num, bool isAsc)
+        //{
+        //    for (int i = 0; i < num; i++)
+        //    {
+        //        FlightCreateDto newFlight = new() { IsAscending = isAsc };
+        //        AddNewFlight(newFlight);
+        //    }
+        //}
 
         [Route("[action]", Name = "AddNewFlight")]
         [HttpPost]

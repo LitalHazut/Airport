@@ -28,7 +28,7 @@ namespace Airport.Client.Controllers
             return View(flightList);
         }
 
-        public async Task<IActionResult> AddNewFlight(bool isAsc)
+        public IActionResult AddNewFlight(bool isAsc)
         {
             using (var client = _api.Initial())
             {
@@ -41,6 +41,7 @@ namespace Airport.Client.Controllers
                 var newFlight = JsonConvert.SerializeObject(flight);
                 var payload = new StringContent(newFlight, Encoding.UTF8, "application/json");
                 var result = client.PostAsync(endpoint, payload).Result.Content.ReadAsStringAsync().Result;
+               
             }
 
             return RedirectToAction("GetAllStationsStatus", "Home");
