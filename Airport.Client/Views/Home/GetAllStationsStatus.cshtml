@@ -1,41 +1,42 @@
 ﻿@model IEnumerable<Airport.Data.Model.Station>
 <link rel="stylesheet" href="~/css/station.css" asp-append-version="true" />
-
-<script type="text/javascript">
-    $("document").ready(function(){
-        setInterval(function(){
-        $.ajax({
-            type: 'Get',
-            url: '@Url.Action("LoadStations")',
-            dataType:'json',
-              success: function(response) {
-                    $.each(response.stationList, function(index, station){
-                        $(".flightInStation:eq("+index+")").html(stationList.flightId);
-                    });
-              },
-            error:function(reponse){
-                debugger;
-                alert('error');
-            }
-        });
-        },2000);
-    });
-</script>
 @{
     ViewData["Title"] = "GetAllStationsStatus";
 }
-<a class="btn btn-outline-info" asp-action="Index">Return Back</a>
-<div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type: 'Get',
+                url: '@Url.Action("LoadStations")',
+                dataType: 'json',
+                contentType: "application/json;charset=utf-8",
+                success: function(response) {
+                    $.each(response.stationList, function(index, station){
+                            $(".flightInStation:eq("+index+")").html(station.flightId);
+                    });
+                },
+                error: function(response) {
+                    debugger;
+                    alert('error');
+                }
+            });
+        }, 1000);
+    });
+</script>
+
+<a class="button-29" asp-action="Index">Return Back</a>
+<div class="text-center">
     <h1>Get All Stations Status</h1>
-    <a class="btn btn-outline-info" asp-action="AddNewFlight" asp-route-isAsc="true">Add New ASC Flight</a>
-    <a class="btn btn-outline-info" asp-action="AddNewFlight" asp-route-isAsc="false"> Add New DESC Flight</a>
+    <a class="button-29" asp-action="AddNewFlight" asp-route-isAsc="true">Add New ASC Flight</a>
+    <a class="button-29" asp-action="AddNewFlight" asp-route-isAsc="false"> Add New DESC Flight</a>
 </div>
 
 <div class="d-flex justify-content-center">
-    <div class="d-flex flex-wrap col-8">
+    <div class="d-flex flex-wrap justify-content-between col-8">
         @foreach (var item in Model)
         {
-            var className = "bi bi-" + @item.StationNumber + "-square-fill";
+             var className = "bi bi-" + @item.StationNumber + "-square";
             <div class="card station">
                 <div class="card-header d-flex justify-content-center">
                      <i class="@className"></i>
@@ -43,8 +44,6 @@
                 <div class="card-body">
                     <p class="card-text">flight in station</p>
                     <p class="card-text flightInStation">@item.FlightId</p>
-                    
-
                 </div>
             </div>
         }
@@ -56,17 +55,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -91,6 +80,6 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
 
 
