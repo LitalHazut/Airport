@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
-    public class StationService:IStationService<Station>
+    public class StationService : IStationService<Station>
     {
         private readonly IStationRepository<Station> _stationRepository;
         public StationService(IStationRepository<Station> stationRepository)
@@ -16,7 +16,7 @@ namespace AirportBusinessLogic.Services
 
         public async Task Create(Station entity)
         {
-            
+
             _stationRepository.Create(entity);
             await _stationRepository.SaveChangesAsync();
         }
@@ -36,7 +36,7 @@ namespace AirportBusinessLogic.Services
 
         public bool Update(Station entity)
         {
-            return  _stationRepository.Update(entity);
+            return _stationRepository.Update(entity);
         }
 
         public async Task InsertFlight(int stationNumber, int? flightId)
@@ -45,6 +45,23 @@ namespace AirportBusinessLogic.Services
             station!.FlightId = flightId;
             await _stationRepository.SaveChangesAsync();
 
+        }
+        public List<StationStatus> GetStationsStatusList()
+        {
+            List<StationStatus> list = new();
+            _stationRepository.GetAll().Include(station => station.Flight).
+                ToList().
+                ForEach(station =>
+                {
+                    bool? isAsc = station.Flight != null ? station.Flight.IsAscending : null;
+                    list.Add(new StationStatus()
+                    {
+                        StationNumber = station.StationNumber,
+                        FlightInStation = station.FlightId,
+                        IsAscending = isAsc
+                    });
+                });
+            return list;
         }
     }
 }

@@ -73,5 +73,12 @@ namespace AirportProject.Controllers
             var list = await _businessService.GetAllStationsStatus();
             return list;
         }
+
+        [Route("[action]", Name = "GetStationsStatusList")]
+        [HttpGet]
+        public List<StationStatus> GetStationsStatusList()
+        {
+            return _businessService.GetStationsStatusList();
+        }
     }
 }

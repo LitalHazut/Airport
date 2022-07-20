@@ -6,5 +6,7 @@ namespace AirportBusinessLogic.Interfaces
     {
         Task<Station?> GetStationByFlightId(int id);
         Task InsertFlight(int stationNumber, int? flightId);
+        List<StationStatus> GetStationsStatusList();
+
     }
 }

@@ -355,6 +355,10 @@ namespace AirportBusinessLogic.Services
             });
             return listDtos;
         }
+        public List<StationStatus> GetStationsStatusList()
+        {
+            return _stationService.GetStationsStatusList();
+        }
     }
 }
 
