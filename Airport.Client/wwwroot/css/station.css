@@ -11,4 +11,5 @@
 
 .station .card-header {
     background-color: green;
+    transition: .3s;
 }
