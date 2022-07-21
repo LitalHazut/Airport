@@ -1,11 +1,12 @@
 namespace Airport.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class StationTests
     {
         [TestMethod]
         public void TestMethod1()
         {
+
         }
     }
 }

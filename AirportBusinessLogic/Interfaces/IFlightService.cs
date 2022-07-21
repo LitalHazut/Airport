@@ -4,5 +4,7 @@ namespace AirportBusinessLogic.Interfaces
 {
     public interface IFlightService<T> : ICRUDService<Flight>
     {
+        Flight? GetFirstFlightInQueue(List<Station> pointingStations, bool? isFirstAscendingStation);
+
     }
 }

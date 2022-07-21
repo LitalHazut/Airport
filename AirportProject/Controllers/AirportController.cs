@@ -13,8 +13,6 @@ namespace AirportProject.Controllers
     public class AirportController : Controller
     {
         private readonly IBusinessService _businessService;
-        private bool _isWorking;
-
         public AirportController(IBusinessService businessService)
         {
             _businessService = businessService;
@@ -24,19 +22,14 @@ namespace AirportProject.Controllers
         [HttpPost]
         public async Task StartApp()
         {
-            if (!_isWorking)
-            {
-                _isWorking = true;
-                await _businessService.StartApp();
-            }
-
+            await _businessService.StartApp();
         }
 
         [Route("[action]/{isAsc:bool}")]
         [HttpGet]
-        public async Task<List<FlightReadDto>> GetPendingFlightsByAsc(bool isAsc)
+        public List<FlightReadDto>GetPendingFlightsByAsc(bool isAsc)
         {
-            var list = await _businessService.GetPendingFlightsByAsc(isAsc);
+            var list =  _businessService.GetPendingFlightsByAsc(isAsc);
             return list;
 
         }
@@ -61,17 +54,17 @@ namespace AirportProject.Controllers
 
         [Route("[action]", Name = "SeeAllLiveUpdates")]
         [HttpGet]
-        public async Task<List<LiveUpdate>> SeeAllLiveUpdates()
+        public List<LiveUpdate> SeeAllLiveUpdates()
         {
-            var list = await _businessService.SeeAllLiveUpdates();
+            var list =  _businessService.SeeAllLiveUpdates();
             return list;
         }
 
         [Route("[action]", Name = "GetAllStationsStatus")]
         [HttpGet]
-        public async Task<List<Station>> GetAllStationsStatus()
+        public List<Station> GetAllStationsStatus()
         {
-            var list = await _businessService.GetAllStationsStatus();
+            var list = _businessService.GetAllStationsStatus();
             return list;
         }
 

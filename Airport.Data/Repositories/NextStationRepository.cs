@@ -11,6 +11,11 @@ namespace Airport.Data.Repositories
         {
             _context = context;
         }
+        private AirportContext GetContext()
+        {
+            AirportContext _context = new();
+            return _context;
+        }
         public void Create(NextStation entity)
         {
             throw new NotImplementedException();
@@ -28,7 +33,13 @@ namespace Airport.Data.Repositories
 
         public IQueryable<NextStation> GetAll()
         {
+            var _context = GetContext();
             return _context.NextStations;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
 
         public Task SaveChangesAsync()

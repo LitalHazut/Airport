@@ -20,13 +20,13 @@ builder.Services.AddDbContext<AirportContext>(options =>
 , ServiceLifetime.Transient);
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IFlightRepository<Flight>, FlightRepository>();
+builder.Services.AddTransient<IFlightRepository<Flight>, FlightRepository>();
+builder.Services.AddTransient<INextStationRepository<NextStation>, NextStationRepository>();
+builder.Services.AddTransient<IStationRepository<Station>, StationRepository>();
+builder.Services.AddTransient<ILiveUpdateRepository<LiveUpdate>, LiveUpdateRepository>();
 builder.Services.AddScoped<IFlightService<Flight>, FlightService>();
-builder.Services.AddScoped<INextStationRepository<NextStation>, NextStationRepository>();
-builder.Services.AddScoped<IStationRepository<Station>, StationRepository>();
 builder.Services.AddScoped<IStationService<Station>, StationService>();
 builder.Services.AddScoped<INextStationService<NextStation>, NextStationService>();
-builder.Services.AddScoped<ILiveUpdateRepository<LiveUpdate>, LiveUpdateRepository>();
 builder.Services.AddScoped<ILiveUpdateService<LiveUpdate>, LiveUpdateService>();
 builder.Services.AddScoped<IBusinessService, BusinessService>();
 builder.Services.AddRouting();

@@ -5,19 +5,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Data.Repositories
 {
-    public class StationRepository: IStationRepository<Station>
+    public class StationRepository : IStationRepository<Station>
     {
         private readonly AirportContext _context;
         public StationRepository(AirportContext context)
         {
             _context = context;
         }
-
+        private AirportContext GetContext()
+        {
+            AirportContext _context = new();
+            return _context;
+        }
         public void Create(Station entity)
         {
             _context.Add(entity);
         }
-
         public bool Delete(int id)
         {
             var station = Get(id);
@@ -29,16 +32,20 @@ namespace Airport.Data.Repositories
             }
 
         }
-
         public Station? Get(int id)
         {
-          return _context.Stations.Find(id);
+            return _context.Stations.Find(id);
 
         }
-
         public IQueryable<Station> GetAll()
         {
-            return _context.Stations;
+            var context = GetContext();
+            return context.Stations;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
 
         public async Task SaveChangesAsync()
@@ -48,14 +55,10 @@ namespace Airport.Data.Repositories
 
         public bool Update(Station entity)
         {
-            var station =  Get(entity.StationNumber);
-            if (station == null) return false;
-            else
-            {
-                _context.Update(station);
-               _context.SaveChangesAsync();
-                return true;
-            }
+            var _context = GetContext();
+            _context.Stations.Update(entity);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

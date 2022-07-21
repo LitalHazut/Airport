@@ -15,6 +15,7 @@ namespace Airport.Data.Repositories
         public void Create(LiveUpdate entity)
         {
             _context.Add(entity);
+            _context.SaveChanges();
         }
 
         public bool Delete(int id)
@@ -35,7 +36,13 @@ namespace Airport.Data.Repositories
 
         public IQueryable<LiveUpdate> GetAll()
         {
+            var _context = new AirportContext();
             return _context.LiveUpdates;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
 
         public async Task SaveChangesAsync()
@@ -49,7 +56,7 @@ namespace Airport.Data.Repositories
             if (liveUpdate == null) return false;
             else
             {
-                _context.Update(liveUpdate);
+                _context.Update(entity);
                 return true;
             }
         }

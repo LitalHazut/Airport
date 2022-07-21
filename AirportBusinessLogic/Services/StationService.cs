@@ -14,19 +14,19 @@ namespace AirportBusinessLogic.Services
             _stationRepository = stationRepository;
         }
 
-        public async Task Create(Station entity)
+        public void Create(Station entity)
         {
 
             _stationRepository.Create(entity);
-            await _stationRepository.SaveChangesAsync();
+            _stationRepository.SaveChanges();
         }
         public Station? Get(int id)
         {
             return _stationRepository.Get(id);
         }
-        public async Task<List<Station>> GetAll()
+        public List<Station> GetAll()
         {
-            return await _stationRepository.GetAll().ToListAsync();
+            return _stationRepository.GetAll().ToList();
         }
 
         public async Task<Station?> GetStationByFlightId(int id)
@@ -38,13 +38,25 @@ namespace AirportBusinessLogic.Services
         {
             return _stationRepository.Update(entity);
         }
-
-        public async Task InsertFlight(int stationNumber, int? flightId)
+        public bool CircleOfDoomIsFull()
         {
-            var station = _stationRepository.Get(stationNumber);
-            station!.FlightId = flightId;
-            await _stationRepository.SaveChangesAsync();
+            int count = 0;
+            _stationRepository.GetAll().ToList().ForEach(station =>
+            {
+                if (station.StationNumber >= 4 && station.StationNumber <= 8 && station.FlightId != null) count++;
+            });
+            if (count == 4) return true;
+            return false;
+        }
 
+        public void ChangeOccupyBy(int stationNumber, int? flightId)
+        {
+            var station = new Station()
+            {
+                FlightId=flightId,
+                StationNumber=stationNumber
+            };  
+            _stationRepository.Update(station);
         }
         public List<StationStatus> GetStationsStatusList()
         {

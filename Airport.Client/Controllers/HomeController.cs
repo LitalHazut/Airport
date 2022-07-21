@@ -13,21 +13,27 @@ namespace Airport.Client.Controllers
     public class HomeController : Controller
     {
         AirportApi _api = new AirportApi();
+        HttpClient client;
+        bool isWorking = false;
+        public HomeController()
+        {
+            client = _api.Initial();
+        }
 
         public async Task<IActionResult> GetPendingFlightsByAsc(bool isAsc)
         {
-            List<FlightReadDto> flightList = new List<FlightReadDto>();
-            HttpClient client = _api.Initial();
-            HttpResponseMessage res = await client.GetAsync($"api/Airport/GetPendingFlightsByAsc/{isAsc}");
-            if (res.IsSuccessStatusCode)
+            List<FlightReadDto> flightList = new();
+            using (HttpClient client = _api.Initial())
             {
-                var result = res.Content.ReadAsStringAsync().Result;
-                flightList = JsonConvert.DeserializeObject<List<FlightReadDto>>(result)!;
+                HttpResponseMessage res = await client.GetAsync($"api/Airport/GetPendingFlightsByAsc/{isAsc}");
+                if (res.IsSuccessStatusCode)
+                {
+                    var result = res.Content.ReadAsStringAsync().Result;
+                    flightList = JsonConvert.DeserializeObject<List<FlightReadDto>>(result)!;
+                }
+                return View(flightList);
             }
-
-            return View(flightList);
         }
-
         public IActionResult AddNewFlight(bool isAsc)
         {
             using (var client = _api.Initial())
@@ -41,44 +47,49 @@ namespace Airport.Client.Controllers
                 var newFlight = JsonConvert.SerializeObject(flight);
                 var payload = new StringContent(newFlight, Encoding.UTF8, "application/json");
                 var result = client.PostAsync(endpoint, payload).Result.Content.ReadAsStringAsync().Result;
-               
             }
-
-            return RedirectToAction("GetAllStationsStatus", "Home");
+            return RedirectToAction("GetAllStationsStatus");
         }
-        
+
         public async Task<JsonResult> LoadStations()
         {
             List<StationStatus> stationStatusList = new();
-            HttpClient client = _api.Initial();
-            HttpResponseMessage res = await client.GetAsync("api/Airport/GetStationsStatusList");
-            if (res.IsSuccessStatusCode)
+            using (HttpClient client = _api.Initial())
             {
-                var result = res.Content.ReadAsStringAsync().Result;
-                stationStatusList = JsonConvert.DeserializeObject<List<StationStatus>>(result)!;
+                if (!isWorking)
+                {
+                    await client.GetAsync($"api/Airport/StartApp");
+                    isWorking = true;
+                }
+                HttpResponseMessage res = await client.GetAsync($"api/Airport/GetStationsStatusList");
+                if (res.IsSuccessStatusCode)
+                {
+                    var result = res.Content.ReadAsStringAsync().Result;
+                    stationStatusList = JsonConvert.DeserializeObject<List<StationStatus>>(result)!;
+                }
             }
-
             return Json(new { stationStatusList = stationStatusList });
         }
 
-        public async Task<IActionResult> SeeAllLiveUpdates(int pageNum=1)
+        public async Task<IActionResult> SeeAllLiveUpdates(int pageNum = 1)
         {
             List<LiveUpdate> liveUpdates = new List<LiveUpdate>();
-            HttpClient client = _api.Initial();
-            HttpResponseMessage res = await client.GetAsync("api/Airport/SeeAllLiveUpdates");
-            if (res.IsSuccessStatusCode)
+            using (HttpClient client = _api.Initial())
             {
-                var result = res.Content.ReadAsStringAsync().Result;
-                liveUpdates = JsonConvert.DeserializeObject<List<LiveUpdate>>(result)!;
+                HttpResponseMessage res = await client.GetAsync("api/Airport/SeeAllLiveUpdates");
+                if (res.IsSuccessStatusCode)
+                {
+                    var result = res.Content.ReadAsStringAsync().Result;
+                    liveUpdates = JsonConvert.DeserializeObject<List<LiveUpdate>>(result)!;
+                }
             }
-
             liveUpdates.Reverse();
             var elementCountForPage = 15;
             var startingIndex = (pageNum - 1) * elementCountForPage;
-            var count= Math.Min(elementCountForPage, liveUpdates.Count-startingIndex);
+            var count = Math.Min(elementCountForPage, liveUpdates.Count - startingIndex);
             var pageList = liveUpdates.GetRange(startingIndex, count);
             var lastPage = liveUpdates.Count / elementCountForPage;
-            if(liveUpdates.Count % elementCountForPage != 0)
+            if (liveUpdates.Count % elementCountForPage != 0)
             {
                 lastPage++;
             }
@@ -95,12 +106,14 @@ namespace Airport.Client.Controllers
         public async Task<IActionResult> GetAllStationsStatus()
         {
             List<StationStatus> stationList = new();
-            HttpClient client = _api.Initial();
-            HttpResponseMessage res = await client.GetAsync("api/Airport/GetAllStationsStatus");
-            if (res.IsSuccessStatusCode)
+            using (HttpClient client = _api.Initial())
             {
-                var result = res.Content.ReadAsStringAsync().Result;
-                stationList = JsonConvert.DeserializeObject<List<StationStatus>>(result)!;
+                HttpResponseMessage res = await client.GetAsync($"api/Airport/GetAllStationsStatus");
+                if (res.IsSuccessStatusCode)
+                {
+                    var result = res.Content.ReadAsStringAsync().Result;
+                    stationList = JsonConvert.DeserializeObject<List<StationStatus>>(result)!;
+                }
             }
             return View(stationList);
         }

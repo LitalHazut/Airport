@@ -5,13 +5,13 @@ namespace AirportBusinessLogic.Interfaces
 {
     public interface IBusinessService
     {
-        Task<List<Station>> GetAllStationsStatus();
+        List<Station> GetAllStationsStatus();
         List<StationStatus> GetStationsStatusList();
         Task AddNewFlight(FlightCreateDto flight);
         List<FlightReadDto> GetAllFlights();
         Task StartApp();
-        Task<List<FlightReadDto>> GetPendingFlightsByAsc(bool isAsc);
-        Task<List<LiveUpdate>> SeeAllLiveUpdates();
+        List<FlightReadDto> GetPendingFlightsByAsc(bool isAsc);
+        List<LiveUpdate> SeeAllLiveUpdates();
 
     }
 }
