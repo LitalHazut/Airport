@@ -11,9 +11,15 @@ namespace Airport.Data.Repositories
         {
             _context = context;
         }
+        private AirportContext GetContext()
+        {
+            AirportContext _context = new();
+            return _context;
+        }
 
         public void Create(LiveUpdate entity)
         {
+            var _context = GetContext();
             _context.Add(entity);
             _context.SaveChanges();
         }
@@ -36,7 +42,7 @@ namespace Airport.Data.Repositories
 
         public IQueryable<LiveUpdate> GetAll()
         {
-            var _context = new AirportContext();
+            var _context = GetContext();
             return _context.LiveUpdates;
         }
 
@@ -57,6 +63,7 @@ namespace Airport.Data.Repositories
             else
             {
                 _context.Update(entity);
+                _context.SaveChanges();
                 return true;
             }
         }

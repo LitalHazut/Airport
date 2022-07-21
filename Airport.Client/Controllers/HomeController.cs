@@ -89,7 +89,7 @@ namespace Airport.Client.Controllers
             var count = Math.Min(elementCountForPage, liveUpdates.Count - startingIndex);
             var pageList = liveUpdates.GetRange(startingIndex, count);
             var lastPage = liveUpdates.Count / elementCountForPage;
-            if (liveUpdates.Count % elementCountForPage != 0)
+            if (liveUpdates.Count % elementCountForPage != 0 || liveUpdates.Count == 0)
             {
                 lastPage++;
             }
