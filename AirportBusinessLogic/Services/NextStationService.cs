@@ -39,15 +39,20 @@ namespace AirportBusinessLogic.Services
                 ForEach(route => pointingStations.Add(route.Source!));
             return pointingStations;
         }
-
+        public List<NextStation> GetPointingRoutes(Station station)
+        {
+            return _nextStationRepository.GetAll().
+              Where(route => route.TargetId == station.StationNumber &&
+              route.Source != null).
+              ToList();
+        }
         public List<NextStation> GetRoutesByCurrentStationAndAsc(int? currentStationNumber, bool isAscending)
         {
-            var list2 = new List<NextStation>();
-            _nextStationRepository.GetAll().ToList().ForEach(route =>
-            {
-                if (route.SourceId == currentStationNumber && route.FlightType == isAscending && (route.Target == null || route.Target.FlightId == null))
-                    list2.Add(route);
-            });
+            var list2 = _nextStationRepository.GetAll().
+               Include(route => route.Target).
+               Where(route => route.SourceId == currentStationNumber &&
+                     route.FlightType == isAscending &&
+                     (route.Target == null || route.Target.FlightId == null)).ToList();
             return list2;
         }
 

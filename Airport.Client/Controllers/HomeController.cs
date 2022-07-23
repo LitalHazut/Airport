@@ -20,7 +20,7 @@ namespace Airport.Client.Controllers
             client = _api.Initial();
         }
 
-        public IActionResult StartSimulator(int numOfFlights)
+        public async Task<IActionResult> StartSimulator(int numOfFlights)
         {
             using (var client = _api.Initial())
             {
@@ -28,7 +28,8 @@ namespace Airport.Client.Controllers
                 var simulatorNumberJson = JsonConvert.SerializeObject(simulatorNumber);
                 string uri = "api/Airport/StartSimulator";
                 var payload = new StringContent(simulatorNumberJson, Encoding.UTF8, "application/json");
-                var res = client.PostAsync(uri, payload).Result.Content.ReadAsStringAsync().Result;
+                 var response = await client.PostAsync(uri, payload);
+                await response.Content.ReadAsStringAsync();
                 return RedirectToAction("GetAllStationsStatus");
             }
         }

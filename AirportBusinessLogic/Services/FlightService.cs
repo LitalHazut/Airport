@@ -38,41 +38,45 @@ namespace AirportBusinessLogic.Services
         }
         public Flight? GetFirstFlightInQueue(List<Station> pointingStations, bool? isFirstAscendingStation)
         {
+            //All stations are already valid (occupied and by flights who are ascending/descending according to route)
+            //The stations already including the Flight property in them (OccupyByNavigation)
             Flight? selectedFlight = null;
             foreach (var pointingStation in pointingStations)
             {
-                var flightId = pointingStation.FlightId;
-                if (flightId != null)
+                //Flight flightToCheck = _flightRepostory.
+                //    GetAll().
+                //    FirstOrDefault(flight => flight.FlightId == (int)flightId && flight.TimerFinished == true);
+                var flightToCheck = pointingStation.Flight;
+                if (flightToCheck!.TimerFinished == true)
                 {
-                    Flight flightToCheck = _flightRepository.GetAll().Include(flight => flight.Stations).First(flight => flight.FlightId == (int)flightId);
-                    if (flightToCheck!.TimerFinished == true)
+                    if (selectedFlight == null) selectedFlight = flightToCheck;
+                    else
                     {
-                        if (selectedFlight == null) selectedFlight = flightToCheck;
+                        if (selectedFlight.Stations.FirstOrDefault(station => station.StationNumber == 3) == null)
+                        {
+                            if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime) selectedFlight = flightToCheck;
+                        }
                         else
                         {
-                            if (flightToCheck.Stations.FirstOrDefault(station => station.StationNumber == 3) == null)
-                            {
-                                if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime) selectedFlight = flightToCheck;
-                            }
-                            else
-                            {
-                                selectedFlight = flightToCheck;
-                            }
-
+                            selectedFlight = flightToCheck;
                         }
                     }
                 }
             }
             //returns if its a first station in an ascendingRoute(true), descendingRoute(false) or neither(null)
-
             if (isFirstAscendingStation != null)
             {
                 Console.WriteLine("Trying to find a plane in the list to start the route");
-                var pendingFirstFlight = _flightRepository.GetAll().FirstOrDefault(flight => flight.IsAscending == isFirstAscendingStation && flight.IsPending == true);
-                if (pendingFirstFlight != null)
+                var pendingFirstFlight = _flightRepository.GetAll().
+                    FirstOrDefault(flight => flight.IsAscending == isFirstAscendingStation &&
+                                             flight.IsPending == true &&
+                                             flight.TimerFinished == null);
+                if (pendingFirstFlight != null && selectedFlight == null)
                 {
                     Console.WriteLine("Found a flight in the list");
-                    if (selectedFlight == null) selectedFlight = pendingFirstFlight;
+                    selectedFlight = pendingFirstFlight;
+                    //So there wont be 6+7 that taking the same flight while one is proccessing
+
                 }
                 else
                 {
@@ -81,7 +85,7 @@ namespace AirportBusinessLogic.Services
             }
             if (selectedFlight == null)
             {
-                Console.WriteLine("No flight is waiting");
+                Console.WriteLine("No flight is waiting in pointing stations too (So no flight at all)");
                 return null;
             }
             else

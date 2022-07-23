@@ -34,6 +34,7 @@ namespace Airport.Data.Repositories
         }
         public Station? Get(int id)
         {
+            var _context = GetContext();
             return _context.Stations.Find(id);
 
         }

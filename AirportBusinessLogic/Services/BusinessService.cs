@@ -14,6 +14,7 @@ namespace AirportBusinessLogic.Services
         private readonly ILiveUpdateService<LiveUpdate> _liveUpdateService;
         private readonly INextStationService<NextStation> _nextStationService;
         private readonly IMapper _mapper;
+        object obj=new object();
         public BusinessService(IFlightService<Flight> flightService, IStationService<Station> stationService,
             ILiveUpdateService<LiveUpdate> liveUpdateService, IMapper mapper, INextStationService<NextStation> nextStationService)
         {
@@ -34,12 +35,16 @@ namespace AirportBusinessLogic.Services
             }
             if (task != null) await task;
         }
-        private async Task MoveNextIfPossible(Flight flight)
+        public async Task<bool> MoveNextIfPossible(Flight flight)
         {
             Task task = null;
             Console.WriteLine($"Flight {flight.FlightId} is trying to move next");
             Station? nextStation = null;
             var currentStation = _stationService.GetAll().FirstOrDefault(station => station.FlightId == flight.FlightId);
+            if (currentStation == null && !flight.IsPending)
+            {
+                throw new Exception("Flight that is not pending must be in a station");
+            }
             int? currentStationNumber = currentStation?.StationNumber;
             var nextRoutes = _nextStationService.GetRoutesByCurrentStationAndAsc(currentStationNumber, flight.IsAscending);
             var success = false;
@@ -53,6 +58,7 @@ namespace AirportBusinessLogic.Services
                         {
                             success = true;
                             flight.IsDone = true;
+                            flight.TimerFinished = null;
                             _flightService.Update(flight);
                             Console.WriteLine($"success = Flight {flight.FlightId} is done");
                         }
@@ -113,27 +119,47 @@ namespace AirportBusinessLogic.Services
                 }
                 if (currentStation != null)
                 {
-                    _stationService.ChangeOccupyBy(currentStation.StationNumber, null);
-                    //OccupyStation(currentStation.StationNumber, null);
-                    Console.WriteLine($"{currentStation.StationNumber} is now available, trying to find new flight to get in");
-                    await SendWaitingInLineFlightIfPossible(_stationService.Get(currentStation.StationNumber)!);
+                    if (!await SendWaitingInLineFlightIfPossible(_stationService.Get(currentStation.StationNumber)!))
+                    {
+                        _stationService.ChangeOccupyBy(currentStation.StationNumber, null);
+                        Console.WriteLine($"{currentStation.StationNumber} havent found waiting flight.. turning empty");
+                    }
                 }
             }
+             
+            if (task != null)
+            {
+                await task;
+                return true;
+            }
             else
+            {
                 Console.WriteLine($"Flight {flight.FlightId} hasnt managed to move next");
-            if (task != null) await task;
+                if (task != null) await task;
+                return false;
+            }
         }
-        private async Task SendWaitingInLineFlightIfPossible(Station currentStation)
+        private async Task<bool> SendWaitingInLineFlightIfPossible(Station currentStation)
         {
-            var sourcesStations = _nextStationService.GetPointingStations(currentStation);
-            bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
-            Flight? selectedFlight;
-            selectedFlight = _flightService.GetFirstFlightInQueue(sourcesStations, isFirstAscendingStation);
+            Flight? selectedFlight = null;
+            lock (obj)
+            {
+                var pointingRoutes = _nextStationService.GetPointingRoutes(currentStation);
+                var pointingStations = _stationService.GetOccupiedPointingStations(pointingRoutes);
+                bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
+                selectedFlight = _flightService.GetFirstFlightInQueue(pointingStations, isFirstAscendingStation);
+            }
+
             if (selectedFlight != null)
             {
-                Console.WriteLine($"Sending Flight {selectedFlight.FlightId} to try moving next (must work)");
-                await MoveNextIfPossible(_flightService.Get(selectedFlight.FlightId)!);
+                Console.WriteLine($"Sending Flight {selectedFlight.FlightId} to try moving next (must work if not doom)");
+                if (await MoveNextIfPossible(selectedFlight))
+                    return true;
+                Console.WriteLine($"couldnt pulled {selectedFlight.FlightId}");
+                return false;
             }
+            return false;
+
         }
         private async Task StartTimer(Flight flight)
         {
@@ -143,10 +169,13 @@ namespace AirportBusinessLogic.Services
             var rand = new Random();
             await Task.Delay(rand.Next(500, 1500));
             Console.WriteLine($"{flight.FlightId} timer finished");
-            flight.TimerFinished = true;
-            _flightService.Update(flight);
+
             Console.WriteLine("Before Move Next function");
-            await MoveNextIfPossible(flight);
+            if (!await MoveNextIfPossible(flight))
+            {
+                flight.TimerFinished = true;
+                _flightService.Update(flight);
+            }
         }
         public async Task StartApp()
         {
@@ -163,7 +192,17 @@ namespace AirportBusinessLogic.Services
             }
             var ascFirstFlight = _flightService.GetAll().FirstOrDefault(flight => flight.IsPending == true && flight.IsAscending);
             var descFirstFlight = _flightService.GetAll().FirstOrDefault(flight => flight.IsPending == true && !flight.IsAscending);
-            if (ascFirstFlight != null) allTasks.Add(MoveNextIfPossible(ascFirstFlight));
+            if (ascFirstFlight != null)
+            {
+                allTasks.Add(MoveNextIfPossible(ascFirstFlight));
+                //second Ascending beginning station
+                ascFirstFlight = _flightService.
+                    GetAll().
+                    FirstOrDefault(flight => flight.IsPending == true &&
+                                             flight.IsAscending &&
+                                             flight.FlightId != ascFirstFlight.FlightId);
+                if (ascFirstFlight != null) allTasks.Add(MoveNextIfPossible(ascFirstFlight));
+            }
             if (descFirstFlight != null) allTasks.Add(MoveNextIfPossible(descFirstFlight));
             await Task.WhenAll(allTasks);
         }

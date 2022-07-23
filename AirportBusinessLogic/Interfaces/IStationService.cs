@@ -8,5 +8,6 @@ namespace AirportBusinessLogic.Interfaces
         void ChangeOccupyBy(int stationNumber, int? flightId);
         List<StationStatus> GetStationsStatusList();
         bool CircleOfDoomIsFull();
+        public List<Station> GetOccupiedPointingStations(List<NextStation> pointingRoutes);
     }
 }

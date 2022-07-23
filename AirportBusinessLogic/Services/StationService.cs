@@ -75,5 +75,24 @@ namespace AirportBusinessLogic.Services
                 });
             return list;
         }
+
+        public List<Station> GetOccupiedPointingStations(List<NextStation> pointingRoutes)
+        {
+            List<Station> validPointingStations = new();
+
+            List<Station> allStations = _stationRepository.
+                GetAll().
+                Include(station => station.Flight)
+                .ToList();
+            pointingRoutes.ForEach(route =>
+            {
+                var station = allStations.Find(station => station.StationNumber == route.SourceId);
+                var isAsc = route.FlightType;
+                if (station!.FlightId != null && station.Flight!.IsAscending == isAsc)
+                    validPointingStations.Add(station);
+            });
+            return validPointingStations;
+        }
+
     }
 }
