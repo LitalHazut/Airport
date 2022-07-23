@@ -20,6 +20,21 @@ namespace Airport.Client.Controllers
             client = _api.Initial();
         }
 
+        public IActionResult StartSimulator(int numOfFlights)
+        {
+            using (var client = _api.Initial())
+            {
+                SimulatorNumber simulatorNumber = new() { Number = numOfFlights };
+                var simulatorNumberJson = JsonConvert.SerializeObject(simulatorNumber);
+                string uri = "api/Airport/StartSimulator";
+                var payload = new StringContent(simulatorNumberJson, Encoding.UTF8, "application/json");
+                var res = client.PostAsync(uri, payload).Result.Content.ReadAsStringAsync().Result;
+                return RedirectToAction("GetAllStationsStatus");
+            }
+        }
+
+
+
         public async Task<IActionResult> GetPendingFlightsByAsc(bool isAsc)
         {
             List<FlightReadDto> flightList = new();

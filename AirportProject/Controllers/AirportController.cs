@@ -34,16 +34,12 @@ namespace AirportProject.Controllers
 
         }
 
-        //[Route("[action]", Name = "AddNewFlightList")]
-        //[HttpPost]
-        //public async Task AddNewFlightList(int num, bool isAsc)
-        //{
-        //    for (int i = 0; i < num; i++)
-        //    {
-        //        FlightCreateDto newFlight = new() { IsAscending = isAsc };
-        //        AddNewFlight(newFlight);
-        //    }
-        //}
+        [Route("[action]", Name = "StartSimulator")]
+        [HttpPost]
+        public async Task StartSimulator(SimulatorNumber simNumber)
+        {
+            await _businessService.StartSimulator(simNumber.Number);
+        }
 
         [Route("[action]", Name = "AddNewFlight")]
         [HttpPost]

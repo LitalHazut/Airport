@@ -200,6 +200,16 @@ namespace AirportBusinessLogic.Services
         {
             return _stationService.GetAll();
         }
+        public async Task StartSimulator(int numOfFlights)
+        {
+            List<Task> list = new();
+            for (int i = 0; i < numOfFlights; i++)
+            {
+                FlightCreateDto newFlight = new() { IsAscending = i % 2 == 0 };
+                list.Add(AddNewFlight(newFlight));
+            }
+            await Task.WhenAll(list);
+        }
     }
 }
 
