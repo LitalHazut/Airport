@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
-    public class NextStationService : INextStationService<NextStation>
+    public class NextStationService : INextStationService
     {
-        private readonly INextStationRepository<NextStation> _nextStationRepository;
-        public NextStationService(INextStationRepository<NextStation> nextStationRepository)
+        private readonly INextStationRepository _nextStationRepository;
+        public NextStationService(INextStationRepository nextStationRepository)
         {
             _nextStationRepository= nextStationRepository;
         }

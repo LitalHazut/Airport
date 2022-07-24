@@ -4,7 +4,7 @@ using Airport.Data.Repositories.Interfaces;
 
 namespace Airport.Data.Repositories
 {
-    public class NextStationRepository : INextStationRepository<NextStation>
+    public class NextStationRepository : INextStationRepository
     {
         private readonly AirportContext _context;
         public NextStationRepository(AirportContext context)

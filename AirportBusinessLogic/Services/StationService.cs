@@ -1,15 +1,14 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
-using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
-    public class StationService : IStationService<Station>
+    public class StationService : IStationService
     {
-        private readonly IStationRepository<Station> _stationRepository;
-        public StationService(IStationRepository<Station> stationRepository)
+        private readonly IStationRepository _stationRepository;
+        public StationService(IStationRepository stationRepository)
         {
             _stationRepository = stationRepository;
         }

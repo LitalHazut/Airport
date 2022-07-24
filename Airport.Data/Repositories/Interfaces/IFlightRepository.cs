@@ -3,7 +3,7 @@
 
 namespace Airport.Data.Repositories.Interfaces
 {
-    public interface IFlightRepository<T> : IRepository<Flight>
+    public interface IFlightRepository : IRepository<Flight>
     { 
        
 

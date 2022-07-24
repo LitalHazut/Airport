@@ -4,7 +4,7 @@ using Airport.Data.Repositories.Interfaces;
 
 namespace Airport.Data.Repositories
 {
-    public class FlightRepository : IFlightRepository<Flight>
+    public class FlightRepository : IFlightRepository
     {
         private readonly AirportContext _context;
         public FlightRepository(AirportContext context)

@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
-    public class LiveUpdateService : ILiveUpdateService<LiveUpdate>
+    public class LiveUpdateService : ILiveUpdateService
     {
-        private readonly ILiveUpdateRepository<LiveUpdate> _liveUpdateRepository;
-        public LiveUpdateService(ILiveUpdateRepository<LiveUpdate> liveUpdateRepository)
+        private readonly ILiveUpdateRepository _liveUpdateRepository;
+        public LiveUpdateService(ILiveUpdateRepository liveUpdateRepository)
         {
             _liveUpdateRepository = liveUpdateRepository;
         }

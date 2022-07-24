@@ -2,7 +2,7 @@
 
 namespace AirportBusinessLogic.Interfaces
 {
-    public interface IStationService<T> : ICRUDService<Station>
+    public interface IStationService : ICRUDService<Station>
     {
         Task<Station?> GetStationByFlightId(int id);
         List<StationStatus> GetStationsStatusList();

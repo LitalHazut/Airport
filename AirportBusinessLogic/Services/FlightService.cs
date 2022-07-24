@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
-    public class FlightService : IFlightService<Flight>
+    public class FlightService : IFlightService
     {
-        private readonly IFlightRepository<Flight> _flightRepository;
-        public FlightService(IFlightRepository<Flight> flightRepository)
+        private readonly IFlightRepository _flightRepository;
+        public FlightService(IFlightRepository flightRepository)
         {
             _flightRepository = flightRepository;
         }

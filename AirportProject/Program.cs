@@ -20,14 +20,14 @@ builder.Services.AddDbContext<AirportContext>(options =>
 , ServiceLifetime.Transient);
 builder.Services.AddControllers();
 
-builder.Services.AddTransient<IFlightRepository<Flight>, FlightRepository>();
-builder.Services.AddTransient<INextStationRepository<NextStation>, NextStationRepository>();
-builder.Services.AddTransient<IStationRepository<Station>, StationRepository>();
-builder.Services.AddTransient<ILiveUpdateRepository<LiveUpdate>, LiveUpdateRepository>();
-builder.Services.AddScoped<IFlightService<Flight>, FlightService>();
-builder.Services.AddScoped<IStationService<Station>, StationService>();
-builder.Services.AddScoped<INextStationService<NextStation>, NextStationService>();
-builder.Services.AddScoped<ILiveUpdateService<LiveUpdate>, LiveUpdateService>();
+builder.Services.AddTransient<IFlightRepository, FlightRepository>();
+builder.Services.AddTransient<INextStationRepository, NextStationRepository>();
+builder.Services.AddTransient<IStationRepository, StationRepository>();
+builder.Services.AddTransient<ILiveUpdateRepository, LiveUpdateRepository>();
+builder.Services.AddScoped<IFlightService, FlightService>();
+builder.Services.AddScoped<IStationService, StationService>();
+builder.Services.AddScoped<INextStationService, NextStationService>();
+builder.Services.AddScoped<ILiveUpdateService, LiveUpdateService>();
 builder.Services.AddScoped<IBusinessService, BusinessService>();
 builder.Services.AddRouting();
 builder.Services.AddAutoMapper(typeof(FlightsProfile).Assembly);

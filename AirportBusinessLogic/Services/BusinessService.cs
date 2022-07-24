@@ -9,16 +9,16 @@ namespace AirportBusinessLogic.Services
 {
     public class BusinessService : IBusinessService
     {
-        private readonly IFlightService<Flight> _flightService;
-        private readonly IStationService<Station> _stationService;
-        private readonly ILiveUpdateService<LiveUpdate> _liveUpdateService;
-        private readonly INextStationService<NextStation> _nextStationService;
+        private readonly IFlightService _flightService;
+        private readonly IStationService _stationService;
+        private readonly ILiveUpdateService _liveUpdateService;
+        private readonly INextStationService _nextStationService;
         private readonly IMapper _mapper;
         private object _lock1 = new object();
         private object _lock2 = new object();
 
-        public BusinessService(IFlightService<Flight> flightService, IStationService<Station> stationService,
-            ILiveUpdateService<LiveUpdate> liveUpdateService, IMapper mapper, INextStationService<NextStation> nextStationService)
+        public BusinessService(IFlightService flightService, IStationService stationService,
+            ILiveUpdateService liveUpdateService, IMapper mapper, INextStationService nextStationService)
         {
             _flightService = flightService;
             _stationService = stationService;

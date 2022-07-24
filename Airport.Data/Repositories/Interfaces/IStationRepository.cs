@@ -2,7 +2,7 @@
 
 namespace Airport.Data.Repositories.Interfaces
 {
-    public interface IStationRepository<T> : IRepository<Station>
+    public interface IStationRepository : IRepository<Station>
     {
     }
 }

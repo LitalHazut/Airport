@@ -4,7 +4,7 @@ using Airport.Data.Repositories.Interfaces;
 
 namespace Airport.Data.Repositories
 {
-    public class LiveUpdateRepository : ILiveUpdateRepository<LiveUpdate>
+    public class LiveUpdateRepository : ILiveUpdateRepository
     {
         private readonly AirportContext _context;
         public LiveUpdateRepository(AirportContext context)

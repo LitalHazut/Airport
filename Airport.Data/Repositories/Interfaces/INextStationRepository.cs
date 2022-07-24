@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Airport.Data.Repositories.Interfaces
 {
-    public interface INextStationRepository<T> : IRepository<NextStation>
+    public interface INextStationRepository : IRepository<NextStation>
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AirportBusinessLogic.Interfaces
 {
-    public interface ILiveUpdateService<T> : ICRUDService<LiveUpdate>
+    public interface ILiveUpdateService : ICRUDService<LiveUpdate>
     {
     }
 }

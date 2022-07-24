@@ -2,7 +2,7 @@
 
 namespace Airport.Data.Repositories.Interfaces
 {
-    public interface ILiveUpdateRepository<T>:  IRepository<LiveUpdate>
+    public interface ILiveUpdateRepository: IRepository<LiveUpdate>
     {
     }
 }

@@ -3,7 +3,7 @@
 
 namespace AirportBusinessLogic.Interfaces
 {
-    public interface INextStationService<T> : ICRUDService<NextStation>
+    public interface INextStationService: ICRUDService<NextStation>
     {
         bool? IsFirstAscendingStation(Station currentStation);
         List<NextStation> GetRoutesByCurrentStationAndAsc(int? currentStationNumber, bool isAscending);

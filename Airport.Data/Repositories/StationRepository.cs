@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Data.Repositories
 {
-    public class StationRepository : IStationRepository<Station>
+    public class StationRepository : IStationRepository
     {
         private readonly AirportContext _context;
         public StationRepository(AirportContext context)
