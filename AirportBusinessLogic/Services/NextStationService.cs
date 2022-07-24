@@ -28,31 +28,19 @@ namespace AirportBusinessLogic.Services
             return _nextStationRepository.GetAll().ToList();
         }
 
-        public List<Station> GetPointingStations(Station station)
-        {
-            List<Station> pointingStations = new();
-            _nextStationRepository.GetAll().
-                Include(route => route.Source).
-                Where(route => route.TargetId == station.StationNumber &&
-                route.Source != null).
-                ToList().
-                ForEach(route => pointingStations.Add(route.Source!));
-            return pointingStations;
-        }
+       
         public List<NextStation> GetPointingRoutes(Station station)
         {
             return _nextStationRepository.GetAll().
-              Where(route => route.TargetId == station.StationNumber &&
-              route.Source != null).
-              ToList();
+                Where(route => route.TargetId == station.StationNumber &&
+                route.SourceId != null).
+                ToList();
         }
         public List<NextStation> GetRoutesByCurrentStationAndAsc(int? currentStationNumber, bool isAscending)
         {
             var list2 = _nextStationRepository.GetAll().
-               Include(route => route.Target).
-               Where(route => route.SourceId == currentStationNumber &&
-                     route.FlightType == isAscending &&
-                     (route.Target == null || route.Target.FlightId == null)).ToList();
+                 Where(route => route.SourceId == currentStationNumber &&
+                       route.FlightType == isAscending).ToList();
             return list2;
         }
 

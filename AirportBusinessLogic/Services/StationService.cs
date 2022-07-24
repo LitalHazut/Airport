@@ -45,18 +45,8 @@ namespace AirportBusinessLogic.Services
             {
                 if (station.StationNumber >= 4 && station.StationNumber <= 8 && station.FlightId != null) count++;
             });
-            if (count == 4) return true;
+            if (count >= 4) return true;
             return false;
-        }
-
-        public void ChangeOccupyBy(int stationNumber, int? flightId)
-        {
-            var station = new Station()
-            {
-                FlightId=flightId,
-                StationNumber=stationNumber
-            };  
-            _stationRepository.Update(station);
         }
         public List<StationStatus> GetStationsStatusList()
         {

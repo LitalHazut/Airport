@@ -28,13 +28,14 @@ namespace Airport.Client.Controllers
                 var simulatorNumberJson = JsonConvert.SerializeObject(simulatorNumber);
                 string uri = "api/Airport/StartSimulator";
                 var payload = new StringContent(simulatorNumberJson, Encoding.UTF8, "application/json");
-                 var response = await client.PostAsync(uri, payload);
+
+                var response = await client.PostAsync(uri, payload);
                 await response.Content.ReadAsStringAsync();
+
+                //var res = client.PostAsync(uri, payload).Result.Content.ReadAsStringAsync().Result;
                 return RedirectToAction("GetAllStationsStatus");
             }
         }
-
-
 
         public async Task<IActionResult> GetPendingFlightsByAsc(bool isAsc)
         {

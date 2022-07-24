@@ -36,27 +36,27 @@ namespace AirportBusinessLogic.Services
         {
             return _flightRepository.Update(entity);
         }
-        public Flight? GetFirstFlightInQueue(List<Station> pointingStations, bool? isFirstAscendingStation)
+        public Flight? GetFirstFlightInQueue(List<Station> pointingStations, bool? isFirstAscendingStation, bool isFiveOccupied)
         {
             //All stations are already valid (occupied and by flights who are ascending/descending according to route)
             //The stations already including the Flight property in them (OccupyByNavigation)
             Flight? selectedFlight = null;
             foreach (var pointingStation in pointingStations)
             {
-                var flightToCheck = pointingStation.Flight;
+                var flightToCheck = _flightRepository.GetAll().
+                    First(flight => flight.FlightId == pointingStation.FlightId);
+
                 if (flightToCheck!.TimerFinished == true)
                 {
+                    Console.WriteLine($"Checking flight {flightToCheck.FlightId} (timer is finished)");
                     if (selectedFlight == null) selectedFlight = flightToCheck;
                     else
                     {
-                        if (selectedFlight.Stations.FirstOrDefault(station => station.StationNumber == 3) == null)
-                        {
-                            if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime) selectedFlight = flightToCheck;
-                        }
-                        else
+                        if (pointingStation.StationNumber == 8 && isFiveOccupied)
                         {
                             selectedFlight = flightToCheck;
                         }
+                        else if (selectedFlight.InsertionTime >= flightToCheck!.InsertionTime) selectedFlight = flightToCheck;
                     }
                 }
             }
