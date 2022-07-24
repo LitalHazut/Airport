@@ -43,9 +43,6 @@ namespace AirportBusinessLogic.Services
             Flight? selectedFlight = null;
             foreach (var pointingStation in pointingStations)
             {
-                //Flight flightToCheck = _flightRepostory.
-                //    GetAll().
-                //    FirstOrDefault(flight => flight.FlightId == (int)flightId && flight.TimerFinished == true);
                 var flightToCheck = pointingStation.Flight;
                 if (flightToCheck!.TimerFinished == true)
                 {
