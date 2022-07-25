@@ -170,7 +170,11 @@ namespace AirportBusinessLogic.Services
                 var pointingRoutes = _nextStationService.GetPointingRoutes(currentStation);
                 var pointingStations = _stationService.GetOccupiedPointingStations(pointingRoutes);
                 bool? isFirstAscendingStation = _nextStationService.IsFirstAscendingStation(currentStation);
-                bool isFiveOccupied = _stationService.Get(5)!.FlightId != null;
+                bool isFiveOccupied = false;
+                if (_stationService.Get(5) != null )
+                {
+                    isFiveOccupied = _stationService.Get(5)!.FlightId!=null;
+                }
                 selectedFlight = _flightService.GetFirstFlightInQueue(pointingStations, isFirstAscendingStation, isFiveOccupied);
                 if (selectedFlight != null) selectedFlight.TimerFinished = false;
             }
