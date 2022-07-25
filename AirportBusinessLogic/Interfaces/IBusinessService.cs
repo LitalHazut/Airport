@@ -13,5 +13,7 @@ namespace AirportBusinessLogic.Interfaces
         List<FlightReadDto> GetPendingFlightsByAsc(bool isAsc);
         List<LiveUpdate> SeeAllLiveUpdates();
         Task StartSimulator(int numOfFlights);
+        Task<bool> MoveNextIfPossible(Flight flight);
+
     }
 }

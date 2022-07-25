@@ -16,7 +16,7 @@ namespace AirportBusinessLogic.Services
         private readonly IMapper _mapper;
         private object _lock1 = new object();
         private object _lock2 = new object();
-
+      
         public BusinessService(IFlightService flightService, IStationService stationService,
             ILiveUpdateService liveUpdateService, IMapper mapper, INextStationService nextStationService)
         {

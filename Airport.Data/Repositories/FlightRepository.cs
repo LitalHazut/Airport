@@ -22,7 +22,6 @@ namespace Airport.Data.Repositories
             var _context = GetContext();
             _context.Add(entity); 
             _context.SaveChanges();
-
         }
 
         public bool Delete(int id)
