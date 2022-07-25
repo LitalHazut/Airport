@@ -57,7 +57,7 @@ namespace AirportBusinessLogic.Services
 
             int? currentStationNumber = currentStation?.StationNumber;
             var nextRoutes = _nextStationService.GetRoutesByCurrentStationAndAsc(currentStationNumber, flight.IsAscending);
-            Console.WriteLine($"liht {flight.FlightId} getting next routes from {currentStationNumber}");
+            Console.WriteLine($"Flight {flight.FlightId} getting next routes from {currentStationNumber}");
             var success = false;
             lock (_lock1)
             {
@@ -81,14 +81,11 @@ namespace AirportBusinessLogic.Services
                             }
                             else
                             {
-
                                 nextStation = _stationService.GetAll().First(station => station.StationNumber == (int)route.TargetId);
                                 Console.WriteLine($"Checking if station {nextStation.StationNumber} is empty");
 
                                 if (nextStation.FlightId == null)
                                 {
-
-
                                     if (currentStation != null)
                                     {
 
