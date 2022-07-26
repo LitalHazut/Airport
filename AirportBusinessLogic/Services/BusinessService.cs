@@ -1,9 +1,7 @@
-﻿using Airport.Data.Contexts;
-using Airport.Data.Model;
+﻿using Airport.Data.Model;
 using AirportBusinessLogic.Dtos;
 using AirportBusinessLogic.Interfaces;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
@@ -196,7 +194,6 @@ namespace AirportBusinessLogic.Services
                 Console.WriteLine($"couldnt pulled {selectedFlight.FlightId}");
             }
             return false;
-
         }
         private async Task StartTimer(Flight flight)
         {

@@ -1,7 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<script type="text/javascript">
+       $(document).ready(function(){
+           $.ajax({
+                url: '@Url.Action("StartApp")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data, textStatus, xhr) {
+                    console.log("successNum");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in OperationNum');
+                }
+            });  
+       });
+</script>
 <div class="text-center">
     <div class="flex-row">
         <a class="button-29" role="button" asp-action="GetPendingFlightsByAsc" asp-route-isAsc="true">Pending take Off</a>

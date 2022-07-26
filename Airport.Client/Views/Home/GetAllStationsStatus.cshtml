@@ -5,9 +5,10 @@
 }
 <script type="text/javascript">
        $(document).ready(function(){
+         
     $("#addNumOfFlights").click(function () {
                    var numOfFlights = $("#numOfFlightsInput").val();
-                    $.ajax({
+                   $.ajax({
                         url: '@Url.Action("StartSimulator")',
                         type: 'POST',
                         dataType: 'json',
@@ -87,11 +88,12 @@
 
 <a class="button-29" asp-action="Index">Return Back</a>
 <div class="text-center">
-    <h1>Get All Stations Status</h1>
+    <h1>Stations Status</h1>
     <a id="addAsc" class="button-29">Add Ascending Flight</a>
     <a id="addDesc" class="button-29">Add Descending Flight</a>
+    </br>
     <input type="number" id="numOfFlightsInput" name="numOfFlightsInput">
-    <a id="addNumOfFlights" class="btn btn-sm btn-outline-secondary">Add random number of random flights</a>
+    <a id="addNumOfFlights" class="button-29">Add random number of random flights</a>
 </div>
 
 <div class="d-flex justify-content-center">

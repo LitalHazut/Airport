@@ -387,12 +387,7 @@ namespace Airport.Test.ServicesTest
                 var flight1 = _stationService.Get(1)!.FlightId;
                 var flightInStation1 = _flightService.Get((int)flight1!);
                 await _businessService.MoveNextIfPossible(flightInStation1!);
-
                 Assert.IsTrue(_stationService.Get(1)!.FlightId == flightInStation1!.FlightId);
-                             
-
-
-
             }
         }
     }
