@@ -8,6 +8,5 @@ namespace Airport.Client.Models
         public bool IsLastPage { get; set; }
         public bool IsFirstPage { get; set; }
         public int CurrentPage { get; set; }
-       
     }
 }

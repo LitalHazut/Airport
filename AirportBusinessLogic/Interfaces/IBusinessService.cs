@@ -14,6 +14,5 @@ namespace AirportBusinessLogic.Interfaces
         List<LiveUpdate> SeeAllLiveUpdates();
         Task StartSimulator(int numOfFlights);
         Task<bool> MoveNextIfPossible(Flight flight);
-
     }
 }

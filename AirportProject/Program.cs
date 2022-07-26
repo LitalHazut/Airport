@@ -1,14 +1,10 @@
 using Airport.Data.Contexts;
-using Airport.Data.Model;
 using Airport.Data.Repositories;
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
 using AirportBusinessLogic.Profiles;
 using AirportBusinessLogic.Services;
-using Hangfire;
-using Hangfire.SqlServer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,20 +38,6 @@ builder.Services.AddCors(options => {
                       });
 });
 
-var connectionString = builder.Configuration.GetConnectionString("AirPortDataConnectionString");
-builder.Services.AddHangfire(configuration => configuration
-        .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-        .UseSimpleAssemblyNameTypeSerializer()
-        .UseRecommendedSerializerSettings()
-        .UseSqlServerStorage(connectionString, new SqlServerStorageOptions
-        {
-            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-            QueuePollInterval = TimeSpan.Zero,
-            UseRecommendedIsolationLevel = true,
-            DisableGlobalLocks = true
-        }));
-builder.Services.AddHangfireServer();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -68,7 +50,6 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger(); // Generate the JSON doc based on my code
 	app.UseSwaggerUI(); // Expose a url for the json "/swagger"
 }
-app.UseHangfireDashboard();
 
 app.UseHttpsRedirection();
 

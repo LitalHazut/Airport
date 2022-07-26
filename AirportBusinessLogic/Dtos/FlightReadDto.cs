@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AirportBusinessLogic.Dtos
+﻿namespace AirportBusinessLogic.Dtos
 {
     public class FlightReadDto
     {
@@ -13,7 +7,5 @@ namespace AirportBusinessLogic.Dtos
         public bool IsPending { get; set; }
         public bool IsDone { get; set; }
         public DateTime InsertionTime { get; set; }
-
-        
     }
 }

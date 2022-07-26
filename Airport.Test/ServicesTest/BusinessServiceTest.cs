@@ -1,15 +1,9 @@
-﻿using Airport.Data.Contexts;
-using Airport.Data.Model;
-using Airport.Data.Repositories;
-using Airport.Data.Repositories.Interfaces;
+﻿using Airport.Data.Model;
 using Airport.Test.FakeContext;
 using Airport.Test.FakeReopositories;
 using AirportBusinessLogic.Dtos;
-using AirportBusinessLogic.Interfaces;
 using AirportBusinessLogic.Services;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace Airport.Test.ServicesTest
 {

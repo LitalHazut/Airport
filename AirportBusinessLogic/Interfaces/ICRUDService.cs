@@ -7,7 +7,5 @@ namespace AirportBusinessLogic.Interfaces
         T? Get(int id);
         void Create(T entity);
         bool Update(T entity);
-
-
     }
 }

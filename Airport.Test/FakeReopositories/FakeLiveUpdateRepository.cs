@@ -1,11 +1,6 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 using Airport.Test.FakeContext;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Airport.Test.FakeReopositories
 {

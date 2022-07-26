@@ -1,7 +1,6 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
@@ -27,8 +26,6 @@ namespace AirportBusinessLogic.Services
         {
             return _nextStationRepository.GetAll().ToList();
         }
-
-       
         public List<NextStation> GetPointingRoutes(Station station)
         {
             return _nextStationRepository.GetAll().

@@ -8,11 +8,8 @@ namespace AirportBusinessLogic.Profiles
     {
         public FlightsProfile()
         {
-            
             CreateMap<Flight, FlightReadDto>();
             CreateMap<FlightCreateDto, Flight>();
-
-            //CreateMap<FlightUpdateDto, Flight>();
         }
     }
 }

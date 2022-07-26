@@ -1,11 +1,6 @@
 ﻿using Airport.Data.Contexts;
 using Airport.Data.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Airport.Test.FakeContext
 {
@@ -76,5 +71,4 @@ namespace Airport.Test.FakeContext
             });
         }
     }
-
 }

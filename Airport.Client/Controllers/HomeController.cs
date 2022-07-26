@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
 
-
 namespace Airport.Client.Controllers
 {
     public class HomeController : Controller
@@ -31,7 +30,6 @@ namespace Airport.Client.Controllers
                 var result =  client.PostAsync(endpoint, payload).Result.Content.ReadAsStringAsync().Result;
             }
             return RedirectToAction("Index");
-
         }
         public async Task<IActionResult> StartSimulator(int numOfFlights)
         {

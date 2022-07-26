@@ -1,7 +1,6 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace AirportBusinessLogic.Services
 {
@@ -22,12 +21,10 @@ namespace AirportBusinessLogic.Services
             _flightRepository.Create(entity);
 
         }
-
         public Flight? Get(int id)
         {
             return _flightRepository.Get(id);
         }
-
         public List<Flight> GetAll()
         {
             return _flightRepository.GetAll().ToList();

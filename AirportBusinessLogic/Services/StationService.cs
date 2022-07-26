@@ -82,6 +82,5 @@ namespace AirportBusinessLogic.Services
             });
             return validPointingStations;
         }
-
     }
 }

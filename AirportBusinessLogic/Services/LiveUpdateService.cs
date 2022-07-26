@@ -1,8 +1,6 @@
 ﻿using Airport.Data.Model;
 using Airport.Data.Repositories.Interfaces;
 using AirportBusinessLogic.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
 namespace AirportBusinessLogic.Services
 {
     public class LiveUpdateService : ILiveUpdateService
