@@ -22,6 +22,12 @@
  
  - Live Updates screen : 
 
- <p>In the bar at the top of the page, we can see Live updates - this a screen presents a list of flights in live and shows important details about the flights.</p>
+ <p>In the bar at the top of the page, we can see "Live updates" - this a screen presents a list of flights in live and shows important details about the flights.</p>
  
  <img width="700" alt="liveupdates" src="https://user-images.githubusercontent.com/102611205/235345022-4deec044-5d4b-443e-a7f9-c2e9a3d746d6.png">
+
+- Real-time station status screen :
+
+<p>In the bar at the top of the page, we can see "Real-time station status"- this a screen presents a real time station status when we add a one flight descending or ascending or more than one flight - you can write the number of flights in the text box.  </p>
+
+<img width="906" alt="realtime" src="https://user-images.githubusercontent.com/102611205/235345294-005dc201-c5e5-44ba-8aa5-ae7725044987.png">
