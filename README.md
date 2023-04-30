@@ -19,7 +19,9 @@
  <p>We have a 2 buttons: each one of them present a list of pending take off \pending descending - flight </p> 
 
 <img width="700" alt="airport" src="https://user-images.githubusercontent.com/102611205/235344687-facac4a6-030e-4076-8d8b-42c882449747.png">
-
+ 
+ - Live Updates screen : 
 
  <p>In the bar at the top of the page, we can see Live updates - this a screen presents a list of flights in live and shows important details about the flights.</p>
+ 
  <img width="700" alt="liveupdates" src="https://user-images.githubusercontent.com/102611205/235345022-4deec044-5d4b-443e-a7f9-c2e9a3d746d6.png">
