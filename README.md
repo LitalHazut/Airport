@@ -28,6 +28,6 @@
 
 - Real-time station status screen :
 
-<p>In the bar at the top of the page, we can see "Real-time station status"- this a screen presents a real time station status when we add a one flight descending or ascending or more than one flight - you can write the number of flights in the text box.  </p>
+<p>In the bar at the top of the page, we can see "Real-time station status"- this a screen presents a real time station status when we add a one flight descending or ascending or more than one flight - you can write the amount of flights in the text box.  </p>
 
 <img width="906" alt="realtime" src="https://user-images.githubusercontent.com/102611205/235345294-005dc201-c5e5-44ba-8aa5-ae7725044987.png">
